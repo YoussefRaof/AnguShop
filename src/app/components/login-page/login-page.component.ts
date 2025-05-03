@@ -1,12 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-login-page',
   imports: [
-    FormsModule, RouterModule
+    FormsModule, RouterModule, CommonModule
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
@@ -21,10 +22,14 @@ export class LoginPageComponent {
   };
 
 
-  @Output() myEvent = new EventEmitter
+  // @Output() myEvent = new EventEmitter
 
   Login() {
     
     this.router.navigate(['/home']);
+  }
+
+  validateField(field: NgModel) {
+    field.control.markAsTouched();
   }
 }

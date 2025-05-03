@@ -62,9 +62,9 @@ img:hover {
     height: 160px;
 }
 
-input {
+/* input {
     margin-bottom: 7% !important;
-}
+} */
 
 /* Responsive adjustments */
 @media (max-width: 767.98px) {

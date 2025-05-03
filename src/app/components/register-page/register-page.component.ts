@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -6,7 +7,7 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-register-page',
   imports: [
-    FormsModule, RouterModule
+    FormsModule, RouterModule, CommonModule
   ],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css'
@@ -22,7 +23,7 @@ export class RegisterPageComponent {
   };
 
 
-  @Output() myEvent = new EventEmitter
+  // @Output() myEvent = new EventEmitter
 
   Register() {
     
