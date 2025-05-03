@@ -56,8 +56,12 @@ export class AboutComponent implements AfterViewInit {
       this.marker.on('dragend', (e: any) => {
         const lat = e.target.getLatLng().lat.toFixed(4);
         const lng = e.target.getLatLng().lng.toFixed(4);
-        this.formData.location = `${lat}, ${lng}`;
+
+        this.ngZone.run(() => {
+          this.formData.location = `${lat}, ${lng}`;
+        });
       });
+    
 
       setTimeout(() => {
         this.map.invalidateSize();
