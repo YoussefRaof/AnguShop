@@ -53,11 +53,16 @@ export class AboutComponent implements AfterViewInit {
       });
 
       this.marker = L.marker([30.0444, 31.2357], { icon: icon, draggable: true }).addTo(this.map);
+
       this.marker.on('dragend', (e: any) => {
         const lat = e.target.getLatLng().lat.toFixed(4);
         const lng = e.target.getLatLng().lng.toFixed(4);
-        this.formData.location = `${lat}, ${lng}`;
+      
+        this.ngZone.run(() => {
+          this.formData.location = `${lat}, ${lng}`;
+        });
       });
+      
 
       setTimeout(() => {
         this.map.invalidateSize();
