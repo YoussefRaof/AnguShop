@@ -18,10 +18,7 @@ import { HomeComponent } from './components/home/home.component';
 export class AppComponent {
   title = 'AnguShop';
 
-
-  RegisterData: any[] = [];
-
   SendData(evData: any) {
-    this.RegisterData.push(evData);
+   
   }
 }

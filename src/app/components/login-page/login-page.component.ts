@@ -20,9 +20,11 @@ export class LoginPageComponent {
     password: "",
   };
 
+
   @Output() myEvent = new EventEmitter
 
   Login() {
+    
     this.router.navigate(['/home']);
   }
 }

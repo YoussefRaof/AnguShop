@@ -21,9 +21,11 @@ export class RegisterPageComponent {
     confirmPassword: ""
   };
 
+
   @Output() myEvent = new EventEmitter
 
   Register() {
+    
     this.router.navigate(['/login']);
   }
 }
