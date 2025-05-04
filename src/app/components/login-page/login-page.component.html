@@ -1,0 +1,114 @@
+<div class="container my-5">
+    <div class="row">
+
+        <!-- Right Side - Form -->
+        <div class="col-md-6 p-0">
+            <div class="p-4 border rounded-3 right-side">
+                <h3 class="mb-4 text-center acc">Sign In</h3>
+                <p class="utext">User Login</p>
+
+                <form (ngSubmit)="Login()" #registerForm="ngForm">
+                    <div class="mb-4">
+                        <label for="email" class="form-label fw-bold">Email</label>
+                        
+                        <input [(ngModel)]="user.email" type="email" class="form-control" id="email" name="email"
+                            required placeholder="Enter your email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}"
+                            #emailInput="ngModel" (blur)="validateField(emailInput)">
+
+
+                        @if (emailInput.invalid && emailInput.touched) {
+                        <div class="text-danger small mt-1">
+                            @if (emailInput.errors?.['required']) {
+                                <div>Email is required</div>
+                            }
+                            @if (emailInput.errors?.['pattern']) {
+                                <div>Please enter a valid email address</div>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-bold">Password</label>
+
+                        <input [(ngModel)]="user.password" type="password" class="form-control" id="password"
+                            name="password" required placeholder="Enter your password" minlength="6"
+                            #passwordInput="ngModel" (blur)="validateField(passwordInput)">
+
+
+                        @if (passwordInput.invalid && passwordInput.touched) {
+                        <div class="text-danger small mt-1">
+                            @if (passwordInput.errors?.['required']) {
+                                <div>Password is required</div>
+                            }
+                            @if (passwordInput.errors?.['minlength']) {
+                                <div>Password must be at least 6 characters</div>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="text-end mb-1">
+                        <a routerLink="/forgetpass" class="link-primary fw-medium text-decoration-none">
+                            Forget Password?
+                        </a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 mb-4 mt-3" [disabled]="registerForm.invalid">
+                        Login
+                    </button>
+
+                    <div class="text-center">
+                        <p class="mb-0">Don't have an account?
+                            <a routerLink="/register" class="text-decoration-none login fw-bold">Register</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Left Side - Benefits -->
+        <div class="col-md-6 p-0 text-white">
+            <div class="p-4 bg-light rounded-3 h-100">
+                <h3 class="mb-4 text-center">Join Our E-Commerce Community</h3>
+
+                <div class="mb-4 text-center img">
+                    <img src="/Images/AnguShopLogoCpy.png" alt="error" width="200px" height="150px">
+                </div>
+
+
+                <div class="d-flex mb-3">
+                    <div class="me-3 text-primary">
+                        <i class="bi bi-truck fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Fast Shipping</h5>
+                        <p class="mb-1">Get your orders delivered quickly</p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-3">
+                    <div class="me-3 text-primary">
+                        <i class="bi bi-heart fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Wishlists</h5>
+                        <p class="mb-1">Save your favorite products</p>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="me-3 text-primary">
+                        <i class="bi bi-arrow-repeat fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Order Tracking</h5>
+                        <p class="mb-0">Real-time updates on your purchases</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
