@@ -7,11 +7,12 @@ import { ProductsComponent } from "./components/products/products.component";
 import { ProductDetailsComponent } from "./components/product-details/product-details.component";
 import { CartComponent } from "./components/cart/cart.component";
 import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from "./components/header/header.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProductsComponent, ProductDetailsComponent, CartComponent, HomeComponent, RouterModule, RegisterPageComponent, LoginPageComponent],
+  imports: [RouterOutlet, ProductsComponent, ProductDetailsComponent, CartComponent, HomeComponent, RouterModule, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

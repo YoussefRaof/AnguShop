@@ -1,24 +1,22 @@
+
 <div class="container mt-5">
-    <!--I Did not Add Select Box Like Video in PlayList-->
-    <div class="row">
-        <!-- Repeat this column for each product -->
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="product-card">
-                <div class="card-image pt-3 px-3">
-                    <img src="assets/placeholder-product.jpg" alt="Product image" class="img-fluid">
-                </div>
-                <div class="card-body">
-                    <h4 class="product-title">Premium Wireless Headphones</h4>
-                    <p class="product-description">High-quality noise-canceling wireless headphones with 30hr battery life</p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-success btn-sm">
-                        <i class="fas fa-cart-plus"></i> Add to Cart
-                    </button>
-                    <span class="product-price">$50.00</span>
-                </div>
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <input
+            type="text"
+            class="form-control product-search"
+            placeholder="Search products by title..."
+            [(ngModel)]="searchText"
+          />
         </div>
-      
+    </div>
+    
+
+    <div class="row">
+        @for (product of filteredProducts(); track $index) {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <app-one-product [oneProductData]="product"></app-one-product>
+            </div>
+        }
     </div>
 </div>
