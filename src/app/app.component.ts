@@ -12,7 +12,7 @@ import { HeaderComponent } from "./components/header/header.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProductsComponent, ProductDetailsComponent, CartComponent, HomeComponent, RouterModule, HeaderComponent],
+  imports: [RouterOutlet, ProductsComponent, ProductDetailsComponent, CartComponent, HomeComponent, RouterModule, HeaderComponent, LoginPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
