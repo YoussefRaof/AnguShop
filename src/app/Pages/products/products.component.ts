@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OneProductComponent } from "../one-product/one-product.component";
+import { OneProductComponent } from "../../components/one-product/one-product.component";
 import { ProductsService } from '../../../Services/products.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,8 @@ export class ProductsComponent implements OnInit {
   pageSize:number=8;
   AllProducts: any[]=[]
   searchText: string = '';
+  showAlert: boolean = false;
+
   constructor(private _prodService:ProductsService){}
   loading: boolean = true;
 
@@ -52,5 +54,10 @@ export class ProductsComponent implements OnInit {
     );
   }
 
- 
+
+  showNotification(): void {
+    this.showAlert = true;
+    setTimeout(() => this.showAlert = false, 3000);
+  }
+
 }

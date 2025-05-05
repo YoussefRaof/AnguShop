@@ -17,15 +17,16 @@
           />
         </div>
     </div>
-    
+
 
     <div class="row">
         @for (product of paginatedProducts(); track $index) {
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <app-one-product [oneProductData]="product"></app-one-product>
+                <app-one-product [oneProductData]="product" (productAdded)="showNotification()"></app-one-product>
             </div>
         }
     </div>
+
 </div>
 
 <nav class="mt-4">
@@ -51,4 +52,13 @@
   </nav>
 }
 
-  
+<div>
+
+    @if (showAlert)
+    {<div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 end-0 m-3" role="alert" style="z-index: 1050;">
+      Product added to cart!
+      <button type="button" class="btn-close" (click)="showAlert = false" aria-label="Close"></button>
+    </div>}
+
+</div>
+
