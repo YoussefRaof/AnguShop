@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OneProductComponent } from "../one-product/one-product.component";
+import { OneProductComponent } from "../../components/one-product/one-product.component";
 import { ProductsService } from '../../../Services/products.service';
 import { FormsModule } from '@angular/forms';
 
