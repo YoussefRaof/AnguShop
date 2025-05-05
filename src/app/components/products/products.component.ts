@@ -16,11 +16,16 @@ export class ProductsComponent implements OnInit {
   AllProducts: any[]=[]
   searchText: string = '';
   constructor(private _prodService:ProductsService){}
+  loading: boolean = true;
 
   ngOnInit(): void {
     this._prodService.getAllProducts().subscribe({
-      next:(data) => this.AllProducts=data as any[],
-      error: (error) => console.log(error)
+      next:(data) => {this.AllProducts=data as any[];
+        this.loading=false
+      },
+      error: (error) => {console.log(error);
+        this.loading=false
+      }
     })
   }
 
