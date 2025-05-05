@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { OneProductComponent } from "../one-product/one-product.component";
 import { ProductsService } from '../../../Services/products.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-products',
-  imports: [OneProductComponent,FormsModule],
+  imports: [OneProductComponent,FormsModule,CommonModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
-
+  currentPage:number = 1;
+  pageSize:number=8;
   AllProducts: any[]=[]
   searchText: string = '';
   constructor(private _prodService:ProductsService){}
@@ -22,12 +24,28 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  get totalPages(): number {
+    return Math.ceil(this.filteredProducts().length / this.pageSize); 
+  }
+  
+  paginatedProducts(): any[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredProducts().slice(start, start + this.pageSize); // 0 -8
+  }
+  
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+  
   filteredProducts(): any[] {
     if (!this.searchText) return this.AllProducts;
-    let lower = this.searchText.toLowerCase();
+    const lower = this.searchText.toLowerCase();
     return this.AllProducts.filter(product =>
       product.title?.toLowerCase().includes(lower)
     );
   }
-  
+
+ 
 }
