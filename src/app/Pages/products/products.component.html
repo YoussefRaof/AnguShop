@@ -1,0 +1,22 @@
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <input
+            type="text"
+            class="form-control product-search"
+            placeholder="Search products by title..."
+            [(ngModel)]="searchText"
+          />
+        </div>
+    </div>
+    
+
+    <div class="row">
+        @for (product of filteredProducts(); track $index) {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <app-one-product [oneProductData]="product"></app-one-product>
+            </div>
+        }
+    </div>
+</div>
