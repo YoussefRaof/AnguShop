@@ -24,6 +24,7 @@ export class OneProductComponent {
       }
     }
     return stars;
+  }
 
   @Output() productAdded = new EventEmitter<void>();
   cartCount:number=0;
