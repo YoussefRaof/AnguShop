@@ -13,6 +13,8 @@ export class ProductsComponent implements OnInit {
 
   AllProducts: any[]=[]
   searchText: string = '';
+  showAlert: boolean = false;
+
   constructor(private _prodService:ProductsService){}
 
   ngOnInit(): void {
@@ -29,5 +31,9 @@ export class ProductsComponent implements OnInit {
       product.title?.toLowerCase().includes(lower)
     );
   }
-  
+
+  showNotification(): void {
+    this.showAlert = true;
+    setTimeout(() => this.showAlert = false, 3000);
+  }
 }
