@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { DarkModeComponent } from "./components/dark-mode/dark-mode.component";
 // import { RegisterPageComponent } from "./Pages/register-page/register-page.component";
 // import { LoginPageComponent } from "./Pages/login-page/login-page.component";
 
@@ -12,7 +13,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, DarkModeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
