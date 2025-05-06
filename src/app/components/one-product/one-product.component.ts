@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
+
+import { Component, Input } from '@angular/core';
+import { WishlistService } from '../../../Services/wish-list.service';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CartService } from '../../../Services/cart.service';
+
 
 @Component({
   selector: 'app-one-product',
@@ -10,6 +15,12 @@ import { CartService } from '../../../Services/cart.service';
 })
 export class OneProductComponent {
   @Input() oneProductData:any
+
+  constructor(private wishlistService: WishlistService) {}
+
+  addToWishlist() {
+    this.wishlistService.addToWishlist(this.oneProductData);
+
 
 
   getStars(rate: number): string[] {
@@ -35,6 +46,7 @@ export class OneProductComponent {
     this.cartService.getCartCount().subscribe(count => {
       this.cartCount = count;
     });
+
 
 
   }
