@@ -4,7 +4,7 @@ import { RegisterPageComponent } from './Pages/register-page/register-page.compo
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { ForgetPasswordPageComponent } from './components/forget-password-page/forget-password-page.component';
 
-import { ProductsComponent } from './Pages/products/products.component'; 
+import { ProductsComponent } from './Pages/products/products.component';
 import { ErrorPageComponent } from './Pages/error-page/error-page.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
@@ -14,12 +14,12 @@ import { CheckoutComponent } from './Pages/checkout/checkout.component';
 import { WishListComponent } from './Pages/wish-list/wish-list.component';
 
 export const routes: Routes = [
-    // Standalone pages (without layout  Navbar and Footer) 
+    // Standalone pages (without layout  Navbar and Footer)
     { path: 'register', component: RegisterPageComponent, title: 'Register' },
     { path: 'login', component: LoginPageComponent, title: 'Login' },
     { path: 'forgetpass', component: ForgetPasswordPageComponent, title: 'Forget Password' },
 
-    // Pages under layout ythat will appear with Navbar and Footer 
+    // Pages under layout ythat will appear with Navbar and Footer
     {
         path: '',
         component: MainLayoutComponent,
@@ -40,3 +40,4 @@ export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'error', title: 'Error' }
 ];
+

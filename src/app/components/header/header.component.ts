@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { WishlistService } from '../../../Services/wish-list.service';
+
+import { CartService } from '../../../Services/cart.service';
+
+
 
 @Component({
   selector: 'app-header',
@@ -9,6 +14,7 @@ import { WishlistService } from '../../../Services/wish-list.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
   wishlistCount: number = 0;
 
@@ -19,6 +25,16 @@ export class HeaderComponent implements OnInit {
     this.wishlistService.wishlistCount$.subscribe(count => {
       this.wishlistCount = count;
     });
+
+export class HeaderComponent {
+  cartCount: number = 0;
+  constructor(private cartService: CartService) { }
+  ngOnInit(): void {
+    this.cartService.getCartCount().subscribe(count => {
+      this.cartCount = count;
+    });
+
+
   }
 }
 
