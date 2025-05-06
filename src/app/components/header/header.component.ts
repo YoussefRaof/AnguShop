@@ -17,24 +17,17 @@ import { CartService } from '../../../Services/cart.service';
 
 export class HeaderComponent implements OnInit {
   wishlistCount: number = 0;
-
-  constructor(private wishlistService: WishlistService) {}
+  cartCount: number = 0;
+  constructor(private wishlistService: WishlistService , private cartService: CartService) {}
 
   ngOnInit(): void {
-    // الاشتراك في observable لتحديث العدد عند التغيير
+    this.cartService.getCartCount().subscribe(count => {
+      this.cartCount = count;
     this.wishlistService.wishlistCount$.subscribe(count => {
       this.wishlistCount = count;
     });
 
-export class HeaderComponent {
-  cartCount: number = 0;
-  constructor(private cartService: CartService) { }
-  ngOnInit(): void {
-    this.cartService.getCartCount().subscribe(count => {
-      this.cartCount = count;
-    });
 
 
   }
-}
-
+)}}
