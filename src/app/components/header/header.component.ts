@@ -16,6 +16,7 @@ import { CartService } from '../../../Services/cart.service';
 })
 
 export class HeaderComponent implements OnInit {
+  userName: string = 'Ahmed';
   wishlistCount: number = 0;
   cartCount: number = 0;
   constructor(private wishlistService: WishlistService , private cartService: CartService) {}

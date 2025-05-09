@@ -13,7 +13,7 @@ import { ProductDetailsComponent } from './Pages/product-details/product-details
 import { CheckoutComponent } from './Pages/checkout/checkout.component';
 import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { CategoryMasterComponent } from './Pages/category-master/category-master.component';
-
+import { ProfileComponent } from './Pages/profile/profile.component';
 export const routes: Routes = [
     // Standalone pages (without layout  Navbar and Footer)
     { path: 'register', component: RegisterPageComponent, title: 'Register' },
@@ -36,6 +36,8 @@ export const routes: Routes = [
             { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
             { path: 'wishList', component: WishListComponent, title: 'wishList' },
             { path: 'error', component: ErrorPageComponent, title: 'Error' },
+            { path: 'profile', component: ProfileComponent, title: 'Profile' },
+
 
         ]
     },
