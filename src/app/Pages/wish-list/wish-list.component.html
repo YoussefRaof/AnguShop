@@ -1,0 +1,64 @@
+<div class="container mt-5 mb-5">
+  <div class="d-flex justify-content-center row">
+    <div class="col-md-10" *ngIf="wishlistItems.length > 0; else emptyState">
+      <div
+        class="row p-3 bg-light shadow-sm border rounded-4 mb-4 wishlist-card"
+        *ngFor="let product of wishlistItems"
+      >
+        <!-- Product Image -->
+        <div class="col-md-3 d-flex align-items-center">
+          <img
+            [src]="product.image"
+            alt="Product Image"
+            class="img-fluid rounded-3 wishlist-img"
+          />
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-md-6 mt-2">
+          <h5 class="fw-bold">{{ product.title }}</h5>
+          <div class="d-flex align-items-center mb-2">
+            <div class="ratings me-2">
+              <i class="fa fa-star text-warning" *ngFor="let s of [1,2,3,4]"></i>
+              <i class="fa fa-star text-muted"></i>
+            </div>
+            <span class="text-muted small">{{ product.rating?.rate || 0 }}</span>
+          </div>
+          <div class="mb-2 text-muted small">
+            {{ product.category || 'Unknown Category' }}
+          </div>
+          <p class=" mb-0" style="max-height: 3.5em; overflow: hidden;">
+            {{ product.description }}
+          </p>
+        </div>
+
+        <!-- Price + Actions -->
+        <div class="col-md-3 text-end d-flex flex-column justify-content-between">
+          <div>
+            <h4 class="text-success fw-bold">${{ product.price }}</h4>
+            <p class="text-muted small">Free shipping</p>
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <button class="btn btn-sm btn-outline-primary w-100" type="button">
+              <i class="fa fa-eye me-1"></i> Details
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger w-100"
+              (click)="removeFromWishlist(product.id)"
+            >
+              <i class="fa fa-heart-broken me-1"></i> Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <ng-template #emptyState>
+      <div class="text-center text-muted py-5">
+        <i class="fa fa-heart fa-2x mb-3 text-secondary"></i>
+        <p class="fs-5">Your wishlist is empty.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

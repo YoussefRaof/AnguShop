@@ -4,31 +4,37 @@ import { RegisterPageComponent } from './Pages/register-page/register-page.compo
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { ForgetPasswordPageComponent } from './components/forget-password-page/forget-password-page.component';
 
-import { ProductsComponent } from './Pages/products/products.component'; 
+import { ProductsComponent } from './Pages/products/products.component';
 import { ErrorPageComponent } from './Pages/error-page/error-page.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { CartComponent } from './Pages/cart/cart.component';
 import { ProductDetailsComponent } from './Pages/product-details/product-details.component';
+import { CheckoutComponent } from './Pages/checkout/checkout.component';
+import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { CategoryMasterComponent } from './Pages/category-master/category-master.component';
 
 export const routes: Routes = [
-    // Standalone pages (without layout  Navbar and Footer) 
+    // Standalone pages (without layout  Navbar and Footer)
     { path: 'register', component: RegisterPageComponent, title: 'Register' },
     { path: 'login', component: LoginPageComponent, title: 'Login' },
     { path: 'forgetpass', component: ForgetPasswordPageComponent, title: 'Forget Password' },
 
-    // Pages under layout ythat will appear with Navbar and Footer 
+    // Pages under layout ythat will appear with Navbar and Footer
     {
         path: '',
         component: MainLayoutComponent,
         children: [
             { path: 'home', component: HomeComponent, title: 'Home' },
+            { path: '', component: HomeComponent, title: 'Home' },
+
             { path: 'contactus', component: AboutComponent, title: 'Contact Us' },
             { path: 'cart', component: CartComponent, title: 'Cart' },
             { path: 'products', component: ProductsComponent, title: 'Our Products' },
             { path: 'products/:id', component: ProductDetailsComponent, title: 'Product Details' },
             { path: 'Categories', component: CategoryMasterComponent, title: 'Categories' }, 
+            { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
+            { path: 'wishList', component: WishListComponent, title: 'wishList' },
             { path: 'error', component: ErrorPageComponent, title: 'Error' },
 
         ]
@@ -38,3 +44,4 @@ export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'error', title: 'Error' }
 ];
+

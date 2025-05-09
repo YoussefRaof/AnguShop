@@ -2,7 +2,7 @@
     <!-- Filters Sidebar -->
         <div class="filter-sidebar p-4 shadow-sm">
             <div class="filter-group">
-                <h6 class="mb-3">Categories</h6>
+                <h6 class="mb-3 fw-bold">Categories</h6>
                 @for (category of CategoryNames; track $index) {
                     <div class="mb-2">
                         <button class="category-btn" [class.active-category]="SelectedCategory === category" 
@@ -13,16 +13,16 @@
               </div>
 
             <div class="filter-group">
-                <h6 class="mb-3">Price Range</h6>
+                <h6 class="mb-3 fw-bold">Price Range</h6>
                 <input type="range" class="form-range" min="0" max="1000" value="50" [(ngModel)]="SelectedPrice">
                 <div class="d-flex justify-content-between">
-                    <span class="text-muted">$0</span>
-                    <span class="text-muted">${{SelectedPrice}}</span>
+                    <span class="text-muted fw-bold">$0</span>
+                    <span class="text-black fw-bold">${{SelectedPrice}}</span>
                 </div>
             </div>
 
             <div class="filter-group">
-                <h6 class="mb-3">Rating</h6>
+                <h6 class="mb-3 fw-bold">Rating</h6>
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="radio" name="rating" id="allRating" [(ngModel)]="SelectedRating" [value]="0">
                     <label class="form-check-label" for="allRating">
