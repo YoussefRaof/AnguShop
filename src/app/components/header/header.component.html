@@ -8,12 +8,16 @@
         <div class="col-lg-4 col-md-4 col-12 ms-auto text-end">
           <div class="top-end">
             <div class="user mb-1">
-              <i class="fa-solid fa-user"></i>
-              Hello
+              Hello, {{ userName }}!
             </div>
             <ul class="user-login list-unstyled d-inline-flex gap-2">
               <li><a routerLink="/login" href="login.html">Sign In</a></li>
               <li><a routerLink="/register" href="register.html">Register</a></li>
+              <li>
+                <a routerLink="/profile" href="profile.html" class="nav-link text-white">
+                  <i class="fas fa-user fa-1x"></i>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -76,7 +80,7 @@
       <div class="col-lg-8 col-md-6 col-12">
         <div class="nav-inner">
 
-          <!-- Start Mega Category Menu -->
+          <!-- Start Mega Category Menu
           <div class="mega-category-menu">
             <span class="cat-button"><i class="fa-solid fa-list"></i>All Categories</span>
             <ul class="sub-category">
@@ -101,7 +105,7 @@
               <li><a href="product-grids.html">Sunglass</a></li>
               <li><a href="product-grids.html">Watch</a></li>
             </ul>
-          </div>
+          </div> -->
           <!-- End Mega Category Menu -->
 
           <!-- Start Navbar -->
@@ -121,15 +125,10 @@
                     <i class="fas fa-home me-2"></i>Home
                   </a>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown">
-                    <i class="fas fa-list-alt me-2"></i>Categories
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-dark" routerLinkActive="active-link" routerLink="/Categories">
+                    <i class="fas fa-box-open me-2"></i>Categories
                   </a>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" routerLink="/electronics">Electronics</a>
-                    <a class="dropdown-item" routerLink="/fashion">Fashion</a>
-                    <a class="dropdown-item" routerLink="/home-living">Home & Living</a>
-                  </div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-dark" routerLinkActive="active-link" routerLink="/products">
