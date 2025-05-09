@@ -1,6 +1,6 @@
 
     <!-- Filters Sidebar -->
-        <div class="filter-sidebar p-4 shadow-sm">
+        <div class="filter-sidebar p-4 shadow-lg">
             <div class="filter-group">
                 <h6 class="mb-3 fw-bold">Categories</h6>
                 @for (category of CategoryNames; track $index) {
@@ -63,6 +63,6 @@
                 </div>
             </div>
 
-            <button class="btn btn-outline-primary w-100" (click)="ApplyFilter()">Apply Filters</button>
+            <button class="btn btn-outline-primary w-100 mb-3" (click)="ApplyFilter()">Apply Filters</button>
             <button class="btn btn-outline-primary w-100" (click)="ResetFilter()">Reset</button>
         </div>
