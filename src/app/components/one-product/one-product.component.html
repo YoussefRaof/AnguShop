@@ -1,20 +1,18 @@
 
-
-
 <div class="product-card h-100 d-flex flex-column border rounded shadow-sm">
     <div class="card-image pt-3 px-3 position-relative">
-      <a href="#" class="stretched-link">
+      <a routerLink="/products/{{oneProductData.id}}" class="stretched-link">
         <img src="{{ oneProductData.image }}" alt="Product image" class="img-fluid" />
+        <button class="btn btn-wishlist px-1">
+          <i class="fas fa-heart" (click)="addToWishlist()"></i>
+        </button>
       </a>
-      <button class="btn btn-wishlist px-1">
-        <i class="fas fa-heart" (click)="addToWishlist()"></i>
-      </button>
     </div>
   
     <div class="card-body">
       <h4 class="product-title">{{ oneProductData.title }}</h4>
   
-      <!-- Optional rating display -->
+   
       <div class="product-rating mb-2">
         @for (star of getStars(oneProductData.rating?.rate); track $index) {
           @if (star === 'full') {

@@ -4,12 +4,13 @@ import { WishlistService } from '../../../Services/wish-list.service';
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CartService } from '../../../Services/cart.service';
+import { RouterModule } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-one-product',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './one-product.component.html',
   styleUrl: './one-product.component.css'
 })

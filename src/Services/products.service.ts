@@ -12,4 +12,7 @@ export class ProductsService {
   getAllProducts(){
     return this.myHttpClient.get(this.URL)
   }
+  getProductById(PId:any){
+    return this.myHttpClient.get(`${this.URL}/${PId}`)
+  }
 }

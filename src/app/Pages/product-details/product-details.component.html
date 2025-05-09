@@ -1,1 +1,70 @@
-<p>product-details works!</p>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Product Images -->
+        <div class="col-md-6 mb-4">
+            <img src="{{UserDetailsData.image}}" class="mainImage h-75">
+            
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <h2 class="mb-3">{{UserDetailsData.title}}</h2>
+
+            <div class="mt-4">
+                <h5>Category: {{UserDetailsData.category}}</h5>
+             
+            </div>
+            
+            <div class="mb-3">
+                <span class="h4 me-2">${{UserDetailsData.price}}</span>
+                <span class="text-muted"><s>${{UserDetailsData.price+50}}</s></span>
+            </div>
+            <div class="mb-3">
+                @for (star of getStars(UserDetailsData.rating?.rate); track $index) {
+                    @if (star === 'full') {
+                      <i class="fas fa-star text-warning"></i>
+                    } @else if (star === 'half') {
+                      <i class="fas fa-star-half-alt text-warning"></i>
+                    } @else {
+                      <i class="far fa-star text-warning"></i>
+                    }
+                  }
+                <span class="ms-2">{{UserDetailsData.rating?.rate}}/5</span>
+            </div>
+            <p class="mb-4">{{UserDetailsData.description}}.</p>
+            <!-- <div class="mb-4">
+                <h5>Color:</h5>
+                <div class="btn-group" role="group" aria-label="Color selection">
+                    <input type="radio" class="btn-check" name="color" id="black" autocomplete="off" checked>
+                    <label class="btn btn-outline-dark" for="black">Black</label>
+                    <input type="radio" class="btn-check" name="color" id="silver" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="silver">Silver</label>
+                    <input type="radio" class="btn-check" name="color" id="blue" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="blue">Blue</label>
+                </div>
+            </div> -->
+            <div class="mb-4">
+                <label for="quantity" class="form-label">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 80px;">
+            </div>
+            <button class="btn btn-primary btn-lg mb-3 me-2">
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+            </button>
+            <button class="btn btn-outline-secondary btn-lg mb-3">
+                    <i class="bi bi-heart"></i> Add to Wishlist
+                </button>
+           
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function changeImage(event, src) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+</script>
