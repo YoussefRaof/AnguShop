@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2'; 
 import * as L from 'leaflet';  
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http'; 
 
 @Component({
   selector: 'app-about',
@@ -29,7 +30,7 @@ export class AboutComponent implements AfterViewInit {
   map: any;
   marker: any;
 
-  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone) {}
+  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone, private http: HttpClient) {}
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -57,13 +58,32 @@ export class AboutComponent implements AfterViewInit {
       this.marker.on('dragend', (e: any) => {
         const lat = e.target.getLatLng().lat.toFixed(4);
         const lng = e.target.getLatLng().lng.toFixed(4);
+        
         this.ngZone.run(() => {
-          this.formData.location = `${lat}, ${lng}`;
+          this.getAddressFromCoordinates(lat, lng); 
         });
       });
+
       setTimeout(() => {
         this.map.invalidateSize();
       }, 100);
+    });
+  }
+
+  getAddressFromCoordinates(lat: string, lng: string): void {
+    const apiUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`;
+
+    this.http.get(apiUrl).subscribe((response: any) => {
+      if (response && response.display_name) {
+        this.ngZone.run(() => {
+          this.formData.location = response.display_name;
+        });
+      }
+    }, (error) => {
+      console.error('Error fetching address:', error);
+      this.ngZone.run(() => {
+        this.formData.location = 'Address not found';
+      });
     });
   }
 
