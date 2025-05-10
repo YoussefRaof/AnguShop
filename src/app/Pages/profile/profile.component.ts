@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
       this.profile.birthday = user.profile?.birthday || '';
     }
   }
-
+  
   saveChanges() {
     this.authService.updateUserProfile({
       username: this.profile.username,
