@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
 
 export interface CartItem {
   id: number;
@@ -20,23 +21,28 @@ export class CartService {
   private cartCountSubject = new BehaviorSubject<number>(0);
   private cartTotalSubject = new BehaviorSubject<number>(0);
 
-  constructor() {
-    this.loadCartFromLocalStorage();
+  constructor(private authService: AuthenticationService) {
+    this.authService.currentUser$.subscribe(email => {
+      this.loadCartFromLocalStorage(email);
+    });
   }
 
-  getCartItems(): Observable<CartItem[]> {
+  getCartItems() {
     return this.cartSubject.asObservable();
   }
 
-  getCartCount(): Observable<number> {
+  getCartCount() {
     return this.cartCountSubject.asObservable();
   }
 
-  getCartTotal(): Observable<number> {
+  getCartTotal() {
     return this.cartTotalSubject.asObservable();
   }
 
-  addToCart(product: any): void {
+  addToCart(product: any) {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) return;
+
     const existingItemIndex = this.cartItems.findIndex(item => item.id === product.id);
 
     if (existingItemIndex !== -1) {
@@ -57,7 +63,7 @@ export class CartService {
     this.updateCart();
   }
 
-  removeFromCart(productId: number): void {
+  removeFromCart(productId: number) {
     this.cartItems = this.cartItems.filter(item => item.id !== productId);
     this.updateCart();
   }
@@ -79,7 +85,12 @@ export class CartService {
     this.updateCart();
   }
 
-  private updateCart(): void {
+  private updateCart() {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      localStorage.setItem(currentUser + '-cart', JSON.stringify(this.cartItems));
+    }
+
     this.cartSubject.next([...this.cartItems]);
 
     const totalItems = this.cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -87,18 +98,17 @@ export class CartService {
 
     const totalPrice = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     this.cartTotalSubject.next(totalPrice);
-
-    this.saveCartToLocalStorage();
   }
 
-  private saveCartToLocalStorage(): void {
-    localStorage.setItem('cart', JSON.stringify(this.cartItems));
-  }
-  
-  private loadCartFromLocalStorage(): void {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      this.cartItems = JSON.parse(storedCart);
+  private loadCartFromLocalStorage(email: string | null) {
+    if (email) {
+      const storedCart = localStorage.getItem(email + '-cart');
+      if (storedCart) {
+        this.cartItems = JSON.parse(storedCart);
+        this.updateCart();
+      }
+    } else {
+      this.cartItems = [];
       this.updateCart();
     }
   }

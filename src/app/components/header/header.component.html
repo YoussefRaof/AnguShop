@@ -7,14 +7,25 @@
       <div class="row">
         <div class="col-lg-4 col-md-4 col-12 ms-auto text-end">
           <div class="top-end">
-            
             <ul class="user-login list-unstyled d-flex justify-content-center align-items-center gap-2">
-              <li><div class="user mb-1">
-                Hello, {{ userName }}!
-              </div></li>
-              <li><a routerLink="/login" href="login.html">Sign In</a></li>
-              <li><a routerLink="/register" href="register.html">Register</a></li>
-              <li>
+              <!-- Display user info when logged in -->
+              <li *ngIf="isLoggedIn">
+                <div class="user mb-1">
+                  Hello, {{ userName }}!
+                  <button (click)="logout()" class="btn btn-outline-danger btn-sm ms-2">Logout</button>
+                </div>
+              </li>
+              
+              <!-- Show Sign In and Register links when not logged in -->
+              <li *ngIf="!isLoggedIn">
+                <a routerLink="/login" href="login.html">Sign In</a>
+              </li>
+              <li *ngIf="!isLoggedIn">
+                <a routerLink="/register" href="register.html">Register</a>
+              </li>
+  
+              <!-- Profile icon (only visible when logged in) -->
+              <li *ngIf="isLoggedIn">
                 <a routerLink="/profile" class="nav-link p-3 rounded-circle text-white">
                   <i class="fas fa-user fa-1x"></i>
                 </a>
@@ -23,8 +34,9 @@
           </div>
         </div>
       </div>
-    </div> <!-- ✅ Fixed missing closing div -->
+    </div>
   </div>
+  
   <!-- End Topbar -->
 
   <!-- Start Header Middle -->
@@ -48,25 +60,20 @@
 
         <div class="col-lg-4 col-md-2 col-5">
           <div class="navbar-cart">
-            <div class="wishlist">
+            <div class="wishlist" *ngIf="isLoggedIn">
               <a routerLink="/wishList" href="javascript:void(0)">
                 <i class="fa-solid fa-heart"></i>
                 <span class="total-items">{{ wishlistCount }}</span>
               </a>
             </div>
 
-            <div class="cart-items">
+            <div class="cart-items" *ngIf="isLoggedIn">
               <a routerLink="/cart" href="javascript:void(0)" class="main-btn">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="total-items">{{cartCount}}</span>
               </a>
             </div>
 
-             
-
-            <div class="ms-3">
-              <a routerLink="/login" class="btn btn-dark">Logout</a>
-            </div>
           </div>
         </div>
 
@@ -81,7 +88,6 @@
       <div class="col-lg-8 col-md-6 col-12">
         <div class="nav-inner">
 
-          <!-- Start Mega Category Menu
           <div class="mega-category-menu">
             <span class="cat-button"><i class="fa-solid fa-list"></i>All Categories</span>
             <ul class="sub-category">
@@ -106,8 +112,8 @@
               <li><a href="product-grids.html">Sunglass</a></li>
               <li><a href="product-grids.html">Watch</a></li>
             </ul>
-          </div> -->
-          <!-- End Mega Category Menu -->
+          </div> 
+
 
           <!-- Start Navbar -->
           <nav class="navbar navbar-expand-lg">
