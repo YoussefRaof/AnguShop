@@ -1,19 +1,20 @@
-// wish-list.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WishlistService {
   private wishlist: any[] = [];
-  private wishlistCount = new BehaviorSubject<number>(0); // observable for header
-  wishlistCount$ = this.wishlistCount.asObservable(); // exposed observable
+  private wishlistCount = new BehaviorSubject<number>(0);
+  wishlistCount$ = this.wishlistCount.asObservable();
 
-  constructor() {
-    const stored = localStorage.getItem('wishlist');
-    this.wishlist = stored ? JSON.parse(stored) : [];
-    this.wishlistCount.next(this.wishlist.length);
+  constructor(private authService: AuthenticationService) {
+    
+    this.authService.currentUser$.subscribe(email => {
+      this.loadWishlistFromLocalStorage(email);
+    });
   }
 
   getWishlist(): any[] {
@@ -34,7 +35,23 @@ export class WishlistService {
   }
 
   private updateStorage() {
-    localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
-    this.wishlistCount.next(this.wishlist.length); // update count
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      localStorage.setItem(currentUser + '-wishlist', JSON.stringify(this.wishlist));
+      this.wishlistCount.next(this.wishlist.length);
+    }
+  }
+
+  private loadWishlistFromLocalStorage(email: string | null): void {
+    if (email) {
+      const storedWishlist = localStorage.getItem(email + '-wishlist');
+      if (storedWishlist) {
+        this.wishlist = JSON.parse(storedWishlist);
+        this.wishlistCount.next(this.wishlist.length);
+      }
+    } else {
+      this.wishlist = [];
+      this.wishlistCount.next(0);
+    }
   }
 }

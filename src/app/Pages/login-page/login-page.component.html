@@ -10,22 +10,15 @@
                 <form (ngSubmit)="Login()" #registerForm="ngForm">
                     <div class="mb-4">
                         <label for="email" class="form-label fw-bold">Email</label>
-                        
+
                         <input [(ngModel)]="user.email" type="email" class="form-control" id="email" name="email"
                             required placeholder="Enter your email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}"
-                            #emailInput="ngModel" (blur)="validateField(emailInput)">
+                            #emailInput="ngModel" (blur)="validateField(emailInput)" />
 
-
-                        @if (emailInput.invalid && emailInput.touched) {
-                        <div class="text-danger small mt-1">
-                            @if (emailInput.errors?.['required']) {
-                                <div>Email is required</div>
-                            }
-                            @if (emailInput.errors?.['pattern']) {
-                                <div>Please enter a valid email address</div>
-                            }
+                        <div class="text-danger small mt-1" *ngIf="emailInput.invalid && emailInput.touched">
+                            <div *ngIf="emailInput.errors?.['required']">Email is required</div>
+                            <div *ngIf="emailInput.errors?.['pattern']">Please enter a valid email address</div>
                         </div>
-                        }
                     </div>
 
                     <div class="mb-4">
@@ -33,19 +26,13 @@
 
                         <input [(ngModel)]="user.password" type="password" class="form-control" id="password"
                             name="password" required placeholder="Enter your password" minlength="6"
-                            #passwordInput="ngModel" (blur)="validateField(passwordInput)">
+                            #passwordInput="ngModel" (blur)="validateField(passwordInput)" />
 
-
-                        @if (passwordInput.invalid && passwordInput.touched) {
-                        <div class="text-danger small mt-1">
-                            @if (passwordInput.errors?.['required']) {
-                                <div>Password is required</div>
-                            }
-                            @if (passwordInput.errors?.['minlength']) {
-                                <div>Password must be at least 6 characters</div>
-                            }
+                        <div class="text-danger small mt-1" *ngIf="passwordInput.invalid && passwordInput.touched">
+                            <div *ngIf="passwordInput.errors?.['required']">Password is required</div>
+                            <div *ngIf="passwordInput.errors?.['minlength']">Password must be at least 6 characters
+                            </div>
                         </div>
-                        }
                     </div>
 
                     <div class="text-end mb-1">
@@ -53,7 +40,7 @@
                             Forget Password?
                         </a>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary w-100 mb-4 mt-3" [disabled]="registerForm.invalid">
                         Login
                     </button>
@@ -64,6 +51,7 @@
                         </p>
                     </div>
                 </form>
+
             </div>
         </div>
 

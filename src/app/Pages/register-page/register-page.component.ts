@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-
+import { AuthenticationService } from '../../../Services/authentication.service'; 
 
 @Component({
   selector: 'app-register-page',
+  standalone: true,
   imports: [
     FormsModule, RouterModule, CommonModule
   ],
@@ -14,19 +15,32 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class RegisterPageComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthenticationService) { }
 
   user = {
-    email: "",
-    password: "",
-    confirmPassword: ""
+    email: '',
+    password: '',
+    confirmPassword: ''
   };
 
-
-  // @Output() myEvent = new EventEmitter
-
   Register() {
-    
-    this.router.navigate(['/login']);
+    if (this.user.password !== this.user.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    const success = this.authService.register({
+      email: this.user.email,
+      password: this.user.password
+    });
+
+    if (success) {
+      alert('Registration successful');
+      // Automatically log the user in after registration
+      this.authService.login(this.user.email, this.user.password);
+      this.router.navigate(['/home']);
+    } else {
+      alert('User already exists');
+    }
   }
 }
