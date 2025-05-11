@@ -5,17 +5,27 @@
   <div class="topbar">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-12 ms-auto text-end">
+
+        <a routerLink="/home" class="text-decoration-none col-4">
+          <div class="d-flex align-items-center">
+            <a routerLink="/home">
+              <img src="/Images/AnguShopLogoCpy.png" alt="AnguShop Logo" width="50" height="50" class="me-2">
+            </a>
+            <span class="brand-name text-white header0">AnguShop</span>
+          </div>
+        </a>
+
+        <div class="col-lg-4 col-md-4 col-8 ms-auto text-end py-2">
           <div class="top-end">
             <ul class="user-login list-unstyled d-flex justify-content-center align-items-center gap-2">
               <!-- Display user info when logged in -->
               <li *ngIf="isLoggedIn">
                 <div class="user mb-1">
                   Hello, {{ userName }}!
-                  <button (click)="logout()" class="btn btn-outline-danger btn-sm ms-2">Logout</button>
                 </div>
               </li>
-              
+
+
               <!-- Show Sign In and Register links when not logged in -->
               <li *ngIf="!isLoggedIn">
                 <a routerLink="/login" href="login.html">Sign In</a>
@@ -23,64 +33,50 @@
               <li *ngIf="!isLoggedIn">
                 <a routerLink="/register" href="register.html">Register</a>
               </li>
-  
+
+
+              <div class="navbar-cart">
+                <div class="wishlist" *ngIf="isLoggedIn">
+                  <a routerLink="/wishList" href="javascript:void(0)" class="myico1" style="background-color: white;">
+                    <i class="fa-solid fa-heart txtico1"></i>
+                    <span class="total-items">{{ wishlistCount }}</span>
+                  </a>
+                </div>
+
+                <div class="cart-items" *ngIf="isLoggedIn">
+                  <a routerLink="/cart" href="javascript:void(0)" class="main-btn myico2"
+                    style="background-color: white;">
+                    <i class="fa-solid fa-cart-shopping txtico2"></i>
+                    <span class="total-items">{{cartCount}}</span>
+                  </a>
+                </div>
+              </div>
+
+
+
               <!-- Profile icon (only visible when logged in) -->
               <li *ngIf="isLoggedIn">
-                <a routerLink="/profile" class="nav-link p-3 rounded-circle text-white">
+                <a routerLink="/profile" class="nav-link p-2 text-white">
                   <i class="fas fa-user fa-1x"></i>
+
+                  <span class="text-white mx-2">Profile</span>
+
                 </a>
               </li>
+
+              <div>
+                <button (click)="logout()" class="btn btn-sm ms-2 logout">Logout</button>
+              </div>
+
             </ul>
+
           </div>
+
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- End Topbar -->
 
-  <!-- Start Header Middle -->
-  <div class="header-middle">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-3 col-md-3 col-7">
-          <a routerLink="/home" class="text-decoration-none">
-            <div class="d-flex align-items-center">
-              <a routerLink="/home">
-                <img src="/Images/AnguShopLogoCpy.png" alt="AnguShop Logo" width="50" height="50" class="me-2">
-              </a>
-              <span class="brand-name">AnguShop</span>
-            </div>
-          </a>
-        </div>
-
-        <div class="col-lg-5 col-md-7 d-xs-none">
-      
-        </div>
-
-        <div class="col-lg-4 col-md-2 col-5">
-          <div class="navbar-cart">
-            <div class="wishlist" *ngIf="isLoggedIn">
-              <a routerLink="/wishList" href="javascript:void(0)">
-                <i class="fa-solid fa-heart"></i>
-                <span class="total-items">{{ wishlistCount }}</span>
-              </a>
-            </div>
-
-            <div class="cart-items" *ngIf="isLoggedIn">
-              <a routerLink="/cart" href="javascript:void(0)" class="main-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="total-items">{{cartCount}}</span>
-              </a>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- End Header Middle -->
 
   <!-- Start Header Bottom -->
   <div class="container py-2">
@@ -112,7 +108,7 @@
               <li><a href="product-grids.html">Sunglass</a></li>
               <li><a href="product-grids.html">Watch</a></li>
             </ul>
-          </div>  -->
+          </div>
 
 
           <!-- Start Navbar -->
@@ -128,7 +124,8 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul class="nav nav-pills d-flex gap-3 justify-content-center">
                 <li class="nav-item">
-                  <a class="nav-link text-dark" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" routerLink="/home">
+                  <a class="nav-link text-dark" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+                    routerLink="/home">
                     <i class="fas fa-home me-2"></i>Home
                   </a>
                 </li>
@@ -160,15 +157,17 @@
         <div class="nav-social">
           <h5 class="title">Follow Us:</h5>
           <ul>
-            <li><a href="javascript:void(0)"><i class="fa-brands fa-facebook text-primary"></i></a></li>
-            <li><a href="javascript:void(0)"><i class="fa-brands fa-twitter"></i></a></li>
-            <li><a href="javascript:void(0)"><i class="fa-brands fa-square-instagram"></i></a></li>
+            <li><a href="javascript:void(0)" class="my-ico"><i class="fa-brands fa-facebook"></i></a></li>
+            <li><a href="javascript:void(0)" class="my-ico"><i class="fa-brands fa-twitter"></i></a></li>
+            <li><a href="javascript:void(0)" class="my-ico"><i class="fa-brands fa-square-instagram"></i></a></li>
           </ul>
         </div>
         <!-- End Nav Social -->
       </div>
     </div>
+
   </div>
+
   <!-- End Header Bottom -->
 
 </header>

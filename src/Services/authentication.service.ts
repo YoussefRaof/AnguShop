@@ -50,7 +50,7 @@ export class AuthenticationService {
     this.currentUserSubject.next(email);
     return true;
   }
-
+// 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.currentUserSubject.next(null);
