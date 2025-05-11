@@ -10,14 +10,14 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-one-product',
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './one-product.component.html',
   styleUrl: './one-product.component.css'
 })
 export class OneProductComponent {
-  @Input() oneProductData:any
+  @Input() oneProductData: any
 
-  constructor(private wishlistService: WishlistService , private cartService: CartService) {}
+  constructor(private wishlistService: WishlistService, private cartService: CartService) { }
 
   addToWishlist() {
     this.wishlistService.addToWishlist(this.oneProductData);
@@ -40,15 +40,13 @@ export class OneProductComponent {
 
 
   @Output() productAdded = new EventEmitter<void>();
-  cartCount:number=0;
+  cartCount: number = 0;
   addToCart(product: any): void {
     this.cartService.addToCart(product);
     this.productAdded.emit();
     this.cartService.getCartCount().subscribe(count => {
       this.cartCount = count;
     });
-
-
-
   }
+
 }
