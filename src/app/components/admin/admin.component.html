@@ -4,8 +4,12 @@
         <div class="sidebar-header d-flex align-items-center justify-content-between p-3">
             <div class="d-flex align-items-center admin-icon">
                 <i class="fa-solid fa-shop fs-5 px-1 text-white"></i>
-                <a routerLink="/admin" class="mb-0 fs-5 px-2 admin-header fw-bold text-white text-decoration-none"
-                    *ngIf="!isSidebarCollapsed">Admin</a>
+                <a onclick="location.reload();"
+                    class="mb-0 fs-5 px-2 admin-header fw-bold text-white text-decoration-none"
+                    *ngIf="!isSidebarCollapsed">
+                    Admin
+                </a>
+
             </div>
 
             <button (click)="toggleSidebar()" class="toggle-btn btn btn-sm text-white">
