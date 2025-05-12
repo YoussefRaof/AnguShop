@@ -1,40 +1,89 @@
-/* Add to your component's CSS or global styles */
-.product-img {
-    transition: all 0.3s ease;
-    background-color: white;
 
+ /* Product Card Styling */
+.product-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.product-img:hover .product-action {
-    opacity: 1;
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
-.product-action {
-    transition: all 0.3s ease;
-    opacity: 0;
-    top: 40%;
-    /* background-color: transparent !important; */
+.product-img:hover .product-actions {
+  transform: translateY(0);
 }
 
-img {
-    transition: 0.3s;
+.product-actions {
+  backdrop-filter: blur(4px);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-img:hover {
-    height: 260px;
-    width: 210px;
-    /* filter: blur(5px); */
+.btn-icon {
+  transition: all 0.3s ease;
+  min-width: 40px;
 }
 
-.card-body {
-    background-color: lightgrey;
+.btn-icon:hover {
+  transform: translateY(-2px);
+  background: #2c3e50 !important;
+  color: white !important;
 }
 
-.backdrop-filter-blur {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.z-index-1 {
-    z-index: 1;
+.object-fit-cover {
+  object-fit: cover;
+  object-position: center;
+}
+
+.badge {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.3px;
+}
+
+/* Rating Stars */
+.fa-star {
+  font-size: 0.9em;
+}
+
+/* Price Animation */
+.text-primary {
+  position: relative;
+}
+
+.text-primary::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .text-primary::after {
+  transform: scaleX(1);
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .product-card {
+    border-radius: 12px;
+  }
+  
+  .product-img img {
+    height: 220px !important;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
 }

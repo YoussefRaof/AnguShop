@@ -37,14 +37,19 @@ export class ProductsComponent implements OnInit {
   
   paginatedProducts(): any[] {
     const start = (this.currentPage - 1) * this.pageSize;
-    return this.filteredProducts().slice(start, start + this.pageSize); // 0 -8
+    return this.filteredProducts().slice(start, start + this.pageSize); 
   }
   
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
+changePage(page: number): void {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+    // Scroll to top of product list
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Optional smooth scroll
+    });
   }
+}
   
   filteredProducts(): any[] {
     if (!this.searchText) return this.AllProducts;
