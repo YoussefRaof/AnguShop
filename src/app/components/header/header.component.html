@@ -15,7 +15,7 @@
                   <button (click)="logout()" class="btn btn-outline-danger btn-sm ms-2">Logout</button>
                 </div>
               </li>
-              
+
               <!-- Show Sign In and Register links when not logged in -->
               <li *ngIf="!isLoggedIn">
                 <a routerLink="/login" href="login.html">Sign In</a>
@@ -23,10 +23,10 @@
               <li *ngIf="!isLoggedIn">
                 <a routerLink="/register" href="register.html">Register</a>
               </li>
-  
+
               <!-- Profile icon (only visible when logged in) -->
               <li *ngIf="isLoggedIn">
-                <a routerLink="/profile" class="nav-link p-3 rounded-circle text-white">
+                <a routerLink="/profile" class="nav-link p-3 text-white">
                   <i class="fas fa-user fa-1x"></i>
                 </a>
               </li>
@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- End Topbar -->
 
   <!-- Start Header Middle -->
@@ -55,7 +55,7 @@
         </div>
 
         <div class="col-lg-5 col-md-7 d-xs-none">
-      
+
         </div>
 
         <div class="col-lg-4 col-md-2 col-5">
@@ -112,7 +112,7 @@
               <li><a href="product-grids.html">Sunglass</a></li>
               <li><a href="product-grids.html">Watch</a></li>
             </ul>
-          </div> 
+          </div>
 
 
           <!-- Start Navbar -->
