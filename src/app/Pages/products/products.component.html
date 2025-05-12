@@ -6,23 +6,42 @@
 </div>
 }@else{
 <div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6 d-flex">
-      <input type="text" class="form-control product-search" placeholder="Search products by name..."
-        [(ngModel)]="searchText" (ngModelChange)="currentPage = 1" />
 
-      <div class="px-2 mt-2">
-        <i class="fas fa-search icoser"></i>
+
+
+  <div class=" d-flex justify-content-end">
+    <div>
+      <div class="controls">
+        <div class="view-toggle">
+          <button class="active" id="grid-view" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'"><i
+              class="fas fa-th"></i> Grid</button>
+          <button id="list-view" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'"><i
+              class="fas fa-list"></i> List</button>
+        </div>
+        <div class="filter-sort">
+          <select id="category-filter" [(ngModel)]="selectedCategory">
+            <option value="">All Categories</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+          <select id="sort-by" [(ngModel)]="selectedSort">
+            <option value="default" disabled hidden>Sort by</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Rating</option>
+            <option value="name">Name</option>
+          </select>
+          <input type="text" id="search" class="search-input" [(ngModel)]="searchText" (ngModelChange)="currentPage = 1"
+            placeholder="Search products...">
+        </div>
       </div>
     </div>
   </div>
-
-
-  <div class="row">
+  <div class="row mt-4">
     @for (product of paginatedProducts(); track $index) {
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+    <div class="col-sm-12 col-md-6 col-lg-4  mb-4">
       <app-one-product [oneProductData]="product" (productAdded)="showNotification()"></app-one-product>
     </div>
+
     }
   </div>
 
