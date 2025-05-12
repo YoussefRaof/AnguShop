@@ -64,9 +64,10 @@
                 </a>
               </li>
 
-              <div>
+              <div *ngIf="isLoggedIn">
                 <button (click)="logout()" class="btn btn-sm ms-2 logout">Logout</button>
               </div>
+
 
             </ul>
 

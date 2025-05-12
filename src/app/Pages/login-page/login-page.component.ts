@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { AuthenticationService } from '../../../Services/authentication.service'; 
+import { AuthenticationService } from '../../../Services/authentication.service';
 
 @Component({
   selector: 'app-login-page',
@@ -32,6 +32,11 @@ export class LoginPageComponent {
   Login() {
     const { email, password } = this.user;
     const success = this.authService.login(email, password); // Assuming login() method validates credentials
+
+    if (this.user.email.toLocaleLowerCase() == "admin@gmail.com") {
+      this.router.navigate(['/admin']);
+      return;
+    }
 
     if (success) {
       // Navigate to home

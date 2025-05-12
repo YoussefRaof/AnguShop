@@ -4,6 +4,16 @@ import { RegisterPageComponent } from './Pages/register-page/register-page.compo
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { ForgetPasswordPageComponent } from './components/forget-password-page/forget-password-page.component';
 
+
+import { AdminComponent } from './components/admin/admin.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { UsersComponent } from './components/admin/users/users.component';
+import { ProducttsComponent } from './components/admin/productts/productts.component';
+import { OrdersComponent } from './components/admin/orders/orders.component';
+import { ComplaintsComponent } from './components/admin/complaints/complaints.component';
+import { SettingsComponent } from './components/admin/settings/settings.component';
+
+
 import { ProductsComponent } from './Pages/products/products.component';
 import { ErrorPageComponent } from './Pages/error-page/error-page.component';
 import { HomeComponent } from './Pages/home/home.component';
@@ -16,36 +26,48 @@ import { CategoryMasterComponent } from './Pages/category-master/category-master
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { OrderHistoryComponent } from './Pages/order-history/order-history.component';
 export const routes: Routes = [
-    // Standalone pages (without layout  Navbar and Footer)
-    { path: 'register', component: RegisterPageComponent, title: 'Register' },
-    { path: 'login', component: LoginPageComponent, title: 'Login' },
-    { path: 'forgetpass', component: ForgetPasswordPageComponent, title: 'Forget Password' },
-
-    // Pages under layout ythat will appear with Navbar and Footer
-    {
-        path: '',
-        component: MainLayoutComponent,
-        children: [
-            { path: 'home', component: HomeComponent, title: 'Home' },
-            { path: '', component: HomeComponent, title: 'Home' },
-
-            { path: 'OrderHistory', component: OrderHistoryComponent, title: 'Order History' },
-            { path: 'contactus', component: AboutComponent, title: 'Contact Us' },
-            { path: 'cart', component: CartComponent, title: 'Cart' },
-            { path: 'products', component: ProductsComponent, title: 'Our Products' },
-            { path: 'products/:id', component: ProductDetailsComponent, title: 'Product Details' },
-            { path: 'Categories', component: CategoryMasterComponent, title: 'Categories' }, 
-            { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
-            { path: 'wishList', component: WishListComponent, title: 'wishList' },
-            { path: 'error', component: ErrorPageComponent, title: 'Error' },
-            { path: 'profile', component: ProfileComponent, title: 'Profile' },
+  // Standalone pages (without layout  Navbar and Footer)
+  { path: 'register', component: RegisterPageComponent, title: 'Register' },
+  { path: 'login', component: LoginPageComponent, title: 'Login' },
+  { path: 'forgetpass', component: ForgetPasswordPageComponent, title: 'Forget Password' },
 
 
-        ]
-    },
+  {
+    path: 'admin', component: AdminComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'products', component: ProducttsComponent },
+      { path: 'orders', component: OrdersComponent },
+      { path: 'complaints', component: ComplaintsComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
 
-    // Other standalone components or error handling
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: '**', redirectTo: 'error', title: 'Error' }
+
+  // Pages under layout ythat will appear with Navbar and Footer
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: 'home', component: HomeComponent, title: 'Home' },
+      { path: '', component: HomeComponent, title: 'Home' },
+
+      { path: 'OrderHistory', component: OrderHistoryComponent, title: 'Order History' },
+      { path: 'contactus', component: AboutComponent, title: 'Contact Us' },
+      { path: 'cart', component: CartComponent, title: 'Cart' },
+      { path: 'products', component: ProductsComponent, title: 'Our Products' },
+      { path: 'products/:id', component: ProductDetailsComponent, title: 'Product Details' },
+      { path: 'Categories', component: CategoryMasterComponent, title: 'Categories' },
+      { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
+      { path: 'wishList', component: WishListComponent, title: 'wishList' },
+      { path: 'error', component: ErrorPageComponent, title: 'Error' },
+      { path: 'profile', component: ProfileComponent, title: 'Profile' },
+    ]
+  },
+
+  // Other standalone components or error handling
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'error', title: 'Error' }
 ];
-

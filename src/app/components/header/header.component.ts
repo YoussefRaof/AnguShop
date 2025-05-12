@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { WishlistService } from '../../../Services/wish-list.service';
 import { CartService } from '../../../Services/cart.service';
 import { AuthenticationService } from '../../../Services/authentication.service';  // Inject AuthService for login status
@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   cartCount: number = 0;
 
   constructor(
+    private router: Router,
     private wishlistService: WishlistService,
     private cartService: CartService,
     private authService: AuthenticationService  // Inject AuthService for user login status
@@ -46,5 +47,6 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
