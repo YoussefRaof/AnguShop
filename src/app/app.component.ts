@@ -1,15 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { DarkModeComponent } from "./components/dark-mode/dark-mode.component";
-// import { RegisterPageComponent } from "./Pages/register-page/register-page.component";
-// import { LoginPageComponent } from "./Pages/login-page/login-page.component";
-
-// import { ProductsComponent } from "./Pages/products/products.component";
-// import { ProductDetailsComponent } from "./Pages/product-details/product-details.component";
-// import { CartComponent } from "./Pages/cart/cart.component";
-// import { HomeComponent } from './Pages/home/home.component';
-// import { HeaderComponent } from "./components/header/header.component";
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',

@@ -71,7 +71,7 @@
               <strong>Total</strong>
               <strong>${{ cartTotal.toFixed(2) }}</strong>
             </div>
-            <button class="btn btn-success w-100 mb-2" (click)="checkout()">
+            <button routerLink="/checkout" class="btn btn-success w-100 mb-2" (click)="checkout()">
               Proceed to Checkout
             </button>
             <button class="btn btn-outline-secondary w-100" (click)="clearCart()">
