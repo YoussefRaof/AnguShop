@@ -29,7 +29,7 @@ export class LoginPageComponent {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
     }
-    
+
     // Check for remembered email
     const rememberedEmail = localStorage.getItem('rememberedEmail');
     if (rememberedEmail) {
@@ -53,8 +53,15 @@ export class LoginPageComponent {
     try {
       // Simulate API delay (remove in production)
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       const success = this.authService.login(this.user.email, this.user.password);
+
+
+      if (this.user.email.toLocaleLowerCase() == "admin@gmail.com") {
+        this.router.navigate(['/admin']);
+        return;
+      }
+
 
       if (success) {
         // Handle remember me functionality
@@ -63,7 +70,7 @@ export class LoginPageComponent {
         } else {
           localStorage.removeItem('rememberedEmail');
         }
-        
+
         this.router.navigate(['/home']);
       } else {
         this.errorMessage = "Invalid email or password. Please try again.";
