@@ -26,7 +26,6 @@
               </li>
 
 
-
               <!-- Show Sign In and Register links when not logged in -->
               <li *ngIf="!isLoggedIn">
                 <a routerLink="/login" href="login.html">Sign In</a>
@@ -34,7 +33,6 @@
               <li *ngIf="!isLoggedIn">
                 <a routerLink="/register" href="register.html">Register</a>
               </li>
-
 
 
               <div class="navbar-cart">
@@ -70,6 +68,7 @@
                 <button (click)="logout()" class="btn btn-sm ms-2 logout">Logout</button>
               </div>
 
+
             </ul>
 
           </div>
@@ -78,51 +77,6 @@
       </div>
     </div>
   </div>
-
-  <!-- End Topbar -->
-
-  <!-- Start Header Middle -->
-  <div class="header-middle">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-3 col-md-3 col-7">
-          <a routerLink="/home" class="text-decoration-none">
-            <div class="d-flex align-items-center">
-              <a routerLink="/home">
-                <img src="/Images/AnguShopLogoCpy.png" alt="AnguShop Logo" width="50" height="50" class="me-2">
-              </a>
-              <span class="brand-name">AnguShop</span>
-            </div>
-          </a>
-        </div>
-
-        <div class="col-lg-5 col-md-7 d-xs-none">
-
-        </div>
-
-        <div class="col-lg-4 col-md-2 col-5">
-          <div class="navbar-cart">
-            <div class="wishlist" *ngIf="isLoggedIn">
-              <a routerLink="/wishList" href="javascript:void(0)">
-                <i class="fa-solid fa-heart"></i>
-                <span class="total-items">{{ wishlistCount }}</span>
-              </a>
-            </div>
-
-            <div class="cart-items" *ngIf="isLoggedIn">
-              <a routerLink="/cart" href="javascript:void(0)" class="main-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="total-items">{{cartCount}}</span>
-              </a>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- End Header Middle -->
 
 
   <!-- Start Header Bottom -->
@@ -155,7 +109,6 @@
               <li><a href="product-grids.html">Sunglass</a></li>
               <li><a href="product-grids.html">Watch</a></li>
             </ul>
-          </div>
           </div>
 
 

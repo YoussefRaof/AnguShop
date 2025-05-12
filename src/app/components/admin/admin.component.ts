@@ -46,6 +46,7 @@ export class AdminComponent {
       case 'users': return 'fas fa-users';
       case 'products': return 'fas fa-boxes';
       case 'orders': return 'fas fa-shopping-cart';
+      case 'complaints': return 'fa-solid fa-comments';
       case 'settings': return 'fa-solid fa-gear';
       default: return 'fas fa-circle';
     }

@@ -9,7 +9,6 @@
                     *ngIf="!isSidebarCollapsed">
                     Admin
                 </a>
-
             </div>
 
             <button (click)="toggleSidebar()" class="toggle-btn btn btn-sm text-white">
@@ -46,6 +45,13 @@
                     <a class="nav-link d-flex align-items-center text-white" (click)="setActiveTab('orders')">
                         <i class="fas fa-shopping-cart me-3"></i>
                         <span *ngIf="!isSidebarCollapsed">Orders</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" [class.active]="activeTab === 'complaints'">
+                    <a class="nav-link d-flex align-items-center text-white" (click)="setActiveTab('complaints')">
+                        <i class="fa-solid fa-comments me-3"></i>
+                        <span *ngIf="!isSidebarCollapsed">Complaints</span>
                     </a>
                 </li>
 
