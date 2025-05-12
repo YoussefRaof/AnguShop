@@ -46,14 +46,14 @@ export class CartService {
     const existingItemIndex = this.cartItems.findIndex(item => item.id === product.id);
 
     if (existingItemIndex !== -1) {
-      this.cartItems[existingItemIndex].quantity += 1;
+      this.cartItems[existingItemIndex].quantity += product.quantity;
     } else {
       const newItem: CartItem = {
         id: product.id,
         title: product.title,
         price: product.price,
         image: product.image,
-        quantity: 1,
+        quantity: product.quantity ? product.quantity : 1,
         category: product.category,
         description: product.description
       };
