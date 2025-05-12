@@ -1,0 +1,32 @@
+.container{
+width: 60%;}
+        .order-card {
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .status-badge {
+            border-radius: 50px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+        .product-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        .timeline-line {
+            height: 2px;
+            background-color: #dee2e6;
+            flex-grow: 1;
+        }
