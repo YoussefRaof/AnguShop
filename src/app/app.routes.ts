@@ -4,6 +4,15 @@ import { RegisterPageComponent } from './Pages/register-page/register-page.compo
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { ForgetPasswordPageComponent } from './components/forget-password-page/forget-password-page.component';
 
+
+import { AdminComponent } from './components/admin/admin.component'; 
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component'; 
+import { UsersComponent } from './components/admin/users/users.component'; 
+import { ProducttsComponent } from './components/admin/productts/productts.component'; 
+import { OrdersComponent } from './components/admin/orders/orders.component'; 
+import { SettingsComponent } from './components/admin/settings/settings.component';
+
+
 import { ProductsComponent } from './Pages/products/products.component';
 import { ErrorPageComponent } from './Pages/error-page/error-page.component';
 import { HomeComponent } from './Pages/home/home.component';
@@ -19,6 +28,20 @@ export const routes: Routes = [
     { path: 'register', component: RegisterPageComponent, title: 'Register' },
     { path: 'login', component: LoginPageComponent, title: 'Login' },
     { path: 'forgetpass', component: ForgetPasswordPageComponent, title: 'Forget Password' },
+    
+    
+    {
+        path: 'admin', component: AdminComponent,
+        children: [
+          { path: 'dashboard', component: DashboardComponent },
+          { path: 'users', component: UsersComponent },
+          { path: 'products', component: ProducttsComponent },
+          { path: 'orders', component: OrdersComponent },
+          { path: 'settings', component: SettingsComponent },
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+        ]
+      },
+
 
     // Pages under layout ythat will appear with Navbar and Footer
     {
@@ -37,8 +60,6 @@ export const routes: Routes = [
             { path: 'wishList', component: WishListComponent, title: 'wishList' },
             { path: 'error', component: ErrorPageComponent, title: 'Error' },
             { path: 'profile', component: ProfileComponent, title: 'Profile' },
-
-
         ]
     },
 
@@ -46,4 +67,3 @@ export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'error', title: 'Error' }
 ];
-
