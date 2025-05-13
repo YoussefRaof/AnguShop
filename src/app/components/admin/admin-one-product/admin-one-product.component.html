@@ -1,44 +1,48 @@
-            <div class="card product-card">
-                <!-- Product Image with Action Buttons -->
-                <div class="card-img-top position-relative">
-                    <img src="./Images/products/product-8.jpg" class="img-fluid" alt="Sample Product">
-                    <div class="card-actions">
-                        <button class="btn btn-sm btn-action btn-view" title="View Details">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-action btn-delete" title="Delete">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </div>
+<div class="card product-card h-100">
+  <!-- Product Image with Action Buttons -->
+  <div class="card-img-top position-relative">
+    <img [src]="product.image" class="img-fluid" alt="{{ product.title }}">
+    <div class="card-actions position-absolute top-0 end-0 m-2">
+<!-- inside the card-actions -->
+<button class="btn btn-sm btn-action btn-view" title="View Details" (click)="onView()">
+  <i class="fas fa-eye"></i>
+</button>
+<button class="btn btn-sm btn-action btn-edit" title="Edit" *ngIf="product.source === 'local'" (click)="onEdit()">
+  <i class="fas fa-edit"></i>
+</button>
+<button class="btn btn-sm btn-action btn-delete" *ngIf="product.source === 'local'" title="Delete" (click)="onDelete()">
+  <i class="fas fa-trash-alt"></i>
+</button>
 
-                <!-- Product Details -->
-                <div class="card-body">
-                    <h5 class="card-title">Premium Wireless Headphones</h5>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="badge bg-primary">Electronics</span>
-                        <span class="text-success fw-bold">$129.99</span>
-                    </div>
-                    <p class="card-text text-muted small">
-                        High-quality wireless headphones with noise cancellation and 30-hour battery life. Perfect for
-                        music lovers and professionals.
-                    </p>
-                </div>
+    </div>
+  </div>
 
-                <!-- Product Footer -->
-                <div class="card-footer bg-transparent">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">Stock: 25</small>
-                        <div class="rating">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-muted"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Product Details -->
+  <div class="card-body">
+    <h5 class="card-title text-truncate">{{ product.title }}</h5>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <span class="badge bg-primary">{{ product.category }}</span>
+      <span class="text-success fw-bold">${{ product.price }}</span>
+    </div>
+    <p class="card-text text-muted small">
+      {{ product.description | slice:0:100 }}...
+    </p>
+  </div>
+
+  <!-- Product Footer -->
+  <div class="card-footer bg-transparent">
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="text-muted">Stock: {{ product.rating?.count || 0 }}</small>
+<div class="rating" *ngIf="product.rating">
+  <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+    <i class="fas"
+       [ngClass]="{
+         'fa-star text-warning': i < product.rating.rate,
+         'fa-star text-muted': i >= product.rating.rate
+       }"></i>
+  </ng-container>
+</div>
+
+    </div>
+  </div>
+</div>

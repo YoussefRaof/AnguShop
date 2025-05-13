@@ -1,60 +1,34 @@
-import { Component, Input } from '@angular/core';
-
-import { Product } from '../interfaces/product';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditProductModalComponent } from '../edit-product-modal/edit-product-modal.component';
-import { ConfirmDeleteModalComponent } from '../confirm-delete-modal/confirm-delete-modal.component';
-import { ProductsService } from '../../../../Services/products.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule, NgClass, SlicePipe } from '@angular/common';
+import { Product } from '../../../interfaces/product';
 
 @Component({
   selector: 'app-admin-one-product',
+  standalone: true,
+  imports: [CommonModule, NgClass, SlicePipe],
   templateUrl: './admin-one-product.component.html',
   styleUrls: ['./admin-one-product.component.css']
 })
 export class AdminOneProductComponent {
   @Input() product!: Product;
 
-  constructor(
-    private productsService: ProductsService,
-    private modalService: NgbModal
-  ) {}
+  @Output() delete = new EventEmitter<number>();
+  @Output() viewDetails = new EventEmitter<number>();
+  @Output() edit = new EventEmitter<number>();
 
-  openViewModal() {
-    const modalRef = this.modalService.open(EditProductModalComponent, { 
-      centered: true,
-      size: 'lg'
-    });
-    modalRef.componentInstance.product = { ...this.product };
-    modalRef.componentInstance.mode = 'view';
+  get fullStars(): number {
+    return Math.floor(this.product.rating?.rate || 0);
   }
 
-  openEditModal() {
-    const modalRef = this.modalService.open(EditProductModalComponent, {
-      centered: true,
-      size: 'lg'
-    });
-    modalRef.componentInstance.product = { ...this.product };
-    modalRef.componentInstance.mode = 'edit';
-    
-    modalRef.result.then((updatedProduct) => {
-      if (updatedProduct) {
-        this.product = updatedProduct;
-      }
-    });
+  onDelete(): void {
+    this.delete.emit(this.product.id);
   }
 
-  openDeleteConfirm() {
-    const modalRef = this.modalService.open(ConfirmDeleteModalComponent, {
-      centered: true
-    });
-    modalRef.componentInstance.productName = this.product.title;
-    
-    modalRef.result.then((result) => {
-      if (result === 'delete') {
-        this.productsService.deleteProduct(this.product.id).subscribe(() => {
-          // Handle deletion (parent component should remove this product from list)
-        });
-      }
-    });
+  onView(): void {
+    this.viewDetails.emit(this.product.id);
+  }
+
+  onEdit(): void {
+    this.edit.emit(this.product.id);
   }
 }
