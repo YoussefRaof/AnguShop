@@ -1,1 +1,113 @@
-<p class="text-white">Dashboard works!</p>
+<div class="dashboard-header">
+    <h4 class="text-white">Dashboard Overview</h4>
+    <p>Welcome back! Here's what's happening with your store today.</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <!-- Total Sales -->
+    <div class="stat-card" style="border-left-color: #17a2b8;">
+        <div class="stat-value">$24,780</div>
+        <div class="stat-label">Total Sales</div>
+        <div class="trend-indicator trend-up">
+            <i class="bi bi-arrow-up"></i> 12% from last month
+        </div>
+    </div>
+
+
+    <!-- Total Orders -->
+    <div class="stat-card" style="border-left-color: rgb(162, 0, 0);">
+        <div class="stat-value">1,842</div>
+        <div class="stat-label">Total Orders</div>
+        <div class="trend-indicator trend-up">
+            <i class="bi bi-arrow-up"></i> 8% from last month
+        </div>
+    </div>
+
+
+    <!-- Active Users -->
+    <div class="stat-card" style="border-left-color: #28a745;">
+        <div class="stat-value">5,312</div>
+        <div class="stat-label">Active Users</div>
+        <div class="trend-indicator trend-up">
+            <i class="bi bi-arrow-up"></i> 15 new today
+        </div>
+    </div>
+
+
+    <!-- Products -->
+    <div class="stat-card" style="border-left-color: #ffc107;">
+        <div class="stat-value">287</div>
+        <div class="stat-label">Products</div>
+        <div class="trend-indicator" style="color: rgb(166, 166, 166);">12 low in stock</div>
+    </div>
+</div>
+
+
+<!-- Data Cards -->
+<div class="row text-white">
+    <div class="col-md-6 d-flex flex-column">
+        <div class="data-card h-100">
+            <div class="data-card-header">
+                <h5 class="data-card-title">Popular Products</h5>
+                <a href="#" class="btn btn-light text-black view-all-link">View All</a>
+            </div>
+
+            <div class="data-items">
+                <div class="data-item">
+                    <span>Wireless Headphones</span>
+                    <span class="badge-count">42 sales</span>
+                </div>
+
+                <div class="data-item">
+                    <span>Smart Watch</span>
+                    <span class="badge-count">38 sales</span>
+                </div>
+
+                <div class="data-item">
+                    <span>Bluetooth Speaker</span>
+                    <span class="badge-count">29 sales</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 d-flex flex-column">
+        <div class="data-card h-100">
+            <div class="data-card-header">
+                <h5 class="data-card-title">Recent Activity</h5>
+                <a href="#" class="btn btn-light text-black view-all-link">View All</a>
+            </div>
+            <div class="activity-items">
+                <div class="activity-item">
+                    <div class="activity-text">
+                        <strong>Order #ORD-7841</strong> was completed
+                    </div>
+                    <div class="activity-time">5 hours ago</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-text">
+                        <strong>Product "Wireless Earbuds"</strong> was updated
+                    </div>
+                    <div class="activity-time">1 day ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- System Status -->
+<div class="row my-4">
+    <div class="col-md-12">
+        <div class="alert alert-success">
+            <i class="bi bi-check-circle-fill me-2"></i> All systems operational
+        </div>
+
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle-fill me-2"></i> Scheduled inventory update tonight at 2:00 AM
+        </div>
+    </div>
+</div>
