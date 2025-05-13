@@ -30,3 +30,21 @@ width: 60%;}
             background-color: #dee2e6;
             flex-grow: 1;
         }
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ccc;
+}
+
+.bg-success {
+  background-color: green;
+  color: white;
+}
+
+.bg-light {
+  background-color: lightgray;
+}
