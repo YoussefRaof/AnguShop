@@ -21,7 +21,7 @@ import { AdminOneProductComponent } from '../admin-one-product/admin-one-product
 export class ProducttsComponent implements OnInit {
   products: Product[] = [];
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe({
@@ -30,19 +30,19 @@ export class ProducttsComponent implements OnInit {
     });
   }
 
-onDeleteProduct(id: number): void {
-  if (confirm('Are you sure you want to delete this product?')) {
-    this.productService.deleteProduct(id).subscribe({
-      next: (res) => {
-        console.log('Deleted:', res);
-        this.products = this.products.filter(p => p.id !== id);
-      },
-      error: (err) => {
-        console.error('Failed to delete product', err);
-      }
-    });
+  onDeleteProduct(id: number): void {
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.productService.deleteProduct(id).subscribe({
+        next: (res) => {
+          console.log('Deleted:', res);
+          this.products = this.products.filter(p => p.id !== id);
+        },
+        error: (err) => {
+          console.error('Failed to delete product', err);
+        }
+      });
+    }
   }
-}
 
 
   onViewProduct(id: number): void {
@@ -55,10 +55,10 @@ onDeleteProduct(id: number): void {
     // Show modal or enable inline editing
   }
   handleDelete(productId: number) {
-  // Handle product deletion
-}
+    // Handle product deletion
+  }
 
-handleUpdate(updatedProduct: Product) {
-  // Handle product updates
-}
+  handleUpdate(updatedProduct: Product) {
+    // Handle product updates
+  }
 }
