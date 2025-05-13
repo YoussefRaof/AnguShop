@@ -18,9 +18,9 @@ export interface CartItem {
 export class CartService {
   private cartItems: CartItem[] = [];
   private cartSubject = new BehaviorSubject<CartItem[]>([]);
-  private cartCountSubject = new BehaviorSubject<number>(0); // Now represents unique items
+  private cartCountSubject = new BehaviorSubject<number>(0);
   private cartTotalSubject = new BehaviorSubject<number>(0);
-  private cartTotalQuantitySubject = new BehaviorSubject<number>(0); // New subject for total quantity
+  private cartTotalQuantitySubject = new BehaviorSubject<number>(0);
 
   constructor(private authService: AuthenticationService) {
     this.authService.currentUser$.subscribe(email => {
@@ -28,16 +28,19 @@ export class CartService {
     });
   }
 
+  // Add this method to check if product is in cart
+  isInCart(productId: number): boolean {
+    return this.cartItems.some(item => item.id === productId);
+  }
+
   getCartItems(): Observable<CartItem[]> {
     return this.cartSubject.asObservable();
   }
 
-  // Returns count of unique products
   getCartCount(): Observable<number> {
     return this.cartCountSubject.asObservable();
   }
 
-  // Returns total quantity of all items
   getCartTotalQuantity(): Observable<number> {
     return this.cartTotalQuantitySubject.asObservable();
   }
@@ -99,15 +102,12 @@ export class CartService {
   }
 
   private updateCartMetrics(): void {
-    // Count of unique products (what you want as cart count)
     const uniqueItemsCount = this.cartItems.length;
     this.cartCountSubject.next(uniqueItemsCount);
 
-    // Total quantity of all items (sum of quantities)
     const totalQuantity = this.cartItems.reduce((total, item) => total + item.quantity, 0);
     this.cartTotalQuantitySubject.next(totalQuantity);
 
-    // Total price
     const totalPrice = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     this.cartTotalSubject.next(totalPrice);
   }

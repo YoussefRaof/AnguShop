@@ -24,6 +24,7 @@ import { CheckoutComponent } from './Pages/checkout/checkout.component';
 import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { CategoryMasterComponent } from './Pages/category-master/category-master.component';
 import { ProfileComponent } from './Pages/profile/profile.component';
+import { CompareProductComponent } from './Pages/compare-product/compare-product.component';
 
 
 export const routes: Routes = [
@@ -42,6 +43,7 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersComponent },
       { path: 'complaints', component: ComplaintsComponent },
       { path: 'settings', component: SettingsComponent },
+      
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
@@ -64,6 +66,7 @@ export const routes: Routes = [
       { path: 'wishList', component: WishListComponent, title: 'wishList' },
       { path: 'error', component: ErrorPageComponent, title: 'Error' },
       { path: 'profile', component: ProfileComponent, title: 'Profile' },
+      { path: 'compare', component: CompareProductComponent },
     ]
   },
 
