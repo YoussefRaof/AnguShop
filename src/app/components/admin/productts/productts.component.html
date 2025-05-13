@@ -13,14 +13,11 @@
 
 
 <div class="row">
-  <div class="col-md-6 col-lg-3 mb-4" *ngFor="let product of products">
-    <app-admin-one-product
-      [product]="product"
-      (delete)="onDeleteProduct($event)"
-      (viewDetails)="onViewProduct($event)"
-      (edit)="onEditProduct($event)">
-    </app-admin-one-product>
-  </div>
+    <div class="col-md-6 col-lg-3 mb-4" *ngFor="let product of products">
+        <app-admin-one-product [product]="product" (delete)="onDeleteProduct($event)"
+            (viewDetails)="onViewProduct($event)" (edit)="onEditProduct($event)">
+        </app-admin-one-product>
+    </div>
 </div>
 
 
@@ -38,4 +35,3 @@
         </li>
     </ul>
 </nav>
-

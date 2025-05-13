@@ -237,6 +237,33 @@
   transition: transform 0.3s ease;
 }
 
+.btn-view {
+    background-color: rgba(13, 110, 253, 0.9);
+}
+
+.btn-edit {
+    background-color: rgba(255, 193, 7, 0.9);
+}
+
+.btn-delete {
+    background-color: rgba(220, 53, 69, 0.9);
+}
+
+.btn-view:hover {
+    background-color: rgb(230, 230, 230) !important;
+    color: rgba(13, 110, 253, 0.9) !important;
+}
+
+.btn-edit:hover {
+    background-color: rgb(230, 230, 230) !important;
+    color: rgba(255, 193, 7, 0.9) !important;
+}
+
+.btn-delete:hover {
+    background-color: rgb(230, 230, 230) !important;
+    color: rgba(220, 53, 69, 0.9) !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-img-top {
