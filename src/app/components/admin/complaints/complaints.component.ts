@@ -1,17 +1,30 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ComplaintService } from '../../../../Services/complaint.service';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
 
 @Component({
   selector: 'app-complaints',
-  imports: [
-    FormsModule, RouterModule, CommonModule
+  standalone: true,
+  imports: [CommonModule,
+    FormsModule,
   ],
   templateUrl: './complaints.component.html',
-  styleUrl: './complaints.component.css'
+  styleUrls: ['./complaints.component.css']
 })
-export class ComplaintsComponent {
+export class ComplaintsComponent implements OnInit {
+  complaints: any[] = [];
 
+  constructor(private complaintService: ComplaintService) {}
+
+  ngOnInit(): void {
+    this.complaints = this.complaintService.getComplaints();
+  }
+
+  deleteComplaint(index: number): void {
+    if (confirm('Are you sure you want to delete this complaint?')) {
+      this.complaints.splice(index, 1);
+      this.complaintService.updateComplaints(this.complaints); 
+    }
+  }
 }
