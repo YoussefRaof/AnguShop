@@ -253,4 +253,6 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     return '';
   }
+
+  
 }
