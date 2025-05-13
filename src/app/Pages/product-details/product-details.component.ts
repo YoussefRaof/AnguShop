@@ -2,20 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../Services/products.service';
 import { WishlistService } from '../../../Services/wish-list.service';
+import { CartService } from '../../../Services/cart.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-product-details',
-  imports: [],
+  imports: [CommonModule,FormsModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
 export class ProductDetailsComponent implements OnInit {
   Prdid:any
   UserDetailsData:any
-  constructor(private wishlistService: WishlistService,MyActivated:ActivatedRoute , private _productService:ProductsService){
+  quantity:number =1
+  addedToCart: boolean = false
+  addedToWish: boolean = false
+
+
+  constructor(private wishlistService: WishlistService,MyActivated:ActivatedRoute , private _productService:ProductsService, private _cartService:CartService){
     this.Prdid=MyActivated.snapshot.params["id"]
     // console.log(this.Prdid)
-    
+
   }
   ngOnInit(): void {
     this._productService.getProductById(this.Prdid).subscribe({

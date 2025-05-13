@@ -12,6 +12,7 @@ interface User {
     location?: string;
     phone?: string;
     birthday?: string;
+    image?: string;
   };
 }
 
