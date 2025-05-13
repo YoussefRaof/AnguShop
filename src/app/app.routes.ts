@@ -34,7 +34,7 @@ export const routes: Routes = [
 
 
   {
-    path: 'admin', component: AdminComponent,
+    path: 'admin', component: AdminComponent, title: "Admin Dashboard",
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
