@@ -38,20 +38,21 @@
       <small class="text-muted">Stock: {{ product.rating?.count || 0 }}</small>
       <div class="rating" *ngIf="product.rating">
 
-        <!-- <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
-          <i class="fas" [ngClass]="{
-               'fa-star text-warning': i < product.rating.rate,
-               'fa-star text-muted': i >= product.rating.rate
-             }"></i>
-        </ng-container> -->
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+          <i class="fas fa-star" [ngClass]="{
+       'text-warning': i < (product.rating.rate),
+       'text-muted': i >= (product.rating.rate)
+     }"></i>
+        </ng-container>
 
-        <div class="rating">
+
+        <!-- <div class="rating">
           <i class="fas fa-star text-warning"></i>
           <i class="fas fa-star text-warning"></i>
           <i class="fas fa-star text-warning"></i>
           <i class="fas fa-star text-warning"></i>
           <i class="fas fa-star text-muted"></i>
-        </div>
+        </div> -->
 
       </div>
     </div>
