@@ -23,8 +23,41 @@ export class ProductDetailsComponent implements OnInit {
       error: (error)=>console.log(error)
     })
   }
+    incrementQuantity() {
+    this.quantity++;
+    this.updateQuantity(this.quantity);
+  }
+
+    decrementQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+      this.updateQuantity(this.quantity);
+    }
+  }
+
   addToWishlist() {
     this.wishlistService.addToWishlist(this.UserDetailsData);
+    this.addedToWish = true;
+
+  }
+  addToCart(){
+  const productToAdd ={
+    ...this.UserDetailsData,
+    quantity : this.quantity
+  }
+
+  this._cartService.addToCart(productToAdd);
+  this.addedToCart = true;
+  console.log(this.addedToCart)
+
+  setTimeout(() => {
+    this.addedToCart = false;
+  }, 2000);
+  console.log(this.addedToCart)
+
+}
+  updateQuantity(value: number) {
+    this.quantity = Math.max(value, 1)
   }
   getStars(rate: number): string[] {
     const stars = [];

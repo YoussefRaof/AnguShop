@@ -39,9 +39,9 @@
             <p class="text-muted small">Free shipping</p>
           </div>
           <div class="d-flex flex-column gap-2">
-            <button class="btn btn-sm btn-outline-primary w-100" type="button">
+            <a routerLink="/products/{{product.id}}" class="btn btn-sm btn-outline-primary w-100" type="button">
               <i class="fa fa-eye me-1"></i> Details
-            </button>
+            </a>
             <button
               class="btn btn-sm btn-outline-danger w-100"
               (click)="removeFromWishlist(product.id)"
