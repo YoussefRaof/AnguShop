@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../../../Services/authentication.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile',
@@ -21,8 +23,8 @@ export class ProfileComponent implements OnInit {
     phone: '',
     birthday: ''
   };
-
-  constructor(private authService: AuthenticationService) {}
+  
+  constructor(private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     const user = this.authService.getCurrentUserProfile();
@@ -37,7 +39,7 @@ export class ProfileComponent implements OnInit {
       this.profile.birthday = user.profile?.birthday || '';
     }
   }
-  
+
   saveChanges() {
     this.authService.updateUserProfile({
       username: this.profile.username,
@@ -54,5 +56,9 @@ export class ProfileComponent implements OnInit {
       icon: 'success',
       confirmButtonText: 'Ok'
     });
+  }
+
+  cancel() {
+    this.router.navigate(['/products']);
   }
 }

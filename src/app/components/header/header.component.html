@@ -8,7 +8,8 @@
         <a routerLink="/home" class="text-decoration-none col-4">
           <div class="d-flex align-items-center">
             <a routerLink="/home">
-              <img src="/Images/AnguShopLogoCpy.png" alt="AnguShop Logo" width="50" height="50" class="me-2 logo-animate">
+              <img src="/Images/AnguShopLogoCpy.png" alt="AnguShop Logo" width="50" height="50"
+                class="me-2 logo-animate">
             </a>
             <span class="brand-name text-white header0">AnguShop</span>
           </div>
@@ -26,7 +27,7 @@
 
               <!-- Show Sign In and Register links when not logged in -->
               <li *ngIf="!isLoggedIn">
-                <a routerLink="/login" href="login.html" class="auth-link">Sign In</a>
+                <a routerLink="/login" href="login.html" class="auth-link">Login</a>
               </li>
               <li *ngIf="!isLoggedIn">
                 <a routerLink="/register" href="register.html" class="auth-link">Register</a>
@@ -35,14 +36,14 @@
               <div class="navbar-cart ">
                 <div class="wishlist" *ngIf="isLoggedIn">
                   <a routerLink="/wishList" href="javascript:void(0)" class="myico1 cart-icon">
-                    <i class="fa-solid fa-heart txtico1"></i>
+                    <i class="fa-solid fa-heart txtico1" style="color: red;"></i>
                     <span class="total-items pulse">{{ wishlistCount }}</span>
                   </a>
                 </div>
 
                 <div class="cart-items" *ngIf="isLoggedIn">
                   <a routerLink="/cart" href="javascript:void(0)" class="main-btn myico2 cart-icon">
-                    <i class="fa-solid fa-cart-shopping txtico2"></i>
+                    <i class="fa-solid fa-cart-shopping txtico2" style="color: green;"></i>
                     <span class="total-items pulse">{{cartCount}}</span>
                   </a>
                 </div>
@@ -83,8 +84,8 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul class="nav nav-pills d-flex gap-3 justify-content-center">
                 <li class="nav-item">
-                  <a class="nav-link nav-button" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
-                    routerLink="/home">
+                  <a class="nav-link nav-button" routerLinkActive="active-link"
+                    [routerLinkActiveOptions]="{exact: true}" routerLink="/home">
                     <i class="fas fa-home me-2"></i>Home
                   </a>
                 </li>
@@ -128,4 +129,3 @@
     </div>
   </div>
 </header>
-
