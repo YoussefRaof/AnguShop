@@ -57,7 +57,7 @@ export class LoginPageComponent {
       const success = this.authService.login(this.user.email, this.user.password);
 
 
-      if (this.user.email.toLocaleLowerCase() == "admin@gmail.com") {
+      if (this.user.email.toLocaleLowerCase() === "admin@gmail.com" && this.user.password === "Test@123") {
         this.router.navigate(['/admin']);
         return;
       }

@@ -2,38 +2,78 @@ import { CommonModule } from '@angular/common';
 import { WishlistService } from '../../../Services/wish-list.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CartService } from '../../../Services/cart.service';
-import { AuthenticationService } from '../../../Services/authentication.service';  // Import your authentication service
-import { RouterModule } from '@angular/router';
+import { AuthenticationService } from '../../../Services/authentication.service';
+import { Router, RouterModule } from '@angular/router';
+import { ComparisonService } from '../../../Services/comparison.service';
 
 @Component({
   selector: 'app-one-product',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './one-product.component.html',
-  styleUrl: './one-product.component.css'
+  styleUrls: ['./one-product.component.css']
 })
 export class OneProductComponent {
   @Input() oneProductData: any;
-  isAuthenticated: boolean = false;  // Variable to track authentication status
+  @Output() productAdded = new EventEmitter<void>();
+  isAuthenticated: boolean = false;
+  cartCount: number = 0;
+  
+  // Popup notification properties
+  showPopup: boolean = false;
+  popupMessage: string = '';
+  popupType: 'success' | 'error' | 'wishlist' | 'cart' = 'success';
 
   constructor(
     private wishlistService: WishlistService,
     private cartService: CartService,
-    private authService: AuthenticationService  // Inject AuthenticationService
+    private authService: AuthenticationService,
+    private comparisonService: ComparisonService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    // Check if user is authenticated on component initialization
-    this.isAuthenticated = this.authService.isLoggedIn();  // Use your isLoggedIn method
+    this.isAuthenticated = this.authService.isLoggedIn();
   }
 
+  // Check if product is in wishlist
+  isInWishlist(): boolean {
+    return this.wishlistService.isInWishlist(this.oneProductData.id);
+  }
+
+  // Check if product is in cart
+  isInCart(): boolean {
+    return this.cartService.isInCart(this.oneProductData.id);
+  }
+
+  // Show notification popup
+  private showNotification(message: string, type: 'success' | 'error' | 'wishlist' | 'cart') {
+    this.popupMessage = message;
+    this.popupType = type;
+    this.showPopup = true;
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+      this.showPopup = false;
+    }, 3000);
+  }
+
+  // Add/remove from wishlist
   addToWishlist() {
     if (this.isAuthenticated) {
-      this.wishlistService.addToWishlist(this.oneProductData);
+      if (this.isInWishlist()) {
+        this.wishlistService.removeFromWishlist(this.oneProductData.id);
+        this.showNotification('Removed from wishlist', 'wishlist');
+      } else {
+        this.wishlistService.addToWishlist(this.oneProductData);
+        this.showNotification('Added to wishlist', 'wishlist');
+      }
     } else {
-      alert('Please login to add to wishlist.');
+      this.showNotification('Please login to manage wishlist', 'error');
     }
   }
 
+  // Get star ratings
   getStars(rate: number): string[] {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -48,18 +88,27 @@ export class OneProductComponent {
     return stars;
   }
 
-  @Output() productAdded = new EventEmitter<void>();
-  cartCount: number = 0;
-  
+  // Add to cart
   addToCart(product: any): void {
     if (this.isAuthenticated) {
-      this.cartService.addToCart(product);
+      if (this.isInCart()) {
+        this.showNotification('Already in cart', 'cart');
+      } else {
+        this.cartService.addToCart(product);
+        this.showNotification('Added to cart', 'cart');
+      }
       this.productAdded.emit();
       this.cartService.getCartCount().subscribe(count => {
         this.cartCount = count;
       });
     } else {
-      alert('Please login to add to cart.');
+      this.showNotification('Please login to add to cart', 'error');
     }
   }
+
+  compareProduct() {
+  this.comparisonService.addProductToCompare(this.oneProductData);
+  this.router.navigate(['/compare']);
+  this.showNotification('Added to comparison', 'success');
+}
 }

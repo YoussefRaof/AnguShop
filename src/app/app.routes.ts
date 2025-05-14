@@ -41,6 +41,7 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersComponent },
       { path: 'complaints', component: ComplaintsComponent },
       { path: 'settings', component: SettingsComponent },
+      
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
@@ -64,6 +65,7 @@ export const routes: Routes = [
       { path: 'wishList', component: WishListComponent, title: 'wishList' },
       { path: 'error', component: ErrorPageComponent, title: 'Error' },
       { path: 'profile', component: ProfileComponent, title: 'Profile' },
+      { path: 'compare', component: CompareProductComponent },
     ]
   },
 

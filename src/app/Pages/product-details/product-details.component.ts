@@ -32,6 +32,18 @@ export class ProductDetailsComponent implements OnInit {
       error: (error)=>console.log(error)
     })
   }
+    incrementQuantity() {
+    this.quantity++;
+    this.updateQuantity(this.quantity);
+  }
+
+    decrementQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+      this.updateQuantity(this.quantity);
+    }
+  }
+
   addToWishlist() {
     this.wishlistService.addToWishlist(this.UserDetailsData);
     this.addedToWish = true;
@@ -53,9 +65,9 @@ export class ProductDetailsComponent implements OnInit {
   console.log(this.addedToCart)
 
 }
-updateQuantity(value: number) {
-  this.quantity = value;
-}
+  updateQuantity(value: number) {
+    this.quantity = Math.max(value, 1)
+  }
   getStars(rate: number): string[] {
     const stars = [];
     for (let i = 1; i <= 5; i++) {

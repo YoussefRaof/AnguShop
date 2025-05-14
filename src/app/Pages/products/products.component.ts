@@ -44,6 +44,7 @@ export class ProductsComponent implements OnInit {
 
   paginatedProducts(): any[] {
     const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredProducts().slice(start, start + this.pageSize); 
     return this.filteredProducts().slice(start, start + this.pageSize);
   }
 
