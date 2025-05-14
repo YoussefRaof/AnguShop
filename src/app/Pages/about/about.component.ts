@@ -4,11 +4,13 @@ import Swal from 'sweetalert2';
 import * as L from 'leaflet';  
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http'; 
+import { ComplaintService } from '../../../Services/complaint.service'; 
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
+  standalone: true,
   imports: [
     FormsModule,
     CommonModule
@@ -24,13 +26,15 @@ export class AboutComponent implements AfterViewInit {
     location: ''
   };
 
-  responseMessage: string = '';
-  responseMessageType: string = ''; 
-
   map: any;
   marker: any;
 
-  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone, private http: HttpClient) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private ngZone: NgZone,
+    private http: HttpClient,
+    private complaintService: ComplaintService
+  ) {}
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -43,7 +47,7 @@ export class AboutComponent implements AfterViewInit {
       this.map = L.map('map').setView([30.044453131525962, 31.23577937667665], 6);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; OpenStreetMap contributors'
       }).addTo(this.map);
 
       const icon = L.icon({
@@ -53,15 +57,12 @@ export class AboutComponent implements AfterViewInit {
         popupAnchor: [0, -32]
       });
 
-      this.marker = L.marker([30.0444, 31.2357], { icon: icon, draggable: true }).addTo(this.map);
+      this.marker = L.marker([30.0444, 31.2357], { icon, draggable: true }).addTo(this.map);
 
       this.marker.on('dragend', (e: any) => {
         const lat = e.target.getLatLng().lat.toFixed(4);
         const lng = e.target.getLatLng().lng.toFixed(4);
-        
-        this.ngZone.run(() => {
-          this.getAddressFromCoordinates(lat, lng); 
-        });
+        this.ngZone.run(() => this.getAddressFromCoordinates(lat, lng));
       });
 
       setTimeout(() => {
@@ -74,22 +75,20 @@ export class AboutComponent implements AfterViewInit {
     const apiUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`;
 
     this.http.get(apiUrl).subscribe((response: any) => {
-      if (response && response.display_name) {
-        this.ngZone.run(() => {
-          this.formData.location = response.display_name;
-        });
-      }
-    }, (error) => {
-      console.error('Error fetching address:', error);
-      this.ngZone.run(() => {
+      if (response?.display_name) {
+        this.formData.location = response.display_name;
+      } else {
         this.formData.location = 'Address not found';
-      });
+      }
+    }, () => {
+      this.formData.location = 'Address not found';
     });
   }
 
   onSubmit(form: any) {
     if (form.valid) {
-      console.log('Form Submitted:', this.formData);
+      // ✅ Save the complaint
+      this.complaintService.addComplaint({ ...this.formData });
 
       Swal.fire({
         title: 'Success!',
@@ -106,7 +105,6 @@ export class AboutComponent implements AfterViewInit {
           location: ''
         };
         form.resetForm();
-        this.responseMessage = '';
       });
     } else {
       Swal.fire({
@@ -114,8 +112,6 @@ export class AboutComponent implements AfterViewInit {
         text: 'Please fill out the form correctly.',
         icon: 'error',
         confirmButtonText: 'OK'
-      }).then(() => {
-        this.responseMessage = '';
       });
     }
   }

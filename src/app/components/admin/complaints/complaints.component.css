@@ -1,0 +1,89 @@
+/* Main container styling */
+.container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Card styling */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Card hover effect */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Card body padding and text alignment */
+.card-body {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+/* Title */
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* Muted text for email */
+.text-muted {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Card text and labels */
+.card-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.card-text strong {
+  font-weight: 600;
+}
+
+/* Location text */
+.card-text mt-3 {
+  color: #5a5a5a;
+}
+
+/* Button styling */
+.btn-info {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  border-color: #117a8b;
+}
+
+/* Info alert box styling when no complaints are present */
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border-color: #bee5eb;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

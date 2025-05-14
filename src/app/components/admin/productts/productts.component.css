@@ -83,3 +83,36 @@
 .rating {
     font-size: 0.9rem;
 }
+
+
+/* Pagination */
+.pagination {
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.page-link {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: background-color 0.2s ease;
+}
+
+.page-item.active .page-link {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.page-item.disabled .page-link {
+    background-color: #d6d6d6;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.page-item:not(.active):not(.disabled) .page-link:hover {
+    background-color: #444;
+    color: #fff;
+}

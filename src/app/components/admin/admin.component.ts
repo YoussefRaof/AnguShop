@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -14,21 +14,34 @@ import { filter } from 'rxjs/operators';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   isSidebarCollapsed = false;
+  isLoading: boolean = true;
   activeTab: string = 'dashboard';
 
 
   constructor(private router: Router) {
-    // Subscribe to route changes to update active tab
+    // Update active tab on navigation
     this.router.events
-      .pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-      )
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        const urlSegments = event.url.split('/');
-        this.activeTab = urlSegments[urlSegments.length - 1] || 'dashboard';
+        const urlSegments = event.urlAfterRedirects.split('/').filter(Boolean);
+
+        // If only "admin" is present, default to "dashboard"
+        if (urlSegments.length === 1 && urlSegments[0] === 'admin') {
+          this.activeTab = 'dashboard';
+        } else {
+          this.activeTab = urlSegments[urlSegments.length - 1] || 'dashboard';
+        }
       });
+  }
+
+
+  ngOnInit(): void {
+    // Simulate loading delay (replace with real async logic if needed)
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 750);
   }
 
   setActiveTab(tab: string): void {
@@ -57,7 +70,7 @@ export class AdminComponent {
   // }
 
   logout(): void {
-    // any logic to clear session
+    // Optional: clear session/storage here
     this.router.navigate(['/login']);
   }
 }

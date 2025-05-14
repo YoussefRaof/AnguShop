@@ -1,13 +1,22 @@
-<div class="admin-container d-flex">
+<!-- Loading Overlay -->
+<div *ngIf="isLoading" class="loading-overlay d-flex justify-content-center align-items-center">
+    <div class="text-center text-white">
+        <i class="fas fa-spinner fa-spin fa-3x mb-3"></i>
+        <div class="fw-bold">Loading...</div>
+    </div>
+</div>
+
+
+<div class="admin-container d-flex" *ngIf="!isLoading">
     <!-- Sidebar -->
     <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
         <div class="sidebar-header d-flex align-items-center justify-content-between p-3">
             <div class="d-flex align-items-center admin-icon">
                 <i class="fa-solid fa-shop fs-5 px-1 text-white"></i>
-                <a onclick="location.reload();"
+
+                <a routerLink="/admin/dashboard"
                     class="mb-0 fs-5 px-2 admin-header fw-bold text-white text-decoration-none"
-                    *ngIf="!isSidebarCollapsed">
-                    Admin
+                    *ngIf="!isSidebarCollapsed"> Admin
                 </a>
             </div>
 
@@ -63,7 +72,7 @@
                 </li>
             </ul>
 
-            <div class="logout-section mt-auto p-3 px-0 border-top">
+            <div class="logout-section mt-auto p-1 px-0 border-top">
                 <a class="nav-link d-flex align-items-center text-white" (click)="logout()">
                     <i class="fas fa-sign-out-alt me-3"></i>
                     <span *ngIf="!isSidebarCollapsed">Logout</span>
@@ -72,6 +81,7 @@
         </nav>
     </aside>
 
+    
     <!-- Main Content -->
     <main class="main-content flex-grow-1">
         <div class="content-header p-3 bg-dark text-white">
