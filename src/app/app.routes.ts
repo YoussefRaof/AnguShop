@@ -26,6 +26,8 @@ import { CategoryMasterComponent } from './Pages/category-master/category-master
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { OrderHistoryComponent } from './Pages/order-history/order-history.component';
 import { CompareProductComponent } from './Pages/compare-product/compare-product.component';
+import { AddProductComponen } from './components/admin/add-product/add-product.component';
+
 export const routes: Routes = [
   // Standalone pages (without layout  Navbar and Footer)
   { path: 'register', component: RegisterPageComponent, title: 'Register' },
@@ -42,6 +44,7 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersComponent },
       { path: 'complaints', component: ComplaintsComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'add-product', component:AddProductComponen},
       
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]

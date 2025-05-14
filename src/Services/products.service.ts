@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Product } from '../app/interfaces/product';
 
 
@@ -12,9 +12,14 @@ export class ProductsService {
 
   constructor(private myHttpClient: HttpClient) { }
 
-  getAllProducts(): Observable<Product[]> {
-    return this.myHttpClient.get<Product[]>(this.URL);
-  }
+getAllProducts() {
+  return this.myHttpClient.get<Product[]>(this.URL).pipe(
+    map((fetchedProducts: Product[]) => {
+      const localProducts: Product[] = JSON.parse(localStorage.getItem('addedProducts') || '[]');
+      return [...fetchedProducts, ...localProducts];
+    })
+  );
+}
 
   getProductById(PId: number): Observable<Product> {
     return this.myHttpClient.get<Product>(`${this.URL}/${PId}`);
@@ -23,5 +28,13 @@ export class ProductsService {
 deleteProduct(id: number): Observable<any> {
   return this.myHttpClient.delete(`${this.URL}/${id}`);
 }
+ addNewProduct(product:any){
+   const local = JSON.parse(localStorage.getItem('addedProducts') || '[]');
+  local.push(product);
+  localStorage.setItem('addedProducts', JSON.stringify(local));
+    return this.myHttpClient.post(this.URL, product)
+      // Also save locally for persistence
+ 
+  }
 
 }
