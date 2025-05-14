@@ -23,7 +23,7 @@ export class CategoriesService {
   private readonly URL = "https://fakestoreapi.com/products/categories"
   GetAllCategoriesName()
   {
-    return this.Http.get(this.URL);
+    return this.Http.get<string[]>(this.URL);
   }
 
   GetCategoryProducts(category :String)
