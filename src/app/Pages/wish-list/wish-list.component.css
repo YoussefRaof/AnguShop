@@ -1,78 +1,86 @@
-body {
-    background: #eee
+/* Base Styles */
+.cursor-pointer {
+  cursor: pointer;
 }
 
-.ratings i {
-    font-size: 16px;
-    color: red
-}
-
-.strike-text {
-    color: red;
-    text-decoration: line-through
-}
-
-.product-image {
-    width: 100%
-}
-
-.dot {
-    height: 7px;
-    width: 7px;
-    margin-left: 6px;
-    margin-right: 6px;
-    margin-top: 3px;
-    background-color: blue;
-    border-radius: 50%;
-    display: inline-block
-}
-
-.spec-1 {
-    color: #938787;
-    font-size: 15px
-}
-
-h5 {
-    font-weight: 400
-}
-
-.para {
-    font-size: 16px
-}
-
+/* Wishlist Card */
 .wishlist-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background-color: #ffffff;
-  }
-  
-  .wishlist-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .wishlist-img {
-    max-height: 160px;
-    object-fit: contain;
-  }
-  
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+}
 
+.wishlist-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
 
+.wishlist-img {
+  max-height: 180px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
 
+.wishlist-img:hover {
+  transform: scale(1.03);
+}
 
+/* Empty State */
+.empty-wishlist {
+  background: white;
+  border-radius: 15px;
+  padding: 50px 30px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
 
+.empty-wishlist-icon {
+  font-size: 70px;
+  color: #ff6b6b;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
 
-  .wishlist-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #ffffff;
-  }
-  
-  .wishlist-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .wishlist-img {
-    max-height: 200px;
-    object-fit: contain;
-  }
-  
+/* Button Enhancements */
+.btn-outline-primary {
+  border-color: #4a6bff;
+  color: #4a6bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4a6bff;
+  color: white;
+}
+
+.btn-success {
+  background-color: #28a745;
+  transition: all 0.3s;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Badge Styles */
+.badge {
+  font-size: 0.8em;
+  font-weight: 500;
+  padding: 5px 10px;
+}

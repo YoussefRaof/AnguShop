@@ -11,7 +11,6 @@ export class WishlistService {
   wishlistCount$ = this.wishlistCount.asObservable();
 
   constructor(private authService: AuthenticationService) {
-    
     this.authService.currentUser$.subscribe(email => {
       this.loadWishlistFromLocalStorage(email);
     });
@@ -19,6 +18,11 @@ export class WishlistService {
 
   getWishlist(): any[] {
     return this.wishlist;
+  }
+
+  // Add this method to check if product is in wishlist
+  isInWishlist(productId: number): boolean {
+    return this.wishlist.some(item => item.id === productId);
   }
 
   addToWishlist(product: any): void {
@@ -33,6 +37,11 @@ export class WishlistService {
     this.wishlist = this.wishlist.filter(item => item.id !== productId);
     this.updateStorage();
   }
+  
+  clearWishlist(): void {
+    this.wishlist = [];
+    this.updateStorage();
+  }
 
   private updateStorage() {
     const currentUser = this.authService.getCurrentUser();
@@ -45,13 +54,10 @@ export class WishlistService {
   private loadWishlistFromLocalStorage(email: string | null): void {
     if (email) {
       const storedWishlist = localStorage.getItem(email + '-wishlist');
-      if (storedWishlist) {
-        this.wishlist = JSON.parse(storedWishlist);
-        this.wishlistCount.next(this.wishlist.length);
-      }
+      this.wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
     } else {
       this.wishlist = [];
-      this.wishlistCount.next(0);
     }
+    this.wishlistCount.next(this.wishlist.length);
   }
 }

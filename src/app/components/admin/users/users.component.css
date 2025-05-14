@@ -1,0 +1,71 @@
+.page-link {
+    background-color: var(--secondary-dark);
+    border-color: var(--table-border);
+    color: var(--text-primary);
+}
+
+.page-item.active .page-link {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.page-item:not(.active) .page-link:hover {
+    background-color: var(--accent-hover);
+    color: var(--text-primary);
+}
+
+
+/* Rounded table styles */
+.rounded-table {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-table thead th:first-child {
+    border-top-left-radius: 15px;
+}
+
+.rounded-table thead th:last-child {
+    border-top-right-radius: 15px;
+}
+
+.rounded-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+}
+
+.rounded-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
+}
+
+
+/* Pagination */
+.pagination {
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.page-link {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: background-color 0.2s ease;
+}
+
+.page-item.active .page-link {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.page-item.disabled .page-link {
+    background-color: #d6d6d6;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.page-item:not(.active):not(.disabled) .page-link:hover {
+    background-color: #444;
+    color: #fff;
+}
