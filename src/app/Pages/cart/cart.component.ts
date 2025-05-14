@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService, CartItem } from '../../../Services/cart.service';
 import { RouterModule } from '@angular/router';
+import { OrderHistoryService } from '../../../Services/order-history.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,7 @@ export class CartComponent implements OnInit {
   cartTotal: number = 0;
   cartCount: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService , private OrderHistory :OrderHistoryService) {}
 
   ngOnInit(): void {
     // Fetch cart items, total and count from CartService
@@ -50,6 +51,8 @@ export class CartComponent implements OnInit {
   // Proceed to checkout
   checkout(): void {
     alert('Proceeding to checkout with items worth $' + this.cartTotal.toFixed(2));
-    console.log('Checkout items:', this.cartItems);
+    // console.log('Checkout items:', this.cartItems); 3shan e7na m3fneen m3nash floss fe paypal ❌🤙
+    this.OrderHistory.cartItems = this.cartItems;
+    this.OrderHistory.orderCount++;
   }
 }

@@ -24,8 +24,7 @@ import { CheckoutComponent } from './Pages/checkout/checkout.component';
 import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { CategoryMasterComponent } from './Pages/category-master/category-master.component';
 import { ProfileComponent } from './Pages/profile/profile.component';
-
-
+import { OrderHistoryComponent } from './Pages/order-history/order-history.component';
 export const routes: Routes = [
   // Standalone pages (without layout  Navbar and Footer)
   { path: 'register', component: RegisterPageComponent, title: 'Register' },
@@ -55,6 +54,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent, title: 'Home' },
       { path: '', component: HomeComponent, title: 'Home' },
 
+      { path: 'OrderHistory', component: OrderHistoryComponent, title: 'Order History' },
       { path: 'contactus', component: AboutComponent, title: 'Contact Us' },
       { path: 'cart', component: CartComponent, title: 'Cart' },
       { path: 'products', component: ProductsComponent, title: 'Our Products' },
