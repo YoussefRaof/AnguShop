@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../../Services/wish-list.service';
 import { CartService } from '../../../Services/cart.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { OneProductComponent } from "../../components/one-product/one-product.component";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
