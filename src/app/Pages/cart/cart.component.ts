@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService, CartItem } from '../../../Services/cart.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { OrderHistoryService } from '../../../Services/order-history.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
   showEmptyCartModal: boolean = false;
   showCheckoutModal: boolean = false;
 
-  constructor(private cartService: CartService , private OrderHistory :OrderHistoryService) {}
+  constructor(private cartService: CartService, private router: Router , private OrderHistory : OrderHistoryService) {}
 
   ngOnInit(): void {
     this.loadCartData();
@@ -121,9 +121,25 @@ export class CartComponent implements OnInit {
   }
 
   checkout(): void {
-    alert('Proceeding to checkout with items worth $' + this.cartTotal.toFixed(2));
-    // console.log('Checkout items:', this.cartItems); 3shan e7na m3fneen m3nash floss fe paypal ❌🤙
+    if (this.cartItems.length === 0) {
+      this.showEmptyCartModal = true;
+      return;
+    }
+    this.showCheckoutModal = true;
+       // console.log('Checkout items:', this.cartItems); 3shan e7na m3fneen m3nash floss fe paypal ❌🤙
     this.OrderHistory.cartItems = this.cartItems;
     this.OrderHistory.orderCount++;
   }
+
+  navigateToCheckout(): void {
+    this.closeModal();
+    this.router.navigate(['/checkout']);
+  }
+
+  closeModal(): void {
+    this.showClearCartModal = false;
+    this.showEmptyCartModal = false;
+    this.showCheckoutModal = false;
+  }
+
 }

@@ -25,6 +25,7 @@ import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { CategoryMasterComponent } from './Pages/category-master/category-master.component';
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { OrderHistoryComponent } from './Pages/order-history/order-history.component';
+import { CompareProductComponent } from './Pages/compare-product/compare-product.component';
 export const routes: Routes = [
   // Standalone pages (without layout  Navbar and Footer)
   { path: 'register', component: RegisterPageComponent, title: 'Register' },
