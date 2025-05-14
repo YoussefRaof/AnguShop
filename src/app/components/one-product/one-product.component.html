@@ -1,7 +1,7 @@
 <div class="product-card">
   <div class="image-container">
     <img src="{{ oneProductData.image }}" alt="Wireless Bluetooth Headphones" class="product-image">
-    <span class="product-badge">NEW</span>
+    <span class="product-badge bg-warning fw-bold text-dark">New</span>
 
     <!-- Wishlist button with dynamic color -->
     <button *ngIf="isAuthenticated" (click)="addToWishlist()" class="wishlist-btn">
@@ -27,15 +27,15 @@
     </p>
     <div class="product-rating">
       <div class="product-rating mb-2 d-flex justify-content-center align-items-center">
-           @for (star of getStars(oneProductData.rating?.rate); track $index) {
-            @if (star === 'full') {
-          <i class="fas fa-star text-warning small"></i>
-          } @else if (star === 'half') {
-          <i class="fas fa-star-half-alt text-warning small"></i>
-          } @else {
-          <i class="far fa-star text-warning small"></i>
-          }
-      }
+        @for (star of getStars(oneProductData.rating?.rate); track $index) {
+        @if (star === 'full') {
+        <i class="fas fa-star text-warning small"></i>
+        } @else if (star === 'half') {
+        <i class="fas fa-star-half-alt text-warning small"></i>
+        } @else {
+        <i class="far fa-star text-warning small"></i>
+        }
+        }
         <strong class="text-muted ms-1">({{oneProductData.rating?.count}})</strong>
       </div>
     </div>
