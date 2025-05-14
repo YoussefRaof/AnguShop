@@ -8,7 +8,7 @@
 
         </div>
 
-      
+
         <div class="col-md-6 mt-3">
             <h2 class="mb-3">{{UserDetailsData.title}}</h2>
 
@@ -37,24 +37,26 @@
                 <span class="mb-2 desc p-3">{{UserDetailsData.description}}.</span>
 
             </div>
-      
+
             <div class="mb-4">
                 <label for="quantity" class="form-label">Quantity:</label>
-                <input type="number" class="form-control" id="quantity" value="1" min="1" [(ngModel)]="quantity" (change)="updateQuantity(quantity)" style="width: 80px;">
+                <input type="number" class="form-control" id="quantity" value="1" min="1" [(ngModel)]="quantity"
+                    (change)="updateQuantity(quantity)" style="width: 80px;">
             </div>
-            <button class="btn btn-primary btn-lg mb-3 me-2" (click)="addToCart()"[disabled]="addedToCart">
-                    <i class="bi bi-cart-plus me-2"></i>
-                    <span *ngIf="!addedToCart">Add to Cart</span>
-                    <span *ngIf="addedToCart">Added ✓</span>
+            <button class="btn btn-primary btn-lg mb-3 me-2" (click)="addToCart()" [disabled]="addedToCart">
+                <i class="bi bi-cart-plus me-2"></i>
+                <span *ngIf="!addedToCart">Add to Cart</span>
+                <span *ngIf="addedToCart">Added ✓</span>
             </button>
-            <button class="btn btn-outline-secondary btn-lg mb-3" (click)="addToWishlist()">
-                    <i class="bi bi-heart me-2"></i>
-                    <span *ngIf="!addedToWish">Add to Wish List</span>
-                    <span *ngIf="addedToWish">Added ✓</span>
-                </button>
-                <div *ngIf="addedToCart" class="alert alert-success  alert-dismissible fade show position-fixed bottom-0 end-0 m-3">
-                  Product added to cart successfully!
-              </div>
+            <button class="btn btn-secondary btn-lg mb-3 mx-1" (click)="addToWishlist()">
+                <i class="bi bi-heart me-2"></i>
+                <span *ngIf="!addedToWish">Add to Wish List</span>
+                <span *ngIf="addedToWish">Added ✓</span>
+            </button>
+            <div *ngIf="addedToCart"
+                class="alert alert-success  alert-dismissible fade show position-fixed bottom-0 end-0 m-3">
+                Product added to cart successfully!
+            </div>
 
         </div>
     </div>
