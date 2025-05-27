@@ -62,7 +62,7 @@ label {
 }
 
 .btn-save {
-    background-color: #333;
+    background-color: #2d3e4f;
     color: white;
     border: none;
     padding-right: 60px;
@@ -70,7 +70,7 @@ label {
 }
 
 .btn-save:hover {
-    background-color: #555;
+    background-color: #1b252f;
 }
 
 .text-danger {
