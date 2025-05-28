@@ -127,8 +127,7 @@ export class CartComponent implements OnInit {
     }
     this.showCheckoutModal = true;
        // console.log('Checkout items:', this.cartItems); 3shan e7na m3fneen m3nash floss fe paypal ❌🤙
-    this.OrderHistory.cartItems = this.cartItems;
-    this.OrderHistory.orderCount++;
+    this.OrderHistory.addOrder(this.cartItems);  
   }
 
   navigateToCheckout(): void {
