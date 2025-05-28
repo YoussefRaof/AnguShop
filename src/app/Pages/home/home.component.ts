@@ -1,18 +1,86 @@
-import { Component, AfterViewInit, HostListener } from '@angular/core';
+import { Component, AfterViewInit, HostListener, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { tns } from 'tiny-slider/src/tiny-slider';
 import { ProductsComponent } from "../products/products.component";
+import { CategoriesSliderComponent } from "../../components/categories-slider/categories-slider.component";
+import { OneProductComponent } from "../../components/one-product/one-product.component";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, ProductsComponent],
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    ProductsComponent, 
+    CategoriesSliderComponent,
+    OneProductComponent // Add this import
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnInit {
+  // Add these properties for product filtering
+  products: any[] = [];
+  filteredProducts: any[] = [];
+  activeFilter: string = 'best-rating';
+dailyDeal: any = null;
+hours: string = '00';
+minutes: string = '00';
+seconds: string = '00';
+discountPercentage: number = 0;
+private countdownInterval: any;
+  constructor(private http: HttpClient) {} // Add HttpClient
 
+  ngOnInit() {
+    this.loadProducts(); // Initialize product loading
+    this.initDailyDeal();
+  }
+
+  // Add product loading method
+  loadProducts() {
+    this.http.get<any[]>('https://fakestoreapi.com/products').subscribe({
+      next: (products) => {
+        this.products = products.map(p => ({
+          ...p,
+          stock: Math.floor(Math.random() * 100) // Mock stock data
+        }));
+        this.applyFilter(this.activeFilter);
+      },
+      error: (err) => console.error('Error loading products:', err)
+    });
+  }
+
+  // Add filter method
+  applyFilter(filterType: string) {
+    this.activeFilter = filterType;
+    
+    switch(filterType) {
+      case 'best-rating':
+        this.filteredProducts = [...this.products]
+          .sort((a, b) => b.rating.rate - a.rating.rate)
+          .slice(0, 8);
+        break;
+        
+      case 'high-price':
+        this.filteredProducts = [...this.products]
+          .sort((a, b) => b.price - a.price)
+          .slice(0, 8);
+        break;
+        
+      case 'in-stock':
+        this.filteredProducts = this.products
+          .filter(p => p.stock > 0)
+          .slice(0, 8);
+        break;
+        
+      default:
+        this.filteredProducts = this.products.slice(0, 8);
+    }
+  }
+
+  // Keep all your existing methods
   ngAfterViewInit(): void {
     // Preloader fadeout
     window.setTimeout(() => {
@@ -66,19 +134,13 @@ export class HomeComponent implements AfterViewInit {
     }
   }
 
-
   scrollToTop() {
     const topElement = document.getElementById('top');
     if (topElement) {
       topElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
-  
 
-
-
-
-  // Scroll event: Sticky navbar + back-to-top button
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const headerNavbar = document.querySelector('.navbar-area') as HTMLElement;
@@ -90,4 +152,54 @@ export class HomeComponent implements AfterViewInit {
       if (backToTop) backToTop.style.display = 'none';
     }
   }
+
+  private initDailyDeal() {
+  // Get a random product with at least 4-star rating
+  this.http.get<any[]>('https://fakestoreapi.com/products').subscribe(products => {
+    const eligibleProducts = products.filter(p => p.rating.rate >= 4);
+    const randomIndex = Math.floor(Math.random() * eligibleProducts.length);
+    this.dailyDeal = eligibleProducts[randomIndex];
+    
+    // Apply 20-40% discount
+    this.discountPercentage = Math.floor(20 + Math.random() * 20);
+    this.dailyDeal.originalPrice = this.dailyDeal.price;
+    this.dailyDeal.price = parseFloat(
+      (this.dailyDeal.price * (1 - this.discountPercentage/100)).toFixed(2)
+    );
+    
+    // Start countdown (24 hours)
+    this.startCountdown();
+  });
+}
+
+private startCountdown() {
+  const endTime = new Date();
+  endTime.setHours(endTime.getHours() + 24);
+  
+  this.countdownInterval = setInterval(() => {
+    const now = new Date();
+    const diff = endTime.getTime() - now.getTime();
+    
+    if (diff <= 0) {
+      clearInterval(this.countdownInterval);
+      this.initDailyDeal(); // Reset deal when time expires
+      return;
+    }
+    
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    this.hours = hours < 10 ? '0' + hours : hours.toString();
+    this.minutes = minutes < 10 ? '0' + minutes : minutes.toString();
+    this.seconds = seconds < 10 ? '0' + seconds : seconds.toString();
+  }, 1000);
+}
+
+// Clean up interval
+ngOnDestroy() {
+  if (this.countdownInterval) {
+    clearInterval(this.countdownInterval);
+  }
+}
 }

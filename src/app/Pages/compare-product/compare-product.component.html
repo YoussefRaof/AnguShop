@@ -60,7 +60,13 @@
   <td *ngFor="let product of productsToCompare">
     <div class="rating">
       <span class="stars">
-
+<span *ngFor="let star of [1,2,3,4,5]">
+          <i class="fas fa-star" 
+             [ngClass]="{
+               'filled': star <= (product.rating?.rate || 0), 
+               'empty': star > (product.rating?.rate || 0)
+             }"></i>
+        </span>
       </span>
       <span class="ms-2">{{ product.rating?.rate }} ({{ product.rating?.count }})</span>
     </div>
