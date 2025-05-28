@@ -46,40 +46,34 @@ export class LoginPageComponent {
     field.control.markAsTouched();
   }
 
-  async Login() {
-    this.isLoading = true;
-    this.errorMessage = "";
+async Login() {
+  this.isLoading = true;
+  this.errorMessage = "";
 
-    try {
-      // Simulate API delay (remove in production)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const success = this.authService.login(this.user.email, this.user.password);
 
-      const success = this.authService.login(this.user.email, this.user.password);
-
-
-      if (this.user.email.toLocaleLowerCase() === "admin@gmail.com" && this.user.password === "Test@123") {
-        this.router.navigate(['/admin']);
-        return;
-      }
-
-
-      if (success) {
-        // Handle remember me functionality
-        if (this.rememberMe) {
-          localStorage.setItem('rememberedEmail', this.user.email);
-        } else {
-          localStorage.removeItem('rememberedEmail');
-        }
-
-        this.router.navigate(['/home']);
+    if (success) {
+      if (this.rememberMe) {
+        localStorage.setItem('rememberedEmail', this.user.email);
       } else {
-        this.errorMessage = "Invalid email or password. Please try again.";
+        localStorage.removeItem('rememberedEmail');
       }
-    } catch (error) {
-      this.errorMessage = "An error occurred during login. Please try again later.";
-      console.error('Login error:', error);
-    } finally {
-      this.isLoading = false;
+
+      // Redirect based on role from AuthService
+      if (this.authService.isAdmin()) {
+        this.router.navigate(['/admin/dashboard']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+    } else {
+      this.errorMessage = "Invalid email or password";
     }
+  } catch (error) {
+    this.errorMessage = "Login error. Try again later.";
+  } finally {
+    this.isLoading = false;
   }
+}
 }
