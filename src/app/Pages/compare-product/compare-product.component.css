@@ -256,3 +256,16 @@
     max-height: 100px;
   }
 }
+.product-image-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image {
+  max-height: 100px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}

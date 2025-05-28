@@ -7,6 +7,21 @@ import { CategoriesSliderComponent } from "../../components/categories-slider/ca
 import { OneProductComponent } from "../../components/one-product/one-product.component";
 import { HttpClient } from '@angular/common/http';
 
+interface HeroProduct {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  originalPrice?: number;
+  discount?: number;
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -31,6 +46,10 @@ minutes: string = '00';
 seconds: string = '00';
 discountPercentage: number = 0;
 private countdownInterval: any;
+// In your HomeComponent class
+heroProducts: HeroProduct[] = [];
+selectedCategories = ['jewelery', "men's clothing", 'electronics', "women's clothing"];
+
   constructor(private http: HttpClient) {} // Add HttpClient
 
   ngOnInit() {
@@ -202,4 +221,5 @@ ngOnDestroy() {
     clearInterval(this.countdownInterval);
   }
 }
+
 }

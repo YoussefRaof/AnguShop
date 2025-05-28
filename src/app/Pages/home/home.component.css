@@ -3176,12 +3176,13 @@ top: 2px;
     Shipping Info CSS
 ========================================*/
 .shipping-info {
-  background-color: #f9f9f9;
+  background-color: #F2F4F5;
   padding: 50px 0;
 }
 
 .shipping-info ul {
-  display: inline-block;
+display: flex;
+gap: 20px;
   width: 100%;
   margin-bottom: 0px;
 }
@@ -3189,7 +3190,7 @@ top: 2px;
 .shipping-info li {
   list-style: none;
   float: left;
-  width: 25%;
+  /* width: 25%; */
   padding: 30px 40px;
   border: 1px solid #eee;
   text-align: center;
@@ -4711,5 +4712,6 @@ html {
   color: var(--first-color);
   font-weight: var(--weight-600);
 }
+
 
 
