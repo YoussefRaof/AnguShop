@@ -15,7 +15,7 @@ import { SettingsComponent } from './components/admin/settings/settings.componen
 
 
 import { ProductsComponent } from './Pages/products/products.component';
-import { TestPageComponent } from './Pages/test-page/test-page.component';
+
 import { ErrorPageComponent } from './Pages/error-page/error-page.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
@@ -71,7 +71,7 @@ export const routes: Routes = [
       { path: 'error', component: ErrorPageComponent, title: 'Error' },
       { path: 'profile', component: ProfileComponent, title: 'Profile' },
       { path: 'compare', component: CompareProductComponent },
-      { path: 'test', component: TestPageComponent },
+
     ]
   },
 
