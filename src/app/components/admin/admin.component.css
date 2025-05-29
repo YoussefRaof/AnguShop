@@ -20,7 +20,6 @@
     flex-direction: column;
     z-index: 1000;
     border-bottom-right-radius: 25px;
-
 }
 
 .sidebar.collapsed {
@@ -144,4 +143,9 @@ a:hover {
     height: 100%;
     background-color: #1a252f;
     z-index: 9999;
+}
+
+
+.logout:hover {
+    border-bottom-right-radius: 25px !important;
 }

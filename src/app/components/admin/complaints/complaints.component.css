@@ -1,6 +1,7 @@
 /* Main container styling with gradient background */
 .container {
   padding: 3rem 1rem;
+  padding-top: 0;
   /* background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); */
   min-height: 100vh;
 }
@@ -18,10 +19,10 @@ h2.text-center {
 h2.text-center::after {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 75%;
   height: 4px;
   background: linear-gradient(90deg, #3498db, #9b59b6);
   border-radius: 2px;

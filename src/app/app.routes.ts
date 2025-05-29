@@ -45,8 +45,8 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersComponent },
       { path: 'complaints', component: ComplaintsComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'add-product', component:AddProductComponen},
-      
+      { path: 'add-product', component: AddProductComponen },
+
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
@@ -57,8 +57,8 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title: 'Home' },
-      { path: '', component: HomeComponent, title: 'Home' },
 
       { path: 'OrderHistory', component: OrderHistoryComponent, title: 'Order History' },
       { path: 'contactus', component: AboutComponent, title: 'Contact Us' },

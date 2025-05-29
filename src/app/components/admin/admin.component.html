@@ -9,7 +9,7 @@
 
 <div class="admin-container d-flex" *ngIf="!isLoading">
     <!-- Sidebar -->
-    <aside class="sidebar" style="border-radius: 0px !important;" [class.collapsed]="isSidebarCollapsed">
+    <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
         <div class="sidebar-header d-flex align-items-center justify-content-between p-3" style="border-radius: 0px !important;">
             <div class="d-flex align-items-center admin-icon">
                 <i class="fa-solid fa-shop fs-5 px-1 text-white"></i>
@@ -73,7 +73,7 @@
             </ul>
 
             <div class="logout-section mt-auto p-1 px-0 border-top">
-                <a class="nav-link d-flex align-items-center text-white" (click)="logout()">
+                <a class="nav-link d-flex align-items-center text-white logout" (click)="logout()">
                     <i class="fas fa-sign-out-alt me-3"></i>
                     <span *ngIf="!isSidebarCollapsed">Logout</span>
                 </a>

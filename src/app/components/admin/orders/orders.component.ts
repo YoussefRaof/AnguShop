@@ -73,7 +73,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-private getUserProfile(email: string): UserProfile | null {
+getUserProfile(email: string): UserProfile | null {
   try {
     const usersData = localStorage.getItem('users');
     if (usersData) {
