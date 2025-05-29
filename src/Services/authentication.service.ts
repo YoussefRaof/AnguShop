@@ -163,6 +163,18 @@ export class AuthenticationService {
     return true;
   }
 
+  updateUserProfileImage(email: string, imageUrl: string): boolean {
+    const users = this.users;
+    const userIndex = users.findIndex(u => u.email === email);
+    
+    if (userIndex === -1) return false;
+    
+    users[userIndex].profile = users[userIndex].profile || {};
+    users[userIndex].profile!.image = imageUrl;
+    this.users = users;
+    return true;
+  }
+
   makeAdmin(email: string): boolean {
     const users = this.users;
     const userIndex = users.findIndex(u => u.email === email);
@@ -180,17 +192,45 @@ export class AuthenticationService {
     );
   }
 
-deleteUser(email: string): boolean {
-  const users = this.getAllUsers();
-  const initialLength = users.length;
-  
-  // Filter out the user to delete
-  const updatedUsers = users.filter(user => user.email !== email);
-  
-  // Save changes using the users setter
-  this.users = updatedUsers;
-  
-  // Return true if a user was actually deleted
-  return updatedUsers.length < initialLength;
-}
+  deleteUser(email: string): boolean {
+    const users = this.users;
+    const initialLength = users.length;
+    
+    const updatedUsers = users.filter(user => user.email !== email);
+    this.users = updatedUsers;
+    
+    return updatedUsers.length < initialLength;
+  }
+
+  getCurrentPassword(): string | null {
+    const email = this.currentUserSubject.value;
+    if (!email) return null;
+    
+    const user = this.users.find(u => u.email === email);
+    return user ? user.password : null;
+  }
+
+  updatePassword(newPassword: string): boolean {
+    const email = this.currentUserSubject.value;
+    if (!email) return false;
+
+    const users = this.users;
+    const userIndex = users.findIndex(u => u.email === email);
+    
+    if (userIndex === -1) return false;
+    
+    users[userIndex].password = newPassword;
+    this.users = users;
+    return true;
+  }
+
+  setCurrentUser(user: User): void {
+    const users = this.users;
+    const userIndex = users.findIndex(u => u.email === user.email);
+    
+    if (userIndex > -1) {
+      users[userIndex] = user;
+      this.users = users;
+    }
+  }
 }

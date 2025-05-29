@@ -403,3 +403,70 @@ nav[style*="position: sticky"] {
 .btn-close-white {
   filter: invert(1) grayscale(100%) brightness(200%);
 }
+.pagination{
+    margin-top: 0px;
+}
+
+/* Pagination */
+.pagination {
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.page-link {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: background-color 0.2s ease;
+}
+
+.page-item.active .page-link {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.page-item.disabled .page-link {
+    background-color: #d6d6d6;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.page-item:not(.active):not(.disabled) .page-link:hover {
+    background-color: #444;
+    color: #fff;
+}
+/* Add these styles to your component's CSS */
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Important for proper flex behavior */
+}
+
+.table-responsive {
+  flex: 1;
+  overflow-y: auto; /* Allows table to scroll if content is too tall */
+}
+
+.fixed-pagination {
+  position: fixed;
+  bottom: 5%;
+
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  border-color: inherit;
+  border-style: none;
+  border-width: 0;
+}

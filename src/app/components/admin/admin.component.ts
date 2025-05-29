@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthenticationService } from '../../../Services/authentication.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class AdminComponent implements OnInit {
   activeTab: string = 'dashboard';
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router , private authService: AuthenticationService ) {
     // Update active tab on navigation
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
@@ -69,8 +70,9 @@ export class AdminComponent implements OnInit {
   //   return this.router.url.includes(path);
   // }
 
-  logout(): void {
-    // Optional: clear session/storage here
-    this.router.navigate(['/login']);
-  }
+logout(): void {
+  this.authService.logout();
+  // Use replaceUrl to prevent going back
+  this.router.navigate(['/login'], { replaceUrl: true });
+}
 }
