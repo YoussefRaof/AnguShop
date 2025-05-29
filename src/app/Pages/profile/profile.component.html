@@ -9,11 +9,11 @@
       <!-- Profile Picture Section -->
       <div class="profile-picture-section">
         <div class="avatar-container">
-          <img class="profile-avatar mb-1" src="http://bootdey.com/img/Content/avatar/avatar1.png"
-            alt="Profile picture">
-
+          <img class="profile-avatar mb-1" [src]="profileImage" alt="Profile picture">
+          <input #fileInput type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)">
+          
           <div class="avatar-actions">
-            <button class="btn btn-outline-primary custom-outline">
+            <button type="button" class="btn btn-outline-primary custom-outline" (click)="triggerFileInput()">
               <i class="fas fa-camera me-2"></i> Change Photo
             </button>
 

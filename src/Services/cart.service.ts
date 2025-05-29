@@ -10,6 +10,7 @@ export interface CartItem {
   quantity: number;
   category?: string;
   description?: string;
+  name?: string;
 }
 
 @Injectable({

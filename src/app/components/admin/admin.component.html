@@ -9,8 +9,8 @@
 
 <div class="admin-container d-flex" *ngIf="!isLoading">
     <!-- Sidebar -->
-    <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
-        <div class="sidebar-header d-flex align-items-center justify-content-between p-3">
+    <aside class="sidebar" style="border-radius: 0px !important;" [class.collapsed]="isSidebarCollapsed">
+        <div class="sidebar-header d-flex align-items-center justify-content-between p-3" style="border-radius: 0px !important;">
             <div class="d-flex align-items-center admin-icon">
                 <i class="fa-solid fa-shop fs-5 px-1 text-white"></i>
 
@@ -83,8 +83,8 @@
 
     
     <!-- Main Content -->
-    <main class="main-content flex-grow-1">
-        <div class="content-header p-3 bg-dark text-white">
+    <main class="main-content flex-grow-1" style="border-radius: 0px !important;" >
+        <div class="content-header p-3 bg-dark text-white" style="border-radius: 0px !important;">
             <h1 class="h4 mb-0 top-header">
                 <i class="me-2" [ngClass]="getHeaderIcon()"></i>
                 {{ activeTab | titlecase }}
@@ -96,3 +96,4 @@
         </div>
     </main>
 </div>
+<!-- atef -->

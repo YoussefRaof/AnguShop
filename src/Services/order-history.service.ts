@@ -1,62 +1,94 @@
 import { Injectable } from '@angular/core';
-import { CartItem } from './cart.service';
+// import { CartItem } from './cart.service';
+import { AuthenticationService } from './authentication.service';
 
-export enum OrderStatus {
-  OrderPlaced = "Order Placed",
-  Shipped = "Shipped",
-  OutForDelivery = "Out for Delivery",
-  Delivered = "Delivered",
-  Cancelled = "Cancelled"
-}
+
+// In order-history.service.ts
+import { CartItem } from './cart.service';
 
 export interface Order {
   id: string;
+  userId: string;
+  userEmail: string;
+  userName?: string;
+  userFirstName?: string;
+  userLastName?: string;
+  userPhone?: string;
+  shippingAddress?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+  };
   date: string;
   status: OrderStatus;
-  items: CartItem[];
   totalAmount: number;
+  items: CartItem[];
 }
 
+
+export enum OrderStatus {
+  OrderPlaced = 'Order Placed',
+  Processing = 'Processing',
+  Shipped = 'Shipped',
+  OutForDelivery = 'Out for Delivery',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled'
+}
 @Injectable({
   providedIn: 'root'
 })
 export class OrderHistoryService {
   private orders: Order[] = [];
   
-  constructor() {
-    // Load any existing orders from localStorage (optional)
-    const savedOrders = localStorage.getItem('orders');
-    if (savedOrders) {
-      this.orders = JSON.parse(savedOrders);
-    }
+  constructor(private authService: AuthenticationService) {
+    this.loadOrders();
   }
 
   // Add a new order from checkout items
   addOrder(checkoutItems: CartItem[]): Order {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('User must be logged in to place an order');
+    }
+
     const newOrder: Order = {
       id: this.generateOrderId(),
       date: new Date().toLocaleDateString(),
       status: OrderStatus.OrderPlaced,
-      items: [...checkoutItems], // Create a copy of the items
-      totalAmount: this.calculateTotal(checkoutItems)
+      items: [...checkoutItems],
+      totalAmount: this.calculateTotal(checkoutItems),
+      userEmail: currentUser,
+      userId: ''
     };
     
-    this.orders.unshift(newOrder); // Add new order at beginning
-    this.saveToLocalStorage(); // Persist to localStorage
+    this.orders.unshift(newOrder);
+    this.saveToLocalStorage();
     return newOrder;
   }
 
-  // Get all orders (sorted by newest first)
+  // Get all orders for current user (sorted by newest first)
   getOrders(): Order[] {
-    return [...this.orders];
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) return [];
+    
+    return this.orders
+      .filter(order => order.userEmail === currentUser)
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
-  // Get a specific order by ID
+  // Get a specific order by ID (only if belongs to current user)
   getOrder(orderId: string): Order | undefined {
-    return this.orders.find(order => order.id === orderId);
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) return undefined;
+    
+    return this.orders.find(order => 
+      order.id === orderId && order.userEmail === currentUser
+    );
   }
 
-  // Update order status
+  // Update order status (only if belongs to current user)
   updateOrderStatus(orderId: string, newStatus: OrderStatus): boolean {
     const order = this.getOrder(orderId);
     if (order) {
@@ -67,23 +99,32 @@ export class OrderHistoryService {
     return false;
   }
 
-  // Cancel an order
+  // Cancel an order (only if belongs to current user)
   cancelOrder(orderId: string): boolean {
     return this.updateOrderStatus(orderId, OrderStatus.Cancelled);
   }
 
-  // Helper to generate unique order IDs
+  // Helper methods
   private generateOrderId(): string {
-    return `EGP-${Date.now().toString().slice(-6)}`;
+    return `ORD-${Date.now().toString().slice(-6)}-${Math.random().toString(36).substring(2, 6)}`;
   }
 
-  // Helper to calculate order total
   private calculateTotal(items: CartItem[]): number {
     return items.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
 
-  // Persist orders to localStorage
+  private loadOrders(): void {
+    const savedOrders = localStorage.getItem('orders');
+    this.orders = savedOrders ? JSON.parse(savedOrders) : [];
+  }
+
   private saveToLocalStorage(): void {
     localStorage.setItem('orders', JSON.stringify(this.orders));
   }
+  // In OrderHistoryService class
+getAllOrdersForAdmin(): Order[] {
+  return [...this.orders].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
+}
+
+export type { CartItem };

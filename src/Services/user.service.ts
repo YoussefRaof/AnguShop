@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  constructor(private authService: AuthenticationService) {}
 
-  constructor() { }
-
-  // Simulating fetching user data from localStorage (replace with actual API if needed)
   getUserData(email: string): Observable<any> {
-    // Get user data from localStorage (replace with actual API if needed)
-    const user = JSON.parse(localStorage.getItem(email) || '{}');
-    return of(user);
+    const user = this.authService.getAllUsers().find(u => u.email === email);
+    return of(user || {});
   }
 
-  // Simulating updating user data (replace with actual API if needed)
   updateUserData(updatedData: any): Observable<any> {
-    // Update user data in localStorage (replace with actual API if needed)
-    localStorage.setItem(updatedData.email, JSON.stringify(updatedData));
+    const users = this.authService.getAllUsers();
+    const userIndex = users.findIndex(u => u.email === updatedData.email);
+    
+    if (userIndex !== -1) {
+      users[userIndex] = { ...users[userIndex], ...updatedData };
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+    
     return of(updatedData);
   }
 }

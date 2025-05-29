@@ -6,14 +6,14 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-complaints',
   standalone: true,
-  imports: [CommonModule,
-    FormsModule,
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './complaints.component.html',
   styleUrls: ['./complaints.component.css']
 })
 export class ComplaintsComponent implements OnInit {
   complaints: any[] = [];
+  showDeleteModal: boolean = false;
+  complaintToDelete: number | null = null;
 
   constructor(private complaintService: ComplaintService) {}
 
@@ -21,10 +21,21 @@ export class ComplaintsComponent implements OnInit {
     this.complaints = this.complaintService.getComplaints();
   }
 
-  deleteComplaint(index: number): void {
-    if (confirm('Are you sure you want to delete this complaint?')) {
-      this.complaints.splice(index, 1);
-      this.complaintService.updateComplaints(this.complaints); 
+  initiateDelete(index: number): void {
+    this.complaintToDelete = index;
+    this.showDeleteModal = true;
+  }
+
+  confirmDelete(): void {
+    if (this.complaintToDelete !== null) {
+      this.complaints.splice(this.complaintToDelete, 1);
+      this.complaintService.updateComplaints(this.complaints);
     }
+    this.cancelDelete();
+  }
+
+  cancelDelete(): void {
+    this.showDeleteModal = false;
+    this.complaintToDelete = null;
   }
 }

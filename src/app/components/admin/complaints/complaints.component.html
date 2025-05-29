@@ -6,6 +6,18 @@
     No complaints have been submitted yet.
   </div>
 
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" *ngIf="showDeleteModal">
+    <div class="modal-content">
+      <h3>Confirm Deletion</h3>
+      <p>Are you sure you want to delete this complaint?</p>
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="cancelDelete()">Cancel</button>
+        <button class="confirm-btn" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
   <div class="row g-4" *ngIf="complaints.length > 0">
     <div class="col-md-6 col-lg-4" *ngFor="let complaint of complaints; let i = index">
       <div class="card h-100 border-0 shadow-sm rounded-4">
@@ -15,7 +27,7 @@
               <h5 class="card-title mb-0 fw-semibold fw-bold">{{ complaint.name }}</h5>
               <small class="text-muted">{{ complaint.email }}</small>
             </div>
-            <button class="btn btn-sm btn-outline-danger" (click)="deleteComplaint(i)">
+            <button class="btn btn-sm btn-outline-danger" (click)="initiateDelete(i)">
               <i class="bi bi-trash3"></i>
             </button>
           </div>

@@ -17,113 +17,220 @@ interface User {
   };
 }
 
+interface TokenPayload {
+  email: string;
+  role?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private userKey = 'users';
-  private tokenKey = 'token';
-  private currentUserSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+  private readonly userKey = 'users';
+  private readonly tokenKey = 'auth_token';
+  private currentUserSubject = new BehaviorSubject<string | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private router: Router) {
-    const storedUser = localStorage.getItem(this.tokenKey);
-    if (storedUser) {
-      this.currentUserSubject.next(JSON.parse(storedUser).email);
-    }
-    
+    this.initializeCurrentUser();
   }
 
-register(user: { email: string; password: string }, isAdmin: boolean = false): boolean {
-  const users = this.getAllUsers();
-  const exists = users.find(u => u.email === user.email);
-  if (exists) return false;
+  private initializeCurrentUser(): void {
+    const token = localStorage.getItem(this.tokenKey);
+    if (token) {
+      try {
+        const payload: TokenPayload = JSON.parse(token);
+        this.currentUserSubject.next(payload.email);
+      } catch {
+        this.clearToken();
+      }
+    }
+  }
 
-  const newUser: User = {
-    ...user,
-    role: isAdmin ? 'admin' : 'customer'
-  };
+  // User data management
+  private get users(): User[] {
+    return JSON.parse(localStorage.getItem(this.userKey) || '[]');
+  }
 
-  users.push(newUser);
-  localStorage.setItem(this.userKey, JSON.stringify(users));
-  return true;
-}
+  private set users(users: User[]) {
+    localStorage.setItem(this.userKey, JSON.stringify(users));
+  }
+
+  // Core authentication methods
+  register(userData: { 
+    email: string; 
+    password: string; 
+    role?: string;
+    profile?: {
+      firstName?: string;
+      lastName?: string;
+      phone?: string;
+      birthday?: string;
+    }
+  }, isAdmin: boolean = false): boolean {
+    if (this.userExists(userData.email)) {
+      return false;
+    }
+
+    const newUser: User = {
+      email: userData.email,
+      password: userData.password,
+      role: isAdmin ? 'admin' : 'customer',
+      profile: userData.profile || {}
+    };
+
+    this.users = [...this.users, newUser];
+    return true;
+  }
 
   login(email: string, password: string): boolean {
-    const users = this.getAllUsers();
-    const user = users.find(u => u.email === email && u.password === password);
+    if (!email || !password) return false;
+
+    const user = this.users.find(u => 
+      u.email.toLowerCase() === email.toLowerCase() && 
+      u.password === password
+    );
+
     if (!user) return false;
 
-    localStorage.setItem(this.tokenKey, JSON.stringify({ email }));
-    this.currentUserSubject.next(email);
-    
-    // Redirect based on role
-    if (user.role === 'admin') {
-      this.router.navigate(['/admin']);
-    } else {
-      this.router.navigate(['/dashboard']);
-    }
-    
+    this.setToken({
+      email: user.email,
+      role: user.role
+    });
+
+    this.currentUserSubject.next(user.email);
     return true;
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
+    this.clearToken();
     this.currentUserSubject.next(null);
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
+  // Token management
+  private setToken(payload: TokenPayload): void {
+    localStorage.setItem(this.tokenKey, JSON.stringify(payload));
+  }
+
+  private clearToken(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  // Helper methods
   isLoggedIn(): boolean {
     return !!localStorage.getItem(this.tokenKey);
   }
 
   isAdmin(): boolean {
-    const email = this.getCurrentUser();
-    if (!email) return false;
+    const token = localStorage.getItem(this.tokenKey);
+    if (!token) return false;
     
-    const users = this.getAllUsers();
-    const user = users.find(u => u.email === email);
-    return user?.role === 'admin';
+    try {
+      const payload: TokenPayload = JSON.parse(token);
+      return payload.role === 'admin';
+    } catch {
+      return false;
+    }
   }
 
   getCurrentUser(): string | null {
     return this.currentUserSubject.value;
   }
 
+  getCurrentUserProfile(): User | null {
+    const email = this.currentUserSubject.value;
+    return email ? this.users.find(u => u.email === email) || null : null;
+  }
+
+  getAllUsers(): User[] {
+    return this.users;
+  }
+
+  updateUserProfile(profileData: Partial<User['profile']>): boolean {
+    const email = this.currentUserSubject.value;
+    if (!email) return false;
+
+    const users = this.users;
+    const userIndex = users.findIndex(u => u.email === email);
+    if (userIndex === -1) return false;
+
+    users[userIndex].profile = { 
+      ...users[userIndex].profile, 
+      ...profileData 
+    };
+    this.users = users;
+    return true;
+  }
+
+  updateUserProfileImage(email: string, imageUrl: string): boolean {
+    const users = this.users;
+    const userIndex = users.findIndex(u => u.email === email);
+    
+    if (userIndex === -1) return false;
+    
+    users[userIndex].profile = users[userIndex].profile || {};
+    users[userIndex].profile!.image = imageUrl;
+    this.users = users;
+    return true;
+  }
+
   makeAdmin(email: string): boolean {
-    const users = this.getAllUsers();
+    const users = this.users;
     const userIndex = users.findIndex(u => u.email === email);
     
     if (userIndex === -1) return false;
     
     users[userIndex].role = 'admin';
-    localStorage.setItem(this.userKey, JSON.stringify(users));
+    this.users = users;
     return true;
   }
 
-  getCurrentUserProfile(): User | null {
-    const email = this.getCurrentUser();
+  private userExists(email: string): boolean {
+    return this.users.some(user => 
+      user.email.toLowerCase() === email.toLowerCase()
+    );
+  }
+
+  deleteUser(email: string): boolean {
+    const users = this.users;
+    const initialLength = users.length;
+    
+    const updatedUsers = users.filter(user => user.email !== email);
+    this.users = updatedUsers;
+    
+    return updatedUsers.length < initialLength;
+  }
+
+  getCurrentPassword(): string | null {
+    const email = this.currentUserSubject.value;
     if (!email) return null;
-    const users = this.getAllUsers();
-    return users.find(u => u.email === email) || null;
+    
+    const user = this.users.find(u => u.email === email);
+    return user ? user.password : null;
   }
 
-  updateUserProfile(profileData: Partial<User['profile']>): void {
-    const email = this.getCurrentUser();
-    if (!email) return;
+  updatePassword(newPassword: string): boolean {
+    const email = this.currentUserSubject.value;
+    if (!email) return false;
 
-    const users = this.getAllUsers();
+    const users = this.users;
     const userIndex = users.findIndex(u => u.email === email);
-    if (userIndex === -1) return;
-
-    const user = users[userIndex];
-    user.profile = { ...user.profile, ...profileData };
-    users[userIndex] = user;
-
-    localStorage.setItem(this.userKey, JSON.stringify(users));
+    
+    if (userIndex === -1) return false;
+    
+    users[userIndex].password = newPassword;
+    this.users = users;
+    return true;
   }
 
-  private getAllUsers(): User[] {
-    return JSON.parse(localStorage.getItem(this.userKey) || '[]');
+  setCurrentUser(user: User): void {
+    const users = this.users;
+    const userIndex = users.findIndex(u => u.email === user.email);
+    
+    if (userIndex > -1) {
+      users[userIndex] = user;
+      this.users = users;
+    }
   }
 }
