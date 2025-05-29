@@ -17,12 +17,13 @@
     <!-- Search Input -->
     <div class="search-container d-flex" style="width: 27%;">
       <label for="search">
-        <i class="fa-solid fa-magnifying-glass fs-3 px-2 py-2"
-          style="background-color: rgb(70, 70, 70); color: whitesmoke; border-radius: 10px;"></i>
+        <i class="fa-solid fa-magnifying-glass fs-4 px-2 py-2"
+          style="background-color: rgb(70, 70, 70); color: whitesmoke; border-top-left-radius: 10px; border-bottom-left-radius: 10px;"></i>
       </label>
 
       <input type="text" id="search" class="form-control w-100" placeholder="Search products..."
-        [(ngModel)]="searchText" (ngModelChange)="currentPage = 1" />
+        style="border-top-left-radius: 0; border-bottom-left-radius: 0;" [(ngModel)]="searchText"
+        (ngModelChange)="currentPage = 1" />
     </div>
   </div>
 

@@ -22,16 +22,16 @@
         <textarea formControlName="description" class="form-control"></textarea>
       </div>
 
-<div class="mb-3">
-  <label class="fw-bold mb-2">Category</label>
-  <select formControlName="category" class="form-control">
-    @for (item of categories; track $index) {
-        <option class="bg-black" [value]="item">{{item}}</option>
-    }
+      <div class="mb-3">
+        <label class="fw-bold mb-2">Category</label>
+        <select formControlName="category" class="form-control">
+          @for (item of categories; track $index) {
+          <option class="bg-black" [value]="item">{{item}}</option>
+          }
 
 
-  </select>
-</div>
+        </select>
+      </div>
       <div class="mb-3">
         <label class="fw-bold mb-2">Image URL</label>
         <input formControlName="image" class="form-control" />
