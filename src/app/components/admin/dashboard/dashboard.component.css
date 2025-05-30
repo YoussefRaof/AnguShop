@@ -118,3 +118,69 @@
     color: #adb5bd;
     margin-top: 5px;
 }
+
+/* Add to your dashboard.component.css */
+.data-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container {
+    flex-grow: 1;
+    min-height: 300px;
+}
+
+.chart-footer {
+    
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.data-card-header {
+    padding: 1rem 1.25rem 0;
+}
+
+.data-card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+}
+/* Add to your dashboard.component.css */
+.pie-chart-container {
+  height: 300px;
+  position: relative;
+}
+
+/* Adjust the row layout if needed */
+@media (min-width: 992px) {
+  .chart-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .chart-col {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+  }
+}
+
+.text-color {
+  /* Fallback for older browsers */
+  color: white;
+  
+  /* Gradient text effect */
+  background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: 400;
+  font-size: 20px;
+}

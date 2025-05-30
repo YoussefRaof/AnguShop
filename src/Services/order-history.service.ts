@@ -21,6 +21,7 @@ export interface Order {
     zipCode?: string;
     country?: string;
   };
+   paymentStatus?: string;
   date: string;
   status: OrderStatus;
   totalAmount: number;

@@ -76,7 +76,7 @@
 
                     <div class="data-items">
                         <div class="data-item" *ngFor="let product of popularProducts">
-                            <span class="text-truncate w-75" >{{ product.title }}</span>
+                            <span class="text-truncate w-75">{{ product.title }}</span>
                             <span class="badge-count">{{ product.salesCount }} sales</span>
                         </div>
                     </div>
@@ -104,8 +104,59 @@
                 </div>
             </div>
         </div>
+        <!-- Charts Section -->
+        <div class="row mt-4">
+            <!-- User Growth Chart (Line) -->
+            <div class="col-md-6 mb-4">
+                <div class="data-card h-100">
+                    <div class="data-card-header">
+                        <h5 class="data-card-title">Daily User Growth</h5>
+                        <span class="badge bg-info">Current Month</span>
+                    </div>
+                    <div class="chart-container">
+                        <app-chart [chartId]="'customersChart'" [config]="customersChartConfig">
+                        </app-chart>
+                    </div>
+                    <div class="chart-footer  text-muted px-3 py-2 text-color">
+                        <small class="text-color">Shows new user registrations by day</small>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-6 mb-4">
+                <div class="data-card h-100">
+                    <div class="data-card-header">
+                        <h5 class="data-card-title">Daily Orders</h5>
+                        <span class="badge bg-info">Current Month</span>
+                    </div>
+                    <div class="chart-container">
+                        <app-chart [chartId]="'ordersChart'" [config]="ordersChartConfig">
+                        </app-chart>
+                    </div>
+                    <div class="chart-footer  text-muted px-3 py-2">
+                        <small class="text-color">Shows completed orders by day</small>
+                    </div>
+                </div>
+            </div>
 
 
+
+        </div>
+        <!-- Add this as a third chart in your row -->
+        <div class="col-md-6 mb-4">
+            <div class="data-card h-100">
+                <div class="data-card-header">
+                    <h5 class="data-card-title">Order Status Distribution</h5>
+                    <span class="badge bg-info">All Orders</span>
+                </div>
+                <div class="chart-container">
+                    <app-chart [chartId]="'orderStatusChart'" [config]="orderStatusChartConfig">
+                    </app-chart>
+                </div>
+                <div class="chart-footer text-muted px-3 py-2">
+                    <small class="text-color">Shows percentage of orders by status</small>
+                </div>
+            </div>
+        </div>
         <!-- System Status -->
         <div class="row my-4">
             <div class="col-md-12">
