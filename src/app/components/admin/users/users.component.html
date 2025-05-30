@@ -77,6 +77,7 @@
 
 <!-- Previous table and other HTML remains the same -->
 
+
 <!-- Add User Modal -->
 <div class="modal" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'">
     <div class="modal-dialog">
@@ -125,7 +126,7 @@
 
                     <div class="mb-3">
                         <label for="birthdate" class="form-label">Birthdate</label>
-                        <input type="text" class="form-control" id="birthdate" [(ngModel)]="newUser.birthdate"
+                        <input type="date" class="form-control" id="birthdate" [(ngModel)]="newUser.birthdate"
                             name="birthdate" placeholder="DD/MM/YYYY" [class.is-invalid]="formErrors['birthdate']">
                         <div class="invalid-feedback" *ngIf="formErrors['birthdate']">
                             {{ formErrors['birthdate'] }}

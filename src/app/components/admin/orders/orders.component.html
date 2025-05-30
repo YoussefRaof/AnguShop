@@ -95,7 +95,7 @@
             <h3>
               <i class="bi bi-person-circle me-2"></i>
               Customer Information
-              <span *ngIf="userProfile" class="badge bg-info ms-2">From Profile</span>
+              <span *ngIf="userProfile" class="badge bg-info ms-2 p-1 px-2 fw-bold">From Profile</span>
             </h3>
 
             <div class="detail-row">
@@ -151,7 +151,7 @@
             <div class="detail-row">
               <span class="detail-label"><i class="bi bi-info-circle me-2"></i>Status:</span>
               <span class="detail-value">
-                <span class="badge" [ngClass]="getStatusBadgeClass(selectedOrder.status)">
+                <span class="badge text-white" [ngClass]="getStatusBadgeClass(selectedOrder.status)">
                   {{ selectedOrder.status }}
                 </span>
               </span>
