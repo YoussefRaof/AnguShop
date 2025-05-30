@@ -4,14 +4,8 @@
   <!-- Search Bar -->
   <div class="d-flex justify-content-between mb-3">
     <div class="input-group" style="width: 300px;">
-      <input
-        type="text"
-        id="searchInput"
-        class="form-control"
-        placeholder="Search orders..."
-        [(ngModel)]="searchTerm"
-        (keyup)="onSearch()"
-      />
+      <input type="text" id="searchInput" class="form-control" placeholder="Search orders..." [(ngModel)]="searchTerm"
+        (keyup)="onSearch()" />
       <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">
         <i class="bi bi-search"></i>
       </button>
@@ -32,31 +26,30 @@
         <thead class="table-dark text-center">
           <tr>
             <th>Order ID</th>
-            <th>Email</th>
+            <th>Customer Name</th>
             <th>Date</th>
             <th>Status</th>
             <th>Total</th>
             <th>Actions</th>
           </tr>
         </thead>
+
         <tbody class="text-center">
           <tr *ngFor="let order of paginatedOrders">
             <td>{{ order.id }}</td>
-            <td>{{ order.userEmail }}</td>
+
+            <td>{{ getUserProfile(order.userEmail)?.firstName }} {{ getUserProfile(order.userEmail)?.lastName }}</td>
+
             <td>{{ order.date | date: 'shortDate' }}</td>
             <td>
-              <span class="badge px-3" [ngClass]="getStatusBadgeClass(order.status)">
+              <span class="badge px-3 text-white py-2" [ngClass]="getStatusBadgeClass(order.status)">
                 {{ order.status }}
               </span>
             </td>
             <td class="text-nowrap">${{ order.totalAmount.toFixed(2) }}</td>
             <td>
               <div class="btn-group" role="group">
-                <button
-                  class="btn btn-sm btn-dark me-2"
-                  (click)="showOrderDetails(order)"
-                  title="View order details"
-                >
+                <button class="btn btn-sm btn-dark me-2" (click)="showOrderDetails(order)" title="View order details">
                   <i class="bi bi-eye me-2"></i> Details
                 </button>
               </div>
@@ -76,11 +69,7 @@
           <li class="page-item" [class.disabled]="currentPage === 1">
             <a class="page-link" (click)="previousPage()">Previous</a>
           </li>
-          <li
-            class="page-item"
-            *ngFor="let page of getPageNumbers()"
-            [class.active]="page === currentPage"
-          >
+          <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage">
             <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
           </li>
           <li class="page-item" [class.disabled]="currentPage === totalPages">
@@ -106,7 +95,7 @@
             <h3>
               <i class="bi bi-person-circle me-2"></i>
               Customer Information
-              <span *ngIf="userProfile" class="badge bg-info ms-2">From Profile</span>
+              <span *ngIf="userProfile" class="badge bg-info ms-2 p-1 px-2 fw-bold">From Profile</span>
             </h3>
 
             <div class="detail-row">
@@ -131,29 +120,26 @@
               <span class="detail-value">
                 {{ selectedOrder.userPhone || userProfile?.phone || 'Not provided' }}
                 <span *ngIf="selectedOrder.userPhone || userProfile?.phone">
-                  <a
-                    href="tel:{{ selectedOrder.userPhone || userProfile?.phone }}"
-                    class="ms-2 text-primary"
-                  >
+                  <a href="tel:{{ selectedOrder.userPhone || userProfile?.phone }}" class="ms-2 text-primary">
                     <i class="bi bi-telephone-outbound"></i>
                   </a>
                 </span>
               </span>
             </div>
 
-<div class="detail-row">
-  <span class="detail-label"><i class="bi bi-geo-alt me-2"></i>Shipping Address:</span>
-  <span class="detail-value">
-    <ng-container *ngIf="selectedOrder.shippingAddress || userProfile?.address; else noAddress">
-      {{ selectedOrder.shippingAddress?.street || userProfile?.address?.street || '' }}<br />
-      {{ selectedOrder.shippingAddress?.city || userProfile?.address?.city || '' }},
-      {{ selectedOrder.shippingAddress?.state || userProfile?.address?.state || '' }}
-      {{ selectedOrder.shippingAddress?.zipCode || userProfile?.address?.zipCode || '' }}<br />
-      {{ selectedOrder.shippingAddress?.country || userProfile?.address?.country || '' }}
-    </ng-container>
-    <ng-template #noAddress>Not provided</ng-template>
-  </span>
-</div>
+            <div class="detail-row">
+              <span class="detail-label"><i class="bi bi-geo-alt me-2"></i>Shipping Address:</span>
+              <span class="detail-value">
+                <ng-container *ngIf="selectedOrder.shippingAddress || userProfile?.address; else noAddress">
+                  {{ selectedOrder.shippingAddress?.street || userProfile?.address?.street || '' }}<br />
+                  {{ selectedOrder.shippingAddress?.city || userProfile?.address?.city || '' }},
+                  {{ selectedOrder.shippingAddress?.state || userProfile?.address?.state || '' }}
+                  {{ selectedOrder.shippingAddress?.zipCode || userProfile?.address?.zipCode || '' }}<br />
+                  {{ selectedOrder.shippingAddress?.country || userProfile?.address?.country || '' }}
+                </ng-container>
+                <ng-template #noAddress>Not provided</ng-template>
+              </span>
+            </div>
 
 
 
@@ -165,7 +151,7 @@
             <div class="detail-row">
               <span class="detail-label"><i class="bi bi-info-circle me-2"></i>Status:</span>
               <span class="detail-value">
-                <span class="badge" [ngClass]="getStatusBadgeClass(selectedOrder.status)">
+                <span class="badge text-white" [ngClass]="getStatusBadgeClass(selectedOrder.status)">
                   {{ selectedOrder.status }}
                 </span>
               </span>
@@ -203,12 +189,8 @@
 
             <div class="order-item" *ngFor="let item of displayItems">
               <div class="product-info">
-                <img
-                  [src]="item.image || 'assets/default-product.png'"
-                  [alt]="item.name || 'Product image'"
-                  class="product-image"
-                  onerror="this.src='assets/default-product.png'"
-                />
+                <img [src]="item.image || 'assets/default-product.png'" [alt]="item.name || 'Product image'"
+                  class="product-image" onerror="this.src='assets/default-product.png'" />
                 <div class="product-details">
                   <div class="product-name">{{ item.name || 'Unnamed Product' }}</div>
                   <div class="product-sku" *ngIf="item.sku">SKU: {{ item.sku }}</div>

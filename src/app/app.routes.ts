@@ -27,7 +27,7 @@ import { CategoryMasterComponent } from './Pages/category-master/category-master
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { OrderHistoryComponent } from './Pages/order-history/order-history.component';
 import { CompareProductComponent } from './Pages/compare-product/compare-product.component';
-import { AddProductComponen } from './components/admin/add-product/add-product.component';
+import { AddProductComponent } from './components/admin/productts/add-product/add-product.component'; 
 
 export const routes: Routes = [
   // Standalone pages (without layout  Navbar and Footer)
@@ -45,8 +45,8 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersComponent },
       { path: 'complaints', component: ComplaintsComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'add-product', component:AddProductComponen},
-      
+      { path: 'add-product', component: AddProductComponent },
+
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
@@ -57,8 +57,8 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title: 'Home' },
-      { path: '', component: HomeComponent, title: 'Home' },
 
       { path: 'OrderHistory', component: OrderHistoryComponent, title: 'Order History' },
       { path: 'contactus', component: AboutComponent, title: 'Contact Us' },

@@ -10,15 +10,19 @@
   <h2 class="mb-4 text-white">Products Management</h2>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <a class="btn btn-light px-3" routerLink="/admin/add-product">
-      <i class="fa-solid fa-plus me-2 "></i> Add New Product
-    </a>
+    <button class="btn btn-light px-3" (click)="openAddProductModal()">
+    <i class="fa-solid fa-plus me-2"></i> Add New Product
+  </button>
 
     <!-- Search Input -->
     <div class="search-container d-flex" style="width: 27%;">
-      <i class="fa-solid fa-magnifying-glass fs-3 px-2 py-2"
-        style="background-color: rgb(70, 70, 70); color: whitesmoke; border-radius: 10px;"></i>
-      <input type="text" class="form-control w-100" placeholder="Search products..." [(ngModel)]="searchText"
+      <label for="search">
+        <i class="fa-solid fa-magnifying-glass fs-4 px-2 py-2"
+          style="background-color: rgb(70, 70, 70); color: whitesmoke; border-top-left-radius: 10px; border-bottom-left-radius: 10px;"></i>
+      </label>
+
+      <input type="text" id="search" class="form-control w-100" placeholder="Search products..."
+        style="border-top-left-radius: 0; border-bottom-left-radius: 0;" [(ngModel)]="searchText"
         (ngModelChange)="currentPage = 1" />
     </div>
   </div>
@@ -39,7 +43,7 @@
   <div class="row">
     <div class="col-md-6 col-lg-3 mb-4" *ngFor="let product of paginatedProducts">
       <app-admin-one-product [product]="product" (delete)="onDeleteProduct($event)"
-        (viewDetails)="onViewProduct($event)" (edit)="onEditProduct($event)"></app-admin-one-product>
+        ></app-admin-one-product>
     </div>
   </div>
 
@@ -63,5 +67,13 @@
       </li>
     </ul>
   </nav>
+
+
+  <app-add-product 
+    *ngIf="showAddProductModal"
+    [showModal]="showAddProductModal"
+    (modalClosed)="closeAddProductModal()"
+    (productAdded)="handleProductAdded()">
+  </app-add-product>
 
 </div>

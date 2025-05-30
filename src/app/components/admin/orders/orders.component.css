@@ -43,6 +43,7 @@
 .pagination {
     justify-content: center;
     margin-bottom: 25px;
+    gap: 4px !important;
 }
 
 .page-link {
