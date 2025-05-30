@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
         }))
         .filter(p => p.salesCount > 0)
         .sort((a, b) => b.salesCount - a.salesCount)  // Descending order by sales
-        .slice(0, 5);  // top 5 popular products
+        .slice(0, 3);  // top 5 popular products
 
       this.popularProducts = popularProducts;
     });
@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit {
 
     // 1. Recent user registrations
     const users = this.auth.getAllUsers();
-    const recentUsers = users.slice(-3).reverse(); // last 3 registered users
+    const recentUsers = users.slice(-1).reverse(); // last 3 registered users
 
     recentUsers.forEach(user => {
       activities.push({
@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
     // 2. Recent orders completed
     const allOrders = this.OrderHistoryService.getAllOrdersForAdmin();
     const recentOrders = allOrders
-      .slice(0, 3);  // Just take the last 3 orders regardless of status
+      .slice(0, 2);  // Just take the last 3 orders regardless of status
 
 
     recentOrders.forEach(order => {
