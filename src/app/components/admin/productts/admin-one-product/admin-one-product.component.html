@@ -36,7 +36,7 @@
   <!-- Product Footer -->
   <div class="card-footer bg-transparent">
     <div class="d-flex justify-content-between align-items-center">
-      <small class="text-muted">Stock: {{ product.rating?.count || 10 }}</small>
+      <small class="text-muted">Stock: {{ product.rating.count || 10 }}</small>
       <div class="rating" *ngIf="product.rating">
 
         <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
