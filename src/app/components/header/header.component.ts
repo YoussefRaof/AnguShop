@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { WishlistService } from '../../../Services/wish-list.service';
 import { CartService } from '../../../Services/cart.service';
-import { AuthenticationService } from '../../../Services/authentication.service';  // Inject AuthService for login status
+import { AuthenticationService } from '../../../Services/authentication.service';
+import { UserService } from '../../../Services/user.service';
 import { CommonModule } from '@angular/common';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-
-export class HeaderComponent implements OnInit {
-  userName: string | null = null;  
+export class HeaderComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  userName: string | null = null;
+  userImage: string | null = null;
   wishlistCount: number = 0;
   cartCount: number = 0;
 
@@ -23,30 +25,59 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private wishlistService: WishlistService,
     private cartService: CartService,
-    private authService: AuthenticationService  // Inject AuthService for user login status
+    private authService: AuthenticationService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-
+    // Handle cart and wishlist counts
     combineLatest([
       this.cartService.getCartCount(),
       this.wishlistService.wishlistCount$
-    ]).subscribe(([cartCount, wishlistCount]) => {
-      this.cartCount = cartCount;
-      this.wishlistCount = wishlistCount;
-    });
+    ]).pipe(takeUntil(this.destroy$))
+      .subscribe(([cartCount, wishlistCount]) => {
+        this.cartCount = cartCount;
+        this.wishlistCount = wishlistCount;
+      });
 
-    this.userName = this.authService.getCurrentUser();  
+    // Load initial user data
+    this.loadUserData();
+
+    // Subscribe to authentication changes
+    this.authService.currentUser$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.loadUserData());
+
+    // Subscribe to image updates
+    this.userService.getUserImage()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(image => {
+        this.userImage = image;
+      });
   }
 
+  private loadUserData(): void {
+    const currentUserEmail = this.authService.getCurrentUser();
+    if (currentUserEmail) {
+      this.userName = currentUserEmail;
+      this.userService.loadCurrentUserImage();
+    } else {
+      this.userName = null;
+      this.userImage = null;
+    }
+  }
 
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
 
-
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

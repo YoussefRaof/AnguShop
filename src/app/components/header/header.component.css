@@ -391,7 +391,7 @@
 }
 
 .profile-link:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
   transform: translateY(-2px);
 }
 
@@ -433,4 +433,34 @@
   color: #feca57;
   font-weight: 600;
   text-shadow: 0 0 5px rgba(254, 202, 87, 0.5);
+}
+.profile-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fa-user-circle {
+  font-size: 1.8rem;
+  color: white;
+}
+
+/* Hover effects */
+.profile-link:hover .profile-image-container {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: transparent;
 }

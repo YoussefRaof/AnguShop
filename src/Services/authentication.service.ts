@@ -254,4 +254,10 @@ export class AuthenticationService {
     this.users = users;
     return true;
   }
+  // Add this method to your AuthenticationService
+getUserImage(): string | null {
+  // Get image from localStorage or user object
+  const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  return user?.imageUrl || null;
+}
 }

@@ -51,8 +51,11 @@
               <!-- Profile icon (only visible when logged in) -->
               <li *ngIf="isLoggedIn">
                 <a routerLink="/profile" class="nav-link p-2 text-white profile-link">
-                  <i class="fas fa-user fa-1x"></i>
-                  <span class="text-white mx-2">Profile</span>
+                  <div class="profile-image-container " style="">
+                    <!-- Display user image if available, otherwise show user icon -->
+                    <img *ngIf="userImage" [src]="userImage" alt="User Profile" class="profile-image"
+                      onerror="this.style.display='none'">
+                  </div>
                 </a>
               </li>
 

@@ -1,27 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private currentUserImage$ = new BehaviorSubject<string | null>(null);
+
   constructor(private authService: AuthenticationService) {}
 
-  getUserData(email: string): Observable<any> {
-    const user = this.authService.getAllUsers().find(u => u.email === email);
-    return of(user || {});
+  getUserImage(): Observable<string | null> {
+    return this.currentUserImage$.asObservable();
   }
 
-  updateUserData(updatedData: any): Observable<any> {
+  updateUserImage(newImage: string): void {
+    const email = this.authService.getCurrentUser();
+    if (!email) return;
+
     const users = this.authService.getAllUsers();
-    const userIndex = users.findIndex(u => u.email === updatedData.email);
+    const userIndex = users.findIndex(u => u.email === email);
     
     if (userIndex !== -1) {
-      users[userIndex] = { ...users[userIndex], ...updatedData };
+      users[userIndex].profile = users[userIndex].profile || {};
+      users[userIndex].profile!.image = newImage;
       localStorage.setItem('users', JSON.stringify(users));
+      this.currentUserImage$.next(newImage);
     }
-    
-    return of(updatedData);
+  }
+
+  loadCurrentUserImage(): void {
+    const email = this.authService.getCurrentUser();
+    if (!email) {
+      this.currentUserImage$.next(null);
+      return;
+    }
+
+    const user = this.authService.getAllUsers().find(u => u.email === email);
+    this.currentUserImage$.next(user?.profile?.image || null);
   }
 }

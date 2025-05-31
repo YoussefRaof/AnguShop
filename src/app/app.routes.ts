@@ -21,7 +21,6 @@ import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { CartComponent } from './Pages/cart/cart.component';
 import { ProductDetailsComponent } from './Pages/product-details/product-details.component';
-import { HeroComponent } from './Pages/hero/hero.component';
 import { CheckoutComponent } from './Pages/checkout/checkout.component';
 import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { CategoryMasterComponent } from './Pages/category-master/category-master.component';
@@ -73,8 +72,7 @@ export const routes: Routes = [
       { path: 'error', component: ErrorPageComponent, title: 'Error' },
       { path: 'profile', component: ProfileComponent, title: 'Profile' },
       { path: 'compare', component: CompareProductComponent },
-      { path: 'about', component: AboutUsComponent },
-      { path: 'hero', component: HeroComponent },
+      { path: 'about', component: AboutUsComponent }
 
     ]
   },

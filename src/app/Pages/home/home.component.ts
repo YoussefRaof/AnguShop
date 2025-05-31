@@ -6,7 +6,8 @@ import { ProductsComponent } from "../products/products.component";
 import { CategoriesSliderComponent } from "../../components/categories-slider/categories-slider.component";
 import { OneProductComponent } from "../../components/one-product/one-product.component";
 import { HttpClient } from '@angular/common/http';
-import { HeroComponent } from "../hero/hero.component";
+import { HeroComponent } from '../../components/hero/hero.component';
+
 
 interface HeroProduct {
   id: number;
