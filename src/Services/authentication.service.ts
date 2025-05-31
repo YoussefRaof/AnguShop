@@ -57,9 +57,9 @@ export class AuthenticationService {
   }
 
   // Core authentication methods
-  register(userData: { 
-    email: string; 
-    password: string; 
+  register(userData: {
+    email: string;
+    password: string;
     role?: string;
     profile?: {
       firstName?: string;
@@ -86,8 +86,8 @@ export class AuthenticationService {
   login(email: string, password: string): boolean {
     if (!email || !password) return false;
 
-    const user = this.users.find(u => 
-      u.email.toLowerCase() === email.toLowerCase() && 
+    const user = this.users.find(u =>
+      u.email.toLowerCase() === email.toLowerCase() &&
       u.password === password
     );
 
@@ -125,7 +125,7 @@ export class AuthenticationService {
   isAdmin(): boolean {
     const token = localStorage.getItem(this.tokenKey);
     if (!token) return false;
-    
+
     try {
       const payload: TokenPayload = JSON.parse(token);
       return payload.role === 'admin';
@@ -155,9 +155,9 @@ export class AuthenticationService {
     const userIndex = users.findIndex(u => u.email === email);
     if (userIndex === -1) return false;
 
-    users[userIndex].profile = { 
-      ...users[userIndex].profile, 
-      ...profileData 
+    users[userIndex].profile = {
+      ...users[userIndex].profile,
+      ...profileData
     };
     this.users = users;
     return true;
@@ -166,9 +166,9 @@ export class AuthenticationService {
   updateUserProfileImage(email: string, imageUrl: string): boolean {
     const users = this.users;
     const userIndex = users.findIndex(u => u.email === email);
-    
+
     if (userIndex === -1) return false;
-    
+
     users[userIndex].profile = users[userIndex].profile || {};
     users[userIndex].profile!.image = imageUrl;
     this.users = users;
@@ -178,16 +178,16 @@ export class AuthenticationService {
   makeAdmin(email: string): boolean {
     const users = this.users;
     const userIndex = users.findIndex(u => u.email === email);
-    
+
     if (userIndex === -1) return false;
-    
+
     users[userIndex].role = 'admin';
     this.users = users;
     return true;
   }
 
   private userExists(email: string): boolean {
-    return this.users.some(user => 
+    return this.users.some(user =>
       user.email.toLowerCase() === email.toLowerCase()
     );
   }
@@ -195,17 +195,17 @@ export class AuthenticationService {
   deleteUser(email: string): boolean {
     const users = this.users;
     const initialLength = users.length;
-    
+
     const updatedUsers = users.filter(user => user.email !== email);
     this.users = updatedUsers;
-    
+
     return updatedUsers.length < initialLength;
   }
 
   getCurrentPassword(): string | null {
     const email = this.currentUserSubject.value;
     if (!email) return null;
-    
+
     const user = this.users.find(u => u.email === email);
     return user ? user.password : null;
   }
@@ -216,9 +216,9 @@ export class AuthenticationService {
 
     const users = this.users;
     const userIndex = users.findIndex(u => u.email === email);
-    
+
     if (userIndex === -1) return false;
-    
+
     users[userIndex].password = newPassword;
     this.users = users;
     return true;
@@ -227,10 +227,31 @@ export class AuthenticationService {
   setCurrentUser(user: User): void {
     const users = this.users;
     const userIndex = users.findIndex(u => u.email === user.email);
-    
+
     if (userIndex > -1) {
       users[userIndex] = user;
       this.users = users;
     }
+  }
+
+
+  updateUser(email: string, updates: Partial<User>): boolean {
+    const users = this.users;
+    const index = users.findIndex(u => u.email === email);
+    if (index === -1) return false;
+
+    const currentUser = users[index];
+
+    users[index] = {
+      ...currentUser,
+      ...updates,
+      profile: {
+        ...currentUser.profile,
+        ...updates.profile
+      }
+    };
+
+    this.users = users;
+    return true;
   }
 }

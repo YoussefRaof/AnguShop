@@ -22,6 +22,7 @@ interface TableUser {
 })
 export class UsersComponent implements OnInit {
   users: TableUser[] = [];
+
   paginatedUsers: TableUser[] = [];
   newUser = {
     name: '',
@@ -32,6 +33,17 @@ export class UsersComponent implements OnInit {
     role: 'customer' as 'customer' | 'admin'
   };
 
+  editUser: TableUser = {
+    id: 0,
+    name: '',
+    email: '',
+    phone: '',
+    birthdate: '',
+    role: 'customer'
+  };
+  showEditModal = false;
+  editFormErrors: { [key: string]: string } = {};
+
   // Modal controls
   showDetailsModal = false;
   selectedUser: TableUser | null = null;
@@ -39,15 +51,16 @@ export class UsersComponent implements OnInit {
   formSubmitted = false;
   formErrors: { [key: string]: string } = {};
   showPasswordField = true;
-showDeleteModal = false;
+  showDeleteModal = false;
+
   // Pagination controls
   currentPage = 1;
   itemsPerPage = 6;
   totalItems = 0;
- searchTerm: string = '';
+  searchTerm: string = '';
   isSearchActive: boolean = false;
   filteredUsers: TableUser[] = [];
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.loadUsers();
@@ -55,7 +68,7 @@ showDeleteModal = false;
 
   loadUsers() {
     const authUsers = this.authService.getAllUsers();
-    
+
     this.users = authUsers.map((user, index) => {
       const profile = user.profile || {};
       return {
@@ -92,28 +105,28 @@ showDeleteModal = false;
     const pages: number[] = [];
     const total = this.totalPages();
     const maxVisible = 5;
-    
+
     if (total <= 1) return [1];
 
     pages.push(1);
-    
+
     let start = Math.max(2, this.currentPage - 2);
     let end = Math.min(total - 1, this.currentPage + 2);
-    
+
     if (this.currentPage <= 3) {
       end = Math.min(5, total - 1);
     } else if (this.currentPage >= total - 2) {
       start = Math.max(total - 4, 2);
     }
-    
+
     if (start > 2) pages.push(-1);
-    
+
     for (let i = start; i <= end; i++) pages.push(i);
-    
+
     if (end < total - 1) pages.push(-1);
-    
+
     if (total > 1) pages.push(total);
-    
+
     return pages;
   }
 
@@ -167,7 +180,7 @@ showDeleteModal = false;
 
   addUser(form: NgForm) {
     this.formSubmitted = true;
-    
+
     if (!this.validateForm()) {
       return;
     }
@@ -209,7 +222,7 @@ showDeleteModal = false;
   }
   applyFilter() {
     this.isSearchActive = this.searchTerm.trim().length > 0;
-    
+
     if (!this.isSearchActive) {
       this.filteredUsers = [...this.users];
     } else {
@@ -221,7 +234,7 @@ showDeleteModal = false;
         user.role.toLowerCase().includes(term)
       );
     }
-    
+
     this.totalItems = this.filteredUsers.length;
     this.currentPage = 1;
     this.updatePaginatedUsers();
@@ -238,10 +251,10 @@ showDeleteModal = false;
 
   confirmDelete() {
     if (!this.selectedUser) return;
-    
+
     // Delete from authentication service
     const success = this.authService.deleteUser(this.selectedUser.email);
-    
+
     if (success) {
       // Reload users
       this.loadUsers();
@@ -252,5 +265,59 @@ showDeleteModal = false;
       // Handle error (you might want to show an error message)
       console.error('Failed to delete user');
     }
+  }
+
+
+  openEditModal(user: TableUser) {
+    this.editUser = { ...user }; // Shallow copy
+    this.editFormErrors = {};
+    this.showEditModal = true;
+  }
+
+  closeEditModal() {
+    this.showEditModal = false;
+    this.editFormErrors = {};
+  }
+
+  validateEditForm(): boolean {
+    this.editFormErrors = {};
+    let isValid = true;
+
+    if (!this.editUser.name.trim()) {
+      this.editFormErrors['name'] = 'Name is required';
+      isValid = false;
+    }
+
+    if (!this.editUser.email.trim()) {
+      this.editFormErrors['email'] = 'Email is required';
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.editUser.email)) {
+      this.editFormErrors['email'] = 'Please enter a valid email';
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  updateUser(form: NgForm) {
+    if (!this.validateEditForm()) return;
+
+    const updated = this.authService.updateUser(this.editUser.email, {
+      profile: {
+        firstName: this.editUser.name.split(' ')[0],
+        lastName: this.editUser.name.split(' ').slice(1).join(' '),
+        phone: this.editUser.phone,
+        birthday: this.editUser.birthdate
+      },
+      role: this.editUser.role as 'customer' | 'admin'
+    });
+
+    if (!updated) {
+      this.editFormErrors['email'] = 'Failed to update user';
+      return;
+    }
+
+    this.loadUsers();
+    this.closeEditModal();
   }
 }

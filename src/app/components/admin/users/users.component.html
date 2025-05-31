@@ -38,9 +38,14 @@
                     <td>{{user.birthdate}}</td>
                     <td>
                         <div class="btn-group gap-1" role="group">
-                            <button class="btn btn-sm btn-dark mx-1 rounded-2" (click)="openDetailsModal(user)">
+                            <button class="btn btn-sm btn-dark rounded-2" (click)="openDetailsModal(user)">
                                 <i class="bi bi-eye me-2"></i> <span class="fw-bold">Details</span>
                             </button>
+
+                            <button class="btn btn-sm btn-success mx-1 rounded-2" (click)="openEditModal(user)">
+                                <i class="fas fa-edit me-2"></i> <span class="fw-bold">Edit</span>
+                            </button>
+
                             <button class="btn btn-sm btn-danger rounded-2" (click)="openDeleteModal(user)">
                                 <i class="bi bi-trash me-2"></i> <span class="fw-bold">Delete</span>
                             </button>
@@ -137,15 +142,15 @@
                         <label class="form-label">Role</label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="role" id="roleCustomer"
-                                [(ngModel)]="newUser.role" value="customer" checked>
-                            <label class="form-check-label" for="roleCustomer">
+                                style="cursor: pointer;" [(ngModel)]="newUser.role" value="customer" checked>
+                            <label class="form-check-label" for="roleCustomer" style="cursor: pointer;">
                                 Customer
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="role" id="roleAdmin"
-                                [(ngModel)]="newUser.role" value="admin">
-                            <label class="form-check-label" for="roleAdmin">
+                                style="cursor: pointer;" [(ngModel)]="newUser.role" value="admin">
+                            <label class="form-check-label" for="roleAdmin" style="cursor: pointer;">
                                 Admin
                             </label>
                         </div>
@@ -153,7 +158,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary px-5">Save</button>
                     </div>
                 </form>
             </div>
@@ -236,3 +241,75 @@
         </div>
     </div>
 </div>
+
+
+<!-- Edit User Modal -->
+<div class="modal" [class.show]="showEditModal" [style.display]="showEditModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit User</h5>
+                <button type="button" class="btn-close" (click)="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm" (ngSubmit)="updateUser(editForm)">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="editUser.name" name="editName"
+                            [class.is-invalid]="editFormErrors['name']">
+                        <div class="invalid-feedback" *ngIf="editFormErrors['name']">
+                            {{ editFormErrors['name'] }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" [(ngModel)]="editUser.email" name="editEmail"
+                            [class.is-invalid]="editFormErrors['email']">
+                        <div class="invalid-feedback" *ngIf="editFormErrors['email']">
+                            {{ editFormErrors['email'] }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-control" [(ngModel)]="editUser.phone" name="editPhone"
+                            [class.is-invalid]="editFormErrors['phone']">
+                        <div class="invalid-feedback" *ngIf="editFormErrors['phone']">
+                            {{ editFormErrors['phone'] }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Birthdate</label>
+                        <input type="date" class="form-control" [(ngModel)]="editUser.birthdate" name="editBirthdate"
+                            [class.is-invalid]="editFormErrors['birthdate']">
+                        <div class="invalid-feedback" *ngIf="editFormErrors['birthdate']">
+                            {{ editFormErrors['birthdate'] }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <div class="form-check">
+                            <input id="i2" class="form-check-input" type="radio" name="editRole"
+                                [(ngModel)]="editUser.role" value="customer" style="cursor: pointer;">
+                            <label for="i2" class="form-check-label" style="cursor: pointer;">Customer</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="i1" class="form-check-input" type="radio" name="editRole"
+                                [(ngModel)]="editUser.role" value="admin" style="cursor: pointer;">
+                            <label for="i1" class="form-check-label" style="cursor: pointer;">Admin</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+                        <button type="submit" class="btn btn-success px-5">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="showEditModal"></div>
