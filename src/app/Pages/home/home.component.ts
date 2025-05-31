@@ -6,6 +6,7 @@ import { ProductsComponent } from "../products/products.component";
 import { CategoriesSliderComponent } from "../../components/categories-slider/categories-slider.component";
 import { OneProductComponent } from "../../components/one-product/one-product.component";
 import { HttpClient } from '@angular/common/http';
+import { HeroComponent } from "../hero/hero.component";
 
 interface HeroProduct {
   id: number;
@@ -26,12 +27,14 @@ interface HeroProduct {
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule, 
-    RouterModule, 
-    ProductsComponent, 
+    CommonModule,
+    RouterModule,
+    ProductsComponent,
     CategoriesSliderComponent,
     OneProductComponent // Add this import
-  ],
+    ,
+    HeroComponent
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
