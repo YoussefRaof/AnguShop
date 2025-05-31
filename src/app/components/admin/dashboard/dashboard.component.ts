@@ -362,7 +362,7 @@ export class DashboardComponent implements OnInit {
         labels: statusData.labels,
         datasets: [{
           data: statusData.values,
-          backgroundColor: colorPalette.slice(0, statusData.labels.length),
+          backgroundColor: colorPalette.slice (0, statusData.labels.length),
           hoverBackgroundColor: colorPalette
             .slice(0, statusData.labels.length)
             .map(color => `${color}aa`),

@@ -25,6 +25,7 @@ import { CheckoutComponent } from './Pages/checkout/checkout.component';
 import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { CategoryMasterComponent } from './Pages/category-master/category-master.component';
 import { ProfileComponent } from './Pages/profile/profile.component';
+import { AboutUsComponent } from './Pages/about-us/about-us.component';
 import { OrderHistoryComponent } from './Pages/order-history/order-history.component';
 import { CompareProductComponent } from './Pages/compare-product/compare-product.component';
 import { AddProductComponent } from './components/admin/productts/add-product/add-product.component'; 
@@ -71,6 +72,7 @@ export const routes: Routes = [
       { path: 'error', component: ErrorPageComponent, title: 'Error' },
       { path: 'profile', component: ProfileComponent, title: 'Profile' },
       { path: 'compare', component: CompareProductComponent },
+      { path: 'about', component: AboutUsComponent },
 
     ]
   },
