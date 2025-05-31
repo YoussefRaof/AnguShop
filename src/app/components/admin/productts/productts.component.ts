@@ -115,5 +115,12 @@ export class ProducttsComponent implements OnInit {
 
   // Reserved for future use with child events
   handleDelete(productId: number) { }
-  handleUpdate(updatedProduct: Product) { }
+  handleUpdate(updatedProduct: Product) { 
+    
+      const index = this.products.findIndex(p => p.id === updatedProduct.id);
+  if (index !== -1) {
+    this.products[index] = updatedProduct;
+  }
+        this.products[index] = { ...updatedProduct }; 
+  }
 }

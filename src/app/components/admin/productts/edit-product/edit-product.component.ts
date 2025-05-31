@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../../../interfaces/product';
 import { CategoriesService } from '../../../../../Services/categories.service';
+import { ProductsService } from '../../../../../Services/products.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-product',
@@ -19,7 +21,7 @@ export class EditProductComponent implements OnInit {
 
   editForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private categoryService: CategoriesService) { }
+  constructor(private fb: FormBuilder, private categoryService: CategoriesService , private productService:ProductsService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -54,6 +56,22 @@ export class EditProductComponent implements OnInit {
     this.modalClosed.emit();
   }
 
+  // onSubmit(): void {
+  //   if (this.editForm.valid) {
+  //     const updatedProduct: Product = {
+  //       ...this.product,
+  //       ...this.editForm.value,
+  //       rating: {
+  //         rate: this.editForm.value.ratingRate,
+  //         count: this.editForm.value.ratingCount
+  //       }
+  //     };
+  //     this.productUpdated.emit(updatedProduct);
+  //     this.closeModal();
+  //   }
+  // }
+
+  
   onSubmit(): void {
     if (this.editForm.valid) {
       const updatedProduct: Product = {
@@ -64,8 +82,28 @@ export class EditProductComponent implements OnInit {
           count: this.editForm.value.ratingCount
         }
       };
-      this.productUpdated.emit(updatedProduct);
-      this.closeModal();
+
+      this.productService.updateProduct(this.product.id, updatedProduct).subscribe({
+        next: (response) => {
+          this.productUpdated.emit(updatedProduct);
+          // console.log(updatedProduct) // Success 
+           Swal.fire({
+            icon: 'success',
+            title: 'Product updated successfully!',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true,
+            position: 'top-end'
+          });
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error('Failed to update product:', err);
+         
+        }
+      });
     }
   }
+
 }
+  

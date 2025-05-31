@@ -42,7 +42,7 @@
   <!-- Product Cards -->
   <div class="row">
     <div class="col-md-6 col-lg-3 mb-4" *ngFor="let product of paginatedProducts">
-      <app-admin-one-product [product]="product" (delete)="onDeleteProduct($event)"
+      <app-admin-one-product [product]="product" (delete)="onDeleteProduct($event)" (edit)="handleUpdate($event)"
         ></app-admin-one-product>
     </div>
   </div>

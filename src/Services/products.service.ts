@@ -28,6 +28,12 @@ getAllProducts() {
 deleteProduct(id: number): Observable<any> {
   return this.myHttpClient.delete(`${this.URL}/${id}`);
 }
+
+updateProduct(id: number, ProductData:any ): Observable<any> {
+
+  
+  return this.myHttpClient.put(`${this.URL}/${id}`,ProductData);
+}
  addNewProduct(product:any){
    const local = JSON.parse(localStorage.getItem('addedProducts') || '[]');
   local.push(product);
