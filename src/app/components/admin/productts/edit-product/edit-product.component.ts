@@ -48,7 +48,7 @@ export class EditProductComponent implements OnInit {
       category: [this.product.category, Validators.required],
       image: [this.product.image, Validators.required],
       ratingRate: [this.product.rating?.rate || 0],
-      ratingCount: [this.product.rating?.count || 0]
+      ratingCount: [this.product.rating?.count || 10]
     });
   }
 
