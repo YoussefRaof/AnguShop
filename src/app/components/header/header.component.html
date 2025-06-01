@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
 
-        <a routerLink="/home" class="text-decoration-none col-4">
+        <a routerLink="/home" class="text-decoration-none col-4 title">
           <div class="d-flex align-items-center">
             <a routerLink="/home">
               <img src="/Images/Angu_Shop1.png" alt="AnguShop Logo" width="50" height="50" class="me-2 logo-animate">
@@ -16,7 +16,7 @@
 
         <div class="col-lg-4 col-md-4 col-8 ms-auto text-end py-2">
           <div class="top-end">
-            <ul class="user-login list-unstyled d-flex justify-content-center align-items-center gap-2">
+            <ul class="user-login list-unstyled d-flex justify-content-center align-items-center gap-2 mb-0">
               <!-- Display user info when logged in -->
               <li *ngIf="isLoggedIn">
                 <div class="user mb-1 text-white">
@@ -25,12 +25,16 @@
               </li>
 
               <!-- Show Sign In and Register links when not logged in -->
-              <li *ngIf="!isLoggedIn">
-                <a routerLink="/login" href="login.html" class="auth-link text-white">Login</a>
-              </li>
-              <li *ngIf="!isLoggedIn">
-                <a routerLink="/register" href="register.html" class="auth-link text-white">Register</a>
-              </li>
+              <div class="mb-2">
+                <li *ngIf="!isLoggedIn">
+                  <a routerLink="/login" href="login.html" class="auth-link text-white">Login</a>
+                </li>
+
+                <li *ngIf="!isLoggedIn">
+                  <a routerLink="/register" href="register.html" class="auth-link text-white">Register</a>
+                </li>
+              </div>
+
 
               <div class="navbar-cart ">
                 <div class="wishlist" *ngIf="isLoggedIn">
