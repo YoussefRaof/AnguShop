@@ -5,6 +5,7 @@ import { ProductsService } from '../../../../Services/products.service';
 import { OrderHistoryService, OrderStatus } from '../../../../Services/order-history.service';
 import { ChartConfiguration, TooltipItem } from 'chart.js';
 import { ChartComponent } from '../chart/chart.component';
+import { Router, RouterLink } from '@angular/router';
 
 
 interface PopularProduct {
@@ -33,7 +34,7 @@ interface Order {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, ChartComponent, NgClass],
+  imports: [CommonModule, ChartComponent, NgClass , RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
