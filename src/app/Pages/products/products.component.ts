@@ -36,6 +36,8 @@ export class ProductsComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    
   }
 
   get totalPages(): number {
