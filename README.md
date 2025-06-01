@@ -36,29 +36,7 @@
 
 ---
 
-## 🔐 Roles & Permissions
 
-| Feature           | Customer  ||   Admin  |
-
-| ----------------- | :-------: ||  :-----: |
-
-| Browse Products   |     ✅    |     ✅   |
-
-| Manage Cart       |     ✅    |     ❌   |
-
-| Place Orders      |     ✅    |     ❌   |
-
-| Track Orders      |     ✅    |     ✅   |
-
-| Edit Products     |     ❌    |     ✅   |
-
-| Manage Categories |     ❌    |     ✅   |
-
-| View All Orders   |     ❌    |     ✅   |
-
-
-
----
 
 ## 🛠️ Tech Stack
 
