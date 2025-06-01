@@ -1,59 +1,94 @@
-# AnguShop
+# 🛍️ AnguShop
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+**AnguShop** is a modern e-commerce web application built with **Angular 19**. It showcases a scalable, maintainable architecture suited for real-world online stores. It uses a mock API for development, enabling a seamless shopping experience with advanced features like role-based access, smart filtering, secure checkout, and admin analytics.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
+
+* ✅ **Angular 19** — Built using the latest Angular for top performance & maintainability
+* 🔌 **Fake API Integration** — Mock API (`https://fakestoreapi.com`) simulates real backend
+* 🔐 **User Authentication** — Register, login, and logout (customers/admins)
+* 💳 **PayPal Integration** — Secure, real-time online payments
+* 🛒 **Product Management** — Browse, search, filter, compare products
+* 📦 **Order Management** — Place, view, and track orders
+* 🛍️ **Shopping Cart** — Add/update/remove items with persistent state
+* ⚖️ **Product Comparison** — Compare multiple products side-by-side
+* 🔎 **Smart Search & Filtering** — Advanced options for quicker results
+* 📺 **Map-Based Complaints** — Submit geolocation-based complaints
+* 📊 **Admin Dashboard** — Manage catalog, orders, users, and view analytics
+* 📱 **Responsive & Accessible** — Optimized for mobile/desktop, with accessibility in mind
+
+---
+
+## 👥 User Roles
+
+### 🔧 Admin
+
+* Manage users, products, categories, orders, and complaints
+* View analytics and access admin dashboard
+
+### 🛒 Customer
+
+* Register, shop, pay, track orders
+* Submit complaints using map interface
+* Manage personal account
+
+---
+
+## 🔐 Roles & Permissions
+
+| Feature           | Customer  ||   Admin  |
+| ----------------- | :-------: ||  :-----: |
+| Browse Products   |     ✅    |     ✅   |
+| Manage Cart       |     ✅    |     ❌   |
+| Place Orders      |     ✅    |     ❌   |
+| Track Orders      |     ✅    |     ✅   |
+| Edit Products     |     ❌    |     ✅   |
+| Manage Categories |     ❌    |     ✅   |
+| View All Orders   |     ❌    |     ✅   |
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend**: Angular 19, TypeScript, Bootstrap
+* **API**: [FakeStore API](https://fakestoreapi.com/)
+  Configuration in: `/src/app/api`
+* **Deployment**: [Netlify](https://angu-shop.netlify.app)
+
+---
+
+## 🧑‍💻 Installation
 
 ```bash
-ng serve
+# Clone the repository
+git clone https://github.com/YoussefRaof/AnguShop.git
+
+# Install dependencies
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🔗 Live Demo
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+🌐 [https://angu-shop.netlify.app](https://angu-shop.netlify.app)
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📬 Contact
 
-```bash
-ng generate --help
-```
+Team Members: 
+-[Youssef Raof](https://github.com/YoussefRaof)
+-[Muhammed Abdulrahim](https://github.com/lsa3edii)
+-[Mohamed Atef](https://github.com/dev-muatef)
+-[Ahmed Mohamed](https://github.com/devahmedmohamed)
+-[Ahmed Ezzat](https://github.com/AHMEDDEZZAT)
+-[Mohamed Sobhe](https://github.com/MohamedSobhe1)
 
-## Building
 
-To build the project run:
+Have questions or suggestions?
+👉 Open an issue or reach out on GitHub.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
