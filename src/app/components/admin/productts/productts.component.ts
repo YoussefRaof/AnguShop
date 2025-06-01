@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Product } from '../../../interfaces/product';
 import { ProductsService } from '../../../../Services/products.service';
-import { AdminOneProductComponent } from './admin-one-product/admin-one-product.component'; 
+import { AdminOneProductComponent } from './admin-one-product/admin-one-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 
 
@@ -75,16 +75,16 @@ export class ProducttsComponent implements OnInit {
   }
 
   onDeleteProduct(id: number): void {
-    if (confirm('Are you sure you want to delete this product?')) {
-      this.productService.deleteProduct(id).subscribe({
-        next: () => {
-          this.products = this.products.filter(p => p.id !== id);
-        },
-        error: err => {
-          console.error('Failed to delete product', err);
-        }
-      });
-    }
+    // if (confirm('Are you sure you want to delete this product?')) {
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        this.products = this.products.filter(p => p.id !== id);
+      },
+      error: err => {
+        console.error('Failed to delete product', err);
+      }
+    });
+    // }
 
     const index = this.products.findIndex(p => p.id === id);
     if (index !== -1) {
@@ -115,12 +115,12 @@ export class ProducttsComponent implements OnInit {
 
   // Reserved for future use with child events
   handleDelete(productId: number) { }
-  handleUpdate(updatedProduct: Product) { 
-    
-      const index = this.products.findIndex(p => p.id === updatedProduct.id);
-  if (index !== -1) {
-    this.products[index] = updatedProduct;
-  }
-        this.products[index] = { ...updatedProduct }; 
+  handleUpdate(updatedProduct: Product) {
+
+    const index = this.products.findIndex(p => p.id === updatedProduct.id);
+    if (index !== -1) {
+      this.products[index] = updatedProduct;
+    }
+    this.products[index] = { ...updatedProduct };
   }
 }

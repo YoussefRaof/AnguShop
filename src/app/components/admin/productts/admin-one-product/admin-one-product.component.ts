@@ -1,7 +1,7 @@
 // admin-one-product.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule, NgClass, SlicePipe } from '@angular/common';
-import { Product } from '../../../../interfaces/product'; 
+import { Product } from '../../../../interfaces/product';
 import { ProductsService } from '../../../../../Services/products.service';
 import { ProductDetailsComponent } from '../../productts/product-details/product-details.component';
 import { EditProductComponent } from "../../productts/edit-product/edit-product.component";
@@ -20,24 +20,28 @@ export class AdminOneProductComponent {
   showDetailsModal = false;
   showEditModal = false; // Add edit modal flag
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductsService) { }
 
   @Output() delete = new EventEmitter<number>();
   @Output() viewDetails = new EventEmitter<number>();
   @Output() edit = new EventEmitter<Product>(); // Change to emit Product instead of number
 
+
   onDelete(): void {
+    const confirmed = confirm('Are you sure you want to delete this product?');
+    if (!confirmed) return;
+
     const localProducts = JSON.parse(localStorage.getItem('addedProducts') || '[]');
     const index = localProducts.findIndex((p: any) => p.id === this.product.id);
 
     if (index !== -1) {
       localProducts.splice(index, 1);
       localStorage.setItem('addedProducts', JSON.stringify(localProducts));
-      this.delete.emit(this.product.id);
-    } else {
-      this.delete.emit(this.product.id);
     }
+
+    this.delete.emit(this.product.id);
   }
+
 
   onView(): void {
     this.showDetailsModal = true;
