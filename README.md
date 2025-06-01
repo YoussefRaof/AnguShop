@@ -1,4 +1,4 @@
-# 🛍️ AnguShop
+# 🛍️ E-Commerce AnguShop
 
 **AnguShop** is a modern e-commerce web application built with **Angular 19**. It showcases a scalable, maintainable architecture suited for real-world online stores. It uses a mock API for development, enabling a seamless shopping experience with advanced features like role-based access, smart filtering, secure checkout, and admin analytics.
 
