@@ -17,7 +17,7 @@ import { combineLatest, Subject, takeUntil } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   userName: string | null = null;
-  userImage: string | null = null;
+  userImage: string = "/Images/Angu_Shop1.png";
   wishlistCount: number = 0;
   cartCount: number = 0;
 
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userService.getUserImage()
       .pipe(takeUntil(this.destroy$))
       .subscribe(image => {
-        this.userImage = image;
+        this.userImage = image || "/Images/Angu_Shop1.png";;
       });
   }
 
@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.userService.loadCurrentUserImage();
     } else {
       this.userName = null;
-      this.userImage = null;
+      this.userImage = "/Images/Angu_Shop1.png";
     }
   }
 
