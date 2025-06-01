@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
   loading: boolean = true;
   categories: string[] = [];
 
-  constructor(private _prodService: ProductsService) {}
+  constructor(private _prodService: ProductsService) { }
 
   ngOnInit(): void {
     this._prodService.getAllProducts().subscribe({
@@ -37,7 +37,7 @@ export class ProductsComponent implements OnInit {
       }
     });
 
-    
+
   }
 
   get totalPages(): number {
@@ -46,20 +46,20 @@ export class ProductsComponent implements OnInit {
 
   paginatedProducts(): any[] {
     const start = (this.currentPage - 1) * this.pageSize;
-    return this.filteredProducts().slice(start, start + this.pageSize); 
+    return this.filteredProducts().slice(start, start + this.pageSize);
     return this.filteredProducts().slice(start, start + this.pageSize);
   }
 
-changePage(page: number): void {
-  if (page >= 1 && page <= this.totalPages) {
-    this.currentPage = page;
-    // Scroll to top of product list
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // Optional smooth scroll
-    });
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      // Scroll to top of product list
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Optional smooth scroll
+      });
+    }
   }
-}
 
   filteredProducts(): any[] {
     let filtered = this.AllProducts;
@@ -96,6 +96,13 @@ changePage(page: number): void {
   showNotification(): void {
     this.showAlert = true;
     setTimeout(() => this.showAlert = false, 3000);
+  }
+
+  scrollToTop() {
+    const topElement = document.getElementById('top');
+    if (topElement) {
+      topElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }
 

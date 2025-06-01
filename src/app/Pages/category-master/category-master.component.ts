@@ -134,5 +134,12 @@ export class CategoryMasterComponent implements OnInit{
       }
   }
 
+
+    scrollToTop() {
+    const topElement = document.getElementById('top');
+    if (topElement) {
+      topElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
 

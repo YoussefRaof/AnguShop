@@ -3,7 +3,7 @@
     <section class=" container ">
         <app-hero></app-hero>
     </section>
-    
+
 
 
     <section class="    container mt-5">
@@ -69,7 +69,7 @@
             </div>
             <div class="section-header ">
                 <div class="filter-tabs">
-                    <button [class.active]="activeFilter === 'best-rating'" (click)="applyFilter('best-rating')" >
+                    <button [class.active]="activeFilter === 'best-rating'" (click)="applyFilter('best-rating')">
                         Best Rating
                     </button>
                     <button [class.active]="activeFilter === 'high-price'" (click)="applyFilter('high-price')">
@@ -122,10 +122,10 @@
         </div>
     </section>
 
+
     <!-- ========================= scroll-top ========================= -->
-    <!-- Scroll to top button -->
     <!-- Scroll-to-top Button -->
-    <button class="scroll-top" (click)="scrollToTop()">
+    <button class="scroll-top" (click)="scrollToTop()" style="border-radius: 50px; background-color: #49628D;">
         <i class="fas fa-chevron-up"></i> <!-- Or use any Font Awesome icon -->
     </button>
 
