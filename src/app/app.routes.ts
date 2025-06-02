@@ -70,9 +70,9 @@ export const routes: Routes = [
       { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
       { path: 'wishList', component: WishListComponent, title: 'wishList' },
       { path: 'error', component: ErrorPageComponent, title: 'Error' },
-      { path: 'profile', component: ProfileComponent, title: 'Profile' },
-      { path: 'compare', component: CompareProductComponent },
-      { path: 'about', component: AboutUsComponent }
+      { path: 'profile', component: ProfileComponent, title: 'Login' },
+      { path: 'compare', component: CompareProductComponent, title: 'Compare Products' },
+      { path: 'about', component: AboutUsComponent, title: 'About Us' }
 
     ]
   },
