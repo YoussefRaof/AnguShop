@@ -34,7 +34,10 @@ export class AddProductComponent {
       category: ['', Validators.required],
       image: ['', [
         Validators.required,
-        Validators.pattern(/^(http|https):\/\/.+\.(jpg|jpeg|png|gif|webp)$/i)
+        // Validators.pattern(/^(http|https):\/\/.+\.(jpg|jpeg|png|gif|webp)$/i)
+        // Validators.pattern(
+        //   '\\b(?:https?|ftp|file|data):\\/\\/[^\\s<>"]+|www\\.[^\\s<>"]+')
+        Validators.pattern('')
       ]],
       stockCount: [this.stockCount, [Validators.required, Validators.min(0)]]
     });
