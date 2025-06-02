@@ -536,14 +536,16 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.social-link.facebook:hover {
+.social-link.facebook {
     background: #3b5998;
     color: white;
+    text-decoration: none;
 }
 
-.social-link.linkedin:hover {
+.social-link.linkedin {
     background: #0077b5;
     color: white;
+    text-decoration: none;
 }
 
 .social-link.whatsapp:hover {

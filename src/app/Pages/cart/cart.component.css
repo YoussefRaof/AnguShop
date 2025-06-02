@@ -248,8 +248,12 @@
   transition: all 0.3s ease;
 }
 
-.payment-icon:hover {
+.payment-icon {
   color: #3498db;
+}
+
+.payment-icon:hover {
+  cursor: pointer;
   transform: translateY(-3px);
 }
 
