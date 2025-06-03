@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swiper from 'swiper';
 import { OneProductComponent } from "../../components/one-product/one-product.component";
+import { AuthenticationService } from '../../../Services/authentication.service';
 
 @Component({
   selector: 'app-product-details',
@@ -25,6 +26,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   isInWishlist: boolean = false;
   relatedProducts: any[] = [];
   private swiper!: Swiper;
+  isAuthenticated: boolean = false;
+
 
   // Reviews data
   reviews: any[] = [];
@@ -39,6 +42,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     private wishlistService: WishlistService,
     private MyActivated: ActivatedRoute,
     private _productService: ProductsService,
+    private authService:AuthenticationService,
     private _cartService: CartService
   ) {
     this.Prdid = Number(MyActivated.snapshot.params["id"]);
@@ -55,6 +59,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       },
       error: (error) => console.log(error)
     });
+    this.isAuthenticated= this.authService.isLoggedIn()
   }
 
   ngAfterViewInit(): void {

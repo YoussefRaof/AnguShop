@@ -45,7 +45,10 @@
                     <p class="description-text">{{UserDetailsData.description}}.</p>
                 </div>
 
-                <div class="quantity-selector">
+              
+
+                @if (isAuthenticated == true) {
+                      <div class="quantity-selector">
                     <label for="quantity">Quantity:</label>
                     <div class="number-input">
                         <button class="qty-btn" (click)="decrementQuantity()">-</button>
@@ -55,7 +58,7 @@
                     </div>
                 </div>
 
-                <div class="action-buttons">
+                     <div class="action-buttons">
                     <!-- Cart Button -->
                     <button class="btn btn-primary btn-lg mb-3 me-2" (click)="toggleCart()">
                         <i class="bi bi-cart-plus me-2" *ngIf="!isInCart"></i>
@@ -72,6 +75,8 @@
                         <span *ngIf="isInWishlist">Remove from Wishlist</span>
                     </button>
                 </div>
+                }
+               
             </div>
         </div>
     </div>
