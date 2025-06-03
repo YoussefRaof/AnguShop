@@ -43,9 +43,12 @@
 
     <div class="product-footer">
       <div class="product-actions">
+        @if(isAuthenticated == true){
         <button class="btn btn-icon" routerLink="/products/{{oneProductData.id }}">
           <i class="fa-solid fa-eye"></i>
         </button>
+        }
+   
         <button class="btn btn-icon" (click)="compareProduct()">
           <i class="fa-solid fa-arrow-right-arrow-left"></i>
         </button>
