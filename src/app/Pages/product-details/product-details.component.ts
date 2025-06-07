@@ -60,6 +60,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       error: (error) => console.log(error)
     });
     this.isAuthenticated= this.authService.isLoggedIn()
+    /// If Not Authenticated Redirect To Login Page 
   }
 
   ngAfterViewInit(): void {
