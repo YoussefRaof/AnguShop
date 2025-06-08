@@ -4,6 +4,7 @@ import { ProductsService } from '../../../Services/products.service';
 import { WishlistService } from '../../../Services/wish-list.service';
 import { CartService } from '../../../Services/cart.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swiper from 'swiper';
 import { OneProductComponent } from "../../components/one-product/one-product.component";
@@ -12,7 +13,7 @@ import { AuthenticationService } from '../../../Services/authentication.service'
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, OneProductComponent],
+  imports: [CommonModule, FormsModule, RouterModule, OneProductComponent],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
@@ -42,8 +43,9 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     private wishlistService: WishlistService,
     private MyActivated: ActivatedRoute,
     private _productService: ProductsService,
-    private authService:AuthenticationService,
-    private _cartService: CartService
+    private authService: AuthenticationService,
+    private _cartService: CartService,
+    private router: Router
   ) {
     this.Prdid = Number(MyActivated.snapshot.params["id"]);
   }
@@ -59,7 +61,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       },
       error: (error) => console.log(error)
     });
-    this.isAuthenticated= this.authService.isLoggedIn()
+    this.isAuthenticated = this.authService.isLoggedIn()
     /// If Not Authenticated Redirect To Login Page 
   }
 
@@ -212,9 +214,9 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   submitReview(): void {
     if (this.newReview.author && this.newReview.text && this.newReview.rating > 0) {
       this.newReview.date = new Date();
-      this.reviews.unshift({...this.newReview});
+      this.reviews.unshift({ ...this.newReview });
       this.saveReviews();
-      
+
       // Reset form
       this.newReview = {
         author: '',
@@ -223,5 +225,24 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
         date: new Date()
       };
     }
+  }
+
+
+
+  showLoginModal = false;
+  loginAction = 'proceed';
+
+  promptLogin(action: 'cart' | 'wishlist') {
+    this.loginAction = action === 'cart' ? 'add to cart' : 'add to wishlist';
+    this.showLoginModal = true;
+  }
+
+  closeLoginModal() {
+    this.showLoginModal = false;
+  }
+
+  goToLogin() {
+    this.showLoginModal = false;
+    this.router.navigate(['/login']);
   }
 }

@@ -8,6 +8,7 @@
             </div>
         </div>
 
+
         <!-- Product Info -->
         <div class="col-lg-6">
             <div class="product-info">
@@ -45,9 +46,9 @@
                     <p class="description-text">{{UserDetailsData.description}}.</p>
                 </div>
 
-              
-                    @if(isAuthenticated == true){
-                                   <div class="quantity-selector">
+
+                @if(isAuthenticated == true){
+                <div class="quantity-selector">
                     <label for="quantity">Quantity:</label>
                     <div class="number-input">
                         <button class="qty-btn" (click)="decrementQuantity()">-</button>
@@ -56,7 +57,7 @@
                         <button class="qty-btn" (click)="incrementQuantity()">+</button>
                     </div>
                 </div>
-                   <div class="action-buttons">
+                <div class="action-buttons">
                     <!-- Cart Button -->
                     <button class="btn btn-primary btn-lg mb-3 me-2" (click)="toggleCart()">
                         <i class="bi bi-cart-plus me-2" *ngIf="!isInCart"></i>
@@ -73,16 +74,20 @@
                         <span *ngIf="isInWishlist">Remove from Wishlist</span>
                     </button>
                 </div>
+                }
+                @else {
+                <button class="btn btn-primary btn-lg mb-3 me-2" (click)="promptLogin('cart')">
+                    <i class="bi bi-cart-plus me-2" *ngIf="!isInCart"></i> Add to Cart
+                </button>
 
-                    }
-              
-           
-                  
-                
-               
+                <button class="btn btn-secondary btn-lg mb-3 me-2" (click)="promptLogin('wishlist')">
+                    <i class="bi bi-heart me-2" *ngIf="!isInWishlist"></i> Add to Wish List
+                </button>
+                }
             </div>
         </div>
     </div>
+
 
     <!-- Tabs Section -->
     <div class="tabs-section mt-5">
@@ -201,24 +206,24 @@
 
 
     <!-- Add this after your tabs section -->
-<div class="related-products-section">
-  <h3 class="mb-4" style="color: #4361EE;">Related Products</h3>
-  
-  <!-- Navigation buttons now at top right -->
-  <div class="swiper-navigation-container">
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
+    <div class="related-products-section">
+        <h3 class="mb-4" style="color: #4361EE;">Related Products</h3>
 
-  <!-- Swiper container -->
-  <div class="swiper related-products-swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let product of relatedProducts">
-        <app-one-product [oneProductData]="product"></app-one-product>
-      </div>
+        <!-- Navigation buttons now at top right -->
+        <div class="swiper-navigation-container">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <!-- Swiper container -->
+        <div class="swiper related-products-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let product of relatedProducts">
+                    <app-one-product [oneProductData]="product"></app-one-product>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </div>
 
 <!-- Success Toast -->
@@ -234,3 +239,33 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Login Required Modal -->
+<div class="modal" [class.show]="showLoginModal" [style.display]="showLoginModal ? 'block' : 'none'"
+    style="margin-top: 11%;">
+    <div class="modal-dialog">
+        <div class="modal-content text-white" style="background-color: #222e3b;">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-sign-in-alt me-2"></i> Login Required
+                </h5>
+                <button type="button" class="btn-close btn-close-white" (click)="closeLoginModal()"></button>
+            </div>
+
+            <div class="modal-body text-center">
+                <p>You must be logged in to {{ loginAction }} this item.</p>
+                <i class="fas fa-user-lock fa-3x text-warning my-3"></i>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="closeLoginModal()">Cancel</button>
+                <button class="btn btn-warning fw-bold" (click)="goToLogin()">
+                    <i class="fas fa-arrow-right-to-bracket me-1"></i> Go to Login
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="showLoginModal"></div>
