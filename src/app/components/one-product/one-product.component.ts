@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../../Services/authentication.service'
 import { Router, RouterModule } from '@angular/router';
 import { ComparisonService } from '../../../Services/comparison.service';
 
+
 @Component({
   selector: 'app-one-product',
   standalone: true,
@@ -18,7 +19,7 @@ export class OneProductComponent {
   @Output() productAdded = new EventEmitter<void>();
   isAuthenticated: boolean = false;
   cartCount: number = 0;
-  
+
   // Popup notification properties
   showPopup: boolean = false;
   popupMessage: string = '';
@@ -51,7 +52,7 @@ export class OneProductComponent {
     this.popupMessage = message;
     this.popupType = type;
     this.showPopup = true;
-    
+
     // Hide after 3 seconds
     setTimeout(() => {
       this.showPopup = false;
@@ -107,8 +108,16 @@ export class OneProductComponent {
   }
 
   compareProduct() {
-  this.comparisonService.addProductToCompare(this.oneProductData);
-  this.router.navigate(['/compare']);
-  this.showNotification('Added to comparison', 'success');
-}
+    this.comparisonService.addProductToCompare(this.oneProductData);
+    this.router.navigate(['/compare']);
+    this.showNotification('Added to comparison', 'success');
+  }
+
+
+  goToProductPage(id: string) {
+    window.scrollTo(0, 0);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`/products/${id}`]);
+    });
+  }
 }
