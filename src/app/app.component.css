@@ -1,3 +1,28 @@
-section {
-    /* background-color: whitesmoke; */
+/* section {
+    background-color: whitesmoke;
+} */
+
+
+/* Hide the warning on desktop */
+.mobile-blocker {
+    display: none;
+}
+
+/* Show warning and hide main content on small screens */
+@media (max-width: 767px) {
+    .mobile-blocker {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url('/Images/mobile-background.png') no-repeat center center;
+        background-size: cover;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+        color: white;
+    }
+
+    section {
+        display: none;
+    }
 }
